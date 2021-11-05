@@ -17,7 +17,7 @@ class FireRoom implements IRoom {
   @override
   Future<Room> create() async {
     try {
-      final uuid = Uuid().v4();
+      final uuid = "testID"; // TODO: for now Uuid().v4();
       final room =
           Room(id: uuid, memberCount: 0, createdAt: DateTime.now().toUtc());
       await roomCollection.doc(uuid).set(room.toJson());
@@ -37,10 +37,10 @@ class FireRoom implements IRoom {
     }
 
     final roomObject = Room.fromJson(roomData.data() as Map<String, dynamic>);
+    final uuid = "testUserID"; // TODO: for now Uuid().v4()
     final myMember = Member(
         joinedAt: DateTime.now().toUtc(),
-        id: Uuid()
-            .v4()); // TODO: your id should be from firebase anonymous auth
+        id: uuid); // TODO: your id should be from firebase anonymous auth
     roomDoc
         .collection(MEMBERS_COLLECTION)
         .doc(myMember.id)

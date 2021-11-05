@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:tenders/application/room_auth/room_auth_cubit.dart';
 import 'package:tenders/widgets/routes/room/room_home.dart';
+import 'package:tenders/widgets/routes/room/view_qr_code.dart';
 import 'package:tenders/widgets/routes/welcome/welcome_page.dart';
 
 class RootRouteController {
@@ -10,6 +11,7 @@ class RootRouteController {
 
   static const routeWelcome = "welcome";
   static const routeRoom = "room";
+  static const routeQRCode = "qr";
 
   //. tells root route controller to start listening for room changes and updating our page uatomatically
   static Future<void> listen() async {
@@ -45,13 +47,16 @@ class RootRouteController {
         return MaterialPageRoute(builder: (_) => WelcomePage());
       case routeRoom:
         return MaterialPageRoute(builder: (_) => RoomHome());
+      case routeQRCode:
+        return MaterialPageRoute(
+          builder: (_) => ViewQRCode(),
+          fullscreenDialog: true,
+        );
       default:
         throw UnimplementedError();
     }
   }
-}
 
-class AuthRouteController {
-  const AuthRouteController._();
-  static final key = GlobalKey<NavigatorState>();
+  static Future<void> viewQRCode(BuildContext context) =>
+      Navigator.of(context).pushNamed(RootRouteController.routeQRCode);
 }
