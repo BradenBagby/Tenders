@@ -5,16 +5,16 @@ import 'package:tenders/services/interfaces/i_room.dart';
 import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-part 'room_state.dart';
-part 'room_cubit.freezed.dart';
+part 'room_auth_state.dart';
+part 'room_auth_cubit.freezed.dart';
 
 /// TODO: listen to current room changes. if room ends then kick out with message
 /// if room finds a match, display the match overtop everything
-class RoomCubit extends Cubit<RoomState> {
+class RoomAuthCubit extends Cubit<RoomAuthState> {
   IRoom _roomService;
-  RoomCubit({required IRoom roomService})
+  RoomAuthCubit({required IRoom roomService})
       : _roomService = roomService,
-        super(const RoomState()) {}
+        super(const RoomAuthState()) {}
 
   /// create a room, auto joins after
   Future<bool> createRoom() async {

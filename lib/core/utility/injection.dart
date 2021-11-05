@@ -1,4 +1,4 @@
-import 'package:tenders/application/cubit/room_cubit.dart';
+import 'package:tenders/application/cubit/room_auth_cubit.dart';
 import 'package:tenders/services/implementation/room.dart';
 import 'package:tenders/services/interfaces/i_room.dart';
 import 'package:get_it/get_it.dart';
@@ -13,8 +13,8 @@ class Injection {
     getIt.registerSingleton<IRoom>(FireRoom());
 
     // singleton blocs
-    getIt
-        .registerSingleton<RoomCubit>(RoomCubit(roomService: GetIt.I<IRoom>()));
+    getIt.registerSingleton<RoomAuthCubit>(
+        RoomAuthCubit(roomService: GetIt.I<IRoom>()));
 
     return GetIt.I.allReady();
   }

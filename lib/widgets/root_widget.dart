@@ -1,4 +1,4 @@
-import 'package:tenders/application/cubit/room_cubit.dart';
+import 'package:tenders/application/cubit/room_auth_cubit.dart';
 import 'package:tenders/core/utility/route_controllers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -10,7 +10,7 @@ class RootWidget extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider.value(
-          value: GetIt.I<RoomCubit>(),
+          value: GetIt.I<RoomAuthCubit>(),
         )
       ],
       child: MaterialApp(

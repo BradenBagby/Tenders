@@ -1,7 +1,7 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides
 
-part of 'room_cubit.dart';
+part of 'room_auth_cubit.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -13,11 +13,11 @@ final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
 /// @nodoc
-class _$RoomStateTearOff {
-  const _$RoomStateTearOff();
+class _$RoomAuthStateTearOff {
+  const _$RoomAuthStateTearOff();
 
-  _RoomState call({Room? currentRoom = null, Member? myMember = null}) {
-    return _RoomState(
+  _RoomAuthState call({Room? currentRoom = null, Member? myMember = null}) {
+    return _RoomAuthState(
       currentRoom: currentRoom,
       myMember: myMember,
     );
@@ -25,10 +25,10 @@ class _$RoomStateTearOff {
 }
 
 /// @nodoc
-const $RoomState = _$RoomStateTearOff();
+const $RoomAuthState = _$RoomAuthStateTearOff();
 
 /// @nodoc
-mixin _$RoomState {
+mixin _$RoomAuthState {
   /// current room you are in (if any)
   Room? get currentRoom => throw _privateConstructorUsedError;
 
@@ -36,14 +36,15 @@ mixin _$RoomState {
   Member? get myMember => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
-  $RoomStateCopyWith<RoomState> get copyWith =>
+  $RoomAuthStateCopyWith<RoomAuthState> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $RoomStateCopyWith<$Res> {
-  factory $RoomStateCopyWith(RoomState value, $Res Function(RoomState) then) =
-      _$RoomStateCopyWithImpl<$Res>;
+abstract class $RoomAuthStateCopyWith<$Res> {
+  factory $RoomAuthStateCopyWith(
+          RoomAuthState value, $Res Function(RoomAuthState) then) =
+      _$RoomAuthStateCopyWithImpl<$Res>;
   $Res call({Room? currentRoom, Member? myMember});
 
   $RoomCopyWith<$Res>? get currentRoom;
@@ -51,12 +52,13 @@ abstract class $RoomStateCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$RoomStateCopyWithImpl<$Res> implements $RoomStateCopyWith<$Res> {
-  _$RoomStateCopyWithImpl(this._value, this._then);
+class _$RoomAuthStateCopyWithImpl<$Res>
+    implements $RoomAuthStateCopyWith<$Res> {
+  _$RoomAuthStateCopyWithImpl(this._value, this._then);
 
-  final RoomState _value;
+  final RoomAuthState _value;
   // ignore: unused_field
-  final $Res Function(RoomState) _then;
+  final $Res Function(RoomAuthState) _then;
 
   @override
   $Res call({
@@ -99,10 +101,11 @@ class _$RoomStateCopyWithImpl<$Res> implements $RoomStateCopyWith<$Res> {
 }
 
 /// @nodoc
-abstract class _$RoomStateCopyWith<$Res> implements $RoomStateCopyWith<$Res> {
-  factory _$RoomStateCopyWith(
-          _RoomState value, $Res Function(_RoomState) then) =
-      __$RoomStateCopyWithImpl<$Res>;
+abstract class _$RoomAuthStateCopyWith<$Res>
+    implements $RoomAuthStateCopyWith<$Res> {
+  factory _$RoomAuthStateCopyWith(
+          _RoomAuthState value, $Res Function(_RoomAuthState) then) =
+      __$RoomAuthStateCopyWithImpl<$Res>;
   @override
   $Res call({Room? currentRoom, Member? myMember});
 
@@ -113,20 +116,22 @@ abstract class _$RoomStateCopyWith<$Res> implements $RoomStateCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$RoomStateCopyWithImpl<$Res> extends _$RoomStateCopyWithImpl<$Res>
-    implements _$RoomStateCopyWith<$Res> {
-  __$RoomStateCopyWithImpl(_RoomState _value, $Res Function(_RoomState) _then)
-      : super(_value, (v) => _then(v as _RoomState));
+class __$RoomAuthStateCopyWithImpl<$Res>
+    extends _$RoomAuthStateCopyWithImpl<$Res>
+    implements _$RoomAuthStateCopyWith<$Res> {
+  __$RoomAuthStateCopyWithImpl(
+      _RoomAuthState _value, $Res Function(_RoomAuthState) _then)
+      : super(_value, (v) => _then(v as _RoomAuthState));
 
   @override
-  _RoomState get _value => super._value as _RoomState;
+  _RoomAuthState get _value => super._value as _RoomAuthState;
 
   @override
   $Res call({
     Object? currentRoom = freezed,
     Object? myMember = freezed,
   }) {
-    return _then(_RoomState(
+    return _then(_RoomAuthState(
       currentRoom: currentRoom == freezed
           ? _value.currentRoom
           : currentRoom // ignore: cast_nullable_to_non_nullable
@@ -140,8 +145,8 @@ class __$RoomStateCopyWithImpl<$Res> extends _$RoomStateCopyWithImpl<$Res>
 }
 
 /// @nodoc
-class _$_RoomState implements _RoomState {
-  const _$_RoomState({this.currentRoom = null, this.myMember = null});
+class _$_RoomAuthState implements _RoomAuthState {
+  const _$_RoomAuthState({this.currentRoom = null, this.myMember = null});
 
   @JsonKey(defaultValue: null)
   @override
@@ -156,13 +161,13 @@ class _$_RoomState implements _RoomState {
 
   @override
   String toString() {
-    return 'RoomState(currentRoom: $currentRoom, myMember: $myMember)';
+    return 'RoomAuthState(currentRoom: $currentRoom, myMember: $myMember)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other is _RoomState &&
+        (other is _RoomAuthState &&
             (identical(other.currentRoom, currentRoom) ||
                 const DeepCollectionEquality()
                     .equals(other.currentRoom, currentRoom)) &&
@@ -179,13 +184,13 @@ class _$_RoomState implements _RoomState {
 
   @JsonKey(ignore: true)
   @override
-  _$RoomStateCopyWith<_RoomState> get copyWith =>
-      __$RoomStateCopyWithImpl<_RoomState>(this, _$identity);
+  _$RoomAuthStateCopyWith<_RoomAuthState> get copyWith =>
+      __$RoomAuthStateCopyWithImpl<_RoomAuthState>(this, _$identity);
 }
 
-abstract class _RoomState implements RoomState {
-  const factory _RoomState({Room? currentRoom, Member? myMember}) =
-      _$_RoomState;
+abstract class _RoomAuthState implements RoomAuthState {
+  const factory _RoomAuthState({Room? currentRoom, Member? myMember}) =
+      _$_RoomAuthState;
 
   @override
 
@@ -197,6 +202,6 @@ abstract class _RoomState implements RoomState {
   Member? get myMember => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
-  _$RoomStateCopyWith<_RoomState> get copyWith =>
+  _$RoomAuthStateCopyWith<_RoomAuthState> get copyWith =>
       throw _privateConstructorUsedError;
 }

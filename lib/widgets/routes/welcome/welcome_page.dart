@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:tenders/application/cubit/room_cubit.dart';
+import 'package:tenders/application/cubit/room_auth_cubit.dart';
 
 class WelcomePage extends StatelessWidget {
   @override
@@ -14,7 +14,7 @@ class WelcomePage extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             ElevatedButton(
-              onPressed: () => BlocProvider.of<RoomCubit>(context)
+              onPressed: () => BlocProvider.of<RoomAuthCubit>(context)
                   .createRoom(), // TODO: if fail show message
               child: Text("Create"),
             ),
