@@ -4,6 +4,6 @@ import 'package:flutter/material.dart';
 
 Future<void> main() async {
   await Core.init();
-
   runApp(RootWidget());
+  await Core.postInit();
 }

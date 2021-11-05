@@ -20,10 +20,14 @@ Room _$RoomFromJson(Map<String, dynamic> json) {
 class _$RoomTearOff {
   const _$RoomTearOff();
 
-  _Room call({required String id, required int memberCount}) {
+  _Room call(
+      {required String id,
+      required int memberCount,
+      required DateTime createdAt}) {
     return _Room(
       id: id,
       memberCount: memberCount,
+      createdAt: createdAt,
     );
   }
 
@@ -39,6 +43,7 @@ const $Room = _$RoomTearOff();
 mixin _$Room {
   String get id => throw _privateConstructorUsedError;
   int get memberCount => throw _privateConstructorUsedError;
+  DateTime get createdAt => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -49,7 +54,7 @@ mixin _$Room {
 abstract class $RoomCopyWith<$Res> {
   factory $RoomCopyWith(Room value, $Res Function(Room) then) =
       _$RoomCopyWithImpl<$Res>;
-  $Res call({String id, int memberCount});
+  $Res call({String id, int memberCount, DateTime createdAt});
 }
 
 /// @nodoc
@@ -64,6 +69,7 @@ class _$RoomCopyWithImpl<$Res> implements $RoomCopyWith<$Res> {
   $Res call({
     Object? id = freezed,
     Object? memberCount = freezed,
+    Object? createdAt = freezed,
   }) {
     return _then(_value.copyWith(
       id: id == freezed
@@ -74,6 +80,10 @@ class _$RoomCopyWithImpl<$Res> implements $RoomCopyWith<$Res> {
           ? _value.memberCount
           : memberCount // ignore: cast_nullable_to_non_nullable
               as int,
+      createdAt: createdAt == freezed
+          ? _value.createdAt
+          : createdAt // ignore: cast_nullable_to_non_nullable
+              as DateTime,
     ));
   }
 }
@@ -83,7 +93,7 @@ abstract class _$RoomCopyWith<$Res> implements $RoomCopyWith<$Res> {
   factory _$RoomCopyWith(_Room value, $Res Function(_Room) then) =
       __$RoomCopyWithImpl<$Res>;
   @override
-  $Res call({String id, int memberCount});
+  $Res call({String id, int memberCount, DateTime createdAt});
 }
 
 /// @nodoc
@@ -99,6 +109,7 @@ class __$RoomCopyWithImpl<$Res> extends _$RoomCopyWithImpl<$Res>
   $Res call({
     Object? id = freezed,
     Object? memberCount = freezed,
+    Object? createdAt = freezed,
   }) {
     return _then(_Room(
       id: id == freezed
@@ -109,6 +120,10 @@ class __$RoomCopyWithImpl<$Res> extends _$RoomCopyWithImpl<$Res>
           ? _value.memberCount
           : memberCount // ignore: cast_nullable_to_non_nullable
               as int,
+      createdAt: createdAt == freezed
+          ? _value.createdAt
+          : createdAt // ignore: cast_nullable_to_non_nullable
+              as DateTime,
     ));
   }
 }
@@ -117,7 +132,8 @@ class __$RoomCopyWithImpl<$Res> extends _$RoomCopyWithImpl<$Res>
 
 /// @nodoc
 class _$_Room implements _Room {
-  _$_Room({required this.id, required this.memberCount});
+  _$_Room(
+      {required this.id, required this.memberCount, required this.createdAt});
 
   factory _$_Room.fromJson(Map<String, dynamic> json) =>
       _$_$_RoomFromJson(json);
@@ -126,10 +142,12 @@ class _$_Room implements _Room {
   final String id;
   @override
   final int memberCount;
+  @override
+  final DateTime createdAt;
 
   @override
   String toString() {
-    return 'Room(id: $id, memberCount: $memberCount)';
+    return 'Room(id: $id, memberCount: $memberCount, createdAt: $createdAt)';
   }
 
   @override
@@ -140,14 +158,18 @@ class _$_Room implements _Room {
                 const DeepCollectionEquality().equals(other.id, id)) &&
             (identical(other.memberCount, memberCount) ||
                 const DeepCollectionEquality()
-                    .equals(other.memberCount, memberCount)));
+                    .equals(other.memberCount, memberCount)) &&
+            (identical(other.createdAt, createdAt) ||
+                const DeepCollectionEquality()
+                    .equals(other.createdAt, createdAt)));
   }
 
   @override
   int get hashCode =>
       runtimeType.hashCode ^
       const DeepCollectionEquality().hash(id) ^
-      const DeepCollectionEquality().hash(memberCount);
+      const DeepCollectionEquality().hash(memberCount) ^
+      const DeepCollectionEquality().hash(createdAt);
 
   @JsonKey(ignore: true)
   @override
@@ -161,7 +183,10 @@ class _$_Room implements _Room {
 }
 
 abstract class _Room implements Room {
-  factory _Room({required String id, required int memberCount}) = _$_Room;
+  factory _Room(
+      {required String id,
+      required int memberCount,
+      required DateTime createdAt}) = _$_Room;
 
   factory _Room.fromJson(Map<String, dynamic> json) = _$_Room.fromJson;
 
@@ -169,6 +194,8 @@ abstract class _Room implements Room {
   String get id => throw _privateConstructorUsedError;
   @override
   int get memberCount => throw _privateConstructorUsedError;
+  @override
+  DateTime get createdAt => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$RoomCopyWith<_Room> get copyWith => throw _privateConstructorUsedError;

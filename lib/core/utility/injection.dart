@@ -10,10 +10,11 @@ class Injection {
   /// sets up injection for email
   static Future<void> setup() {
     // services
-    getIt.registerSingleton<IRoom>(Room());
+    getIt.registerSingleton<IRoom>(FireRoom());
 
     // singleton blocs
-    getIt.registerSingleton<RoomCubit>(RoomCubit(auth: GetIt.I<IRoom>()));
+    getIt
+        .registerSingleton<RoomCubit>(RoomCubit(roomService: GetIt.I<IRoom>()));
 
     return GetIt.I.allReady();
   }

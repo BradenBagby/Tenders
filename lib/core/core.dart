@@ -1,6 +1,7 @@
 import 'package:tenders/core/utility/injection.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:tenders/core/utility/route_controllers.dart';
 
 class Core {
   const Core._();
@@ -10,5 +11,10 @@ class Core {
     WidgetsFlutterBinding.ensureInitialized();
     await Firebase.initializeApp();
     await Injection.setup();
+  }
+
+  /// called after runApp()
+  static Future<void> postInit() async {
+    await RootRouteController.listen();
   }
 }
