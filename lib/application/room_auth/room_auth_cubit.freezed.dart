@@ -16,10 +16,9 @@ final _privateConstructorUsedError = UnsupportedError(
 class _$RoomAuthStateTearOff {
   const _$RoomAuthStateTearOff();
 
-  _RoomAuthState call({Room? currentRoom = null, Member? myMember = null}) {
+  _RoomAuthState call({RoomCubit? currentRoomCubit = null}) {
     return _RoomAuthState(
-      currentRoom: currentRoom,
-      myMember: myMember,
+      currentRoomCubit: currentRoomCubit,
     );
   }
 }
@@ -30,10 +29,7 @@ const $RoomAuthState = _$RoomAuthStateTearOff();
 /// @nodoc
 mixin _$RoomAuthState {
   /// current room you are in (if any)
-  Room? get currentRoom => throw _privateConstructorUsedError;
-
-  /// your member reference while in the room (if any)
-  Member? get myMember => throw _privateConstructorUsedError;
+  RoomCubit? get currentRoomCubit => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $RoomAuthStateCopyWith<RoomAuthState> get copyWith =>
@@ -45,10 +41,7 @@ abstract class $RoomAuthStateCopyWith<$Res> {
   factory $RoomAuthStateCopyWith(
           RoomAuthState value, $Res Function(RoomAuthState) then) =
       _$RoomAuthStateCopyWithImpl<$Res>;
-  $Res call({Room? currentRoom, Member? myMember});
-
-  $RoomCopyWith<$Res>? get currentRoom;
-  $MemberCopyWith<$Res>? get myMember;
+  $Res call({RoomCubit? currentRoomCubit});
 }
 
 /// @nodoc
@@ -62,41 +55,14 @@ class _$RoomAuthStateCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object? currentRoom = freezed,
-    Object? myMember = freezed,
+    Object? currentRoomCubit = freezed,
   }) {
     return _then(_value.copyWith(
-      currentRoom: currentRoom == freezed
-          ? _value.currentRoom
-          : currentRoom // ignore: cast_nullable_to_non_nullable
-              as Room?,
-      myMember: myMember == freezed
-          ? _value.myMember
-          : myMember // ignore: cast_nullable_to_non_nullable
-              as Member?,
+      currentRoomCubit: currentRoomCubit == freezed
+          ? _value.currentRoomCubit
+          : currentRoomCubit // ignore: cast_nullable_to_non_nullable
+              as RoomCubit?,
     ));
-  }
-
-  @override
-  $RoomCopyWith<$Res>? get currentRoom {
-    if (_value.currentRoom == null) {
-      return null;
-    }
-
-    return $RoomCopyWith<$Res>(_value.currentRoom!, (value) {
-      return _then(_value.copyWith(currentRoom: value));
-    });
-  }
-
-  @override
-  $MemberCopyWith<$Res>? get myMember {
-    if (_value.myMember == null) {
-      return null;
-    }
-
-    return $MemberCopyWith<$Res>(_value.myMember!, (value) {
-      return _then(_value.copyWith(myMember: value));
-    });
   }
 }
 
@@ -107,12 +73,7 @@ abstract class _$RoomAuthStateCopyWith<$Res>
           _RoomAuthState value, $Res Function(_RoomAuthState) then) =
       __$RoomAuthStateCopyWithImpl<$Res>;
   @override
-  $Res call({Room? currentRoom, Member? myMember});
-
-  @override
-  $RoomCopyWith<$Res>? get currentRoom;
-  @override
-  $MemberCopyWith<$Res>? get myMember;
+  $Res call({RoomCubit? currentRoomCubit});
 }
 
 /// @nodoc
@@ -128,59 +89,45 @@ class __$RoomAuthStateCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object? currentRoom = freezed,
-    Object? myMember = freezed,
+    Object? currentRoomCubit = freezed,
   }) {
     return _then(_RoomAuthState(
-      currentRoom: currentRoom == freezed
-          ? _value.currentRoom
-          : currentRoom // ignore: cast_nullable_to_non_nullable
-              as Room?,
-      myMember: myMember == freezed
-          ? _value.myMember
-          : myMember // ignore: cast_nullable_to_non_nullable
-              as Member?,
+      currentRoomCubit: currentRoomCubit == freezed
+          ? _value.currentRoomCubit
+          : currentRoomCubit // ignore: cast_nullable_to_non_nullable
+              as RoomCubit?,
     ));
   }
 }
 
 /// @nodoc
 class _$_RoomAuthState implements _RoomAuthState {
-  const _$_RoomAuthState({this.currentRoom = null, this.myMember = null});
+  const _$_RoomAuthState({this.currentRoomCubit = null});
 
   @JsonKey(defaultValue: null)
   @override
 
   /// current room you are in (if any)
-  final Room? currentRoom;
-  @JsonKey(defaultValue: null)
-  @override
-
-  /// your member reference while in the room (if any)
-  final Member? myMember;
+  final RoomCubit? currentRoomCubit;
 
   @override
   String toString() {
-    return 'RoomAuthState(currentRoom: $currentRoom, myMember: $myMember)';
+    return 'RoomAuthState(currentRoomCubit: $currentRoomCubit)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other is _RoomAuthState &&
-            (identical(other.currentRoom, currentRoom) ||
+            (identical(other.currentRoomCubit, currentRoomCubit) ||
                 const DeepCollectionEquality()
-                    .equals(other.currentRoom, currentRoom)) &&
-            (identical(other.myMember, myMember) ||
-                const DeepCollectionEquality()
-                    .equals(other.myMember, myMember)));
+                    .equals(other.currentRoomCubit, currentRoomCubit)));
   }
 
   @override
   int get hashCode =>
       runtimeType.hashCode ^
-      const DeepCollectionEquality().hash(currentRoom) ^
-      const DeepCollectionEquality().hash(myMember);
+      const DeepCollectionEquality().hash(currentRoomCubit);
 
   @JsonKey(ignore: true)
   @override
@@ -189,17 +136,13 @@ class _$_RoomAuthState implements _RoomAuthState {
 }
 
 abstract class _RoomAuthState implements RoomAuthState {
-  const factory _RoomAuthState({Room? currentRoom, Member? myMember}) =
+  const factory _RoomAuthState({RoomCubit? currentRoomCubit}) =
       _$_RoomAuthState;
 
   @override
 
   /// current room you are in (if any)
-  Room? get currentRoom => throw _privateConstructorUsedError;
-  @override
-
-  /// your member reference while in the room (if any)
-  Member? get myMember => throw _privateConstructorUsedError;
+  RoomCubit? get currentRoomCubit => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$RoomAuthStateCopyWith<_RoomAuthState> get copyWith =>

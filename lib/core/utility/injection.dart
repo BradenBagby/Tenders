@@ -1,4 +1,4 @@
-import 'package:tenders/application/room/room_auth_cubit.dart';
+import 'package:tenders/application/room_auth/room_auth_cubit.dart';
 import 'package:tenders/services/implementation/room.dart';
 import 'package:tenders/services/interfaces/i_room.dart';
 import 'package:get_it/get_it.dart';

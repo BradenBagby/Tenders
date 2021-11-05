@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
-import 'package:tenders/application/room/room_auth_cubit.dart';
+import 'package:tenders/application/room_auth/room_auth_cubit.dart';
+import 'package:tenders/widgets/routes/room/room_home.dart';
 import 'package:tenders/widgets/routes/welcome/welcome_page.dart';
 
 class RootRouteController {
@@ -16,8 +17,10 @@ class RootRouteController {
     RoomAuthState lastState = authCubit.state;
     authCubit.stream.listen((state) {
       // if we go from authenticated to unathenticated, or vise versa, listen to that
-      if ((lastState.currentRoom == null && state.currentRoom != null) ||
-          (lastState.currentRoom != null && state.currentRoom == null)) {
+      if ((lastState.currentRoomCubit == null &&
+              state.currentRoomCubit != null) ||
+          (lastState.currentRoomCubit != null &&
+              state.currentRoomCubit == null)) {
         _roomStateChanged(state);
       }
       lastState = state;
@@ -29,7 +32,7 @@ class RootRouteController {
   static void _roomStateChanged(RoomAuthState state) {
     if (key.currentContext == null) return;
     final nav = Navigator.of(key.currentContext!);
-    if (state.currentRoom != null) {
+    if (state.currentRoomCubit != null) {
       nav.pushNamedAndRemoveUntil(routeRoom, (_) => false);
     } else {
       nav.pushNamedAndRemoveUntil(routeWelcome, (_) => false);
@@ -41,7 +44,7 @@ class RootRouteController {
       case routeWelcome:
         return MaterialPageRoute(builder: (_) => WelcomePage());
       case routeRoom:
-        throw Exception("yeyeyeeeee");
+        return MaterialPageRoute(builder: (_) => RoomHome());
       default:
         throw UnimplementedError();
     }

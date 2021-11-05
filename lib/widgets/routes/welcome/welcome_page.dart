@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:tenders/application/room/room_auth_cubit.dart';
+import 'package:tenders/application/room_auth/room_auth_cubit.dart';
 
 class WelcomePage extends StatelessWidget {
   @override

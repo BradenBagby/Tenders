@@ -4,10 +4,7 @@ part of 'room_auth_cubit.dart';
 class RoomAuthState with _$RoomAuthState {
   const factory RoomAuthState({
     /// current room you are in (if any)
-    @Default(null) Room? currentRoom,
-
-    /// your member reference while in the room (if any)
-    @Default(null) Member? myMember,
+    @Default(null) RoomCubit? currentRoomCubit,
     // TODO: here we can keep list of matches
   }) = _RoomAuthState;
 }

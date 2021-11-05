@@ -1,3 +1,4 @@
+import 'package:tenders/application/room/cubit/room_cubit.dart';
 import 'package:tenders/domain/member/member.dart';
 import 'package:tenders/domain/room/room.dart';
 import 'package:tenders/services/implementation/room.dart';
@@ -18,7 +19,7 @@ class RoomAuthCubit extends Cubit<RoomAuthState> {
 
   /// create a room, auto joins after
   Future<bool> createRoom() async {
-    if (state.currentRoom != null) {
+    if (state.currentRoomCubit != null) {
       // TODO: alert dialog for already being in a room
       return false;
     }
@@ -35,11 +36,20 @@ class RoomAuthCubit extends Cubit<RoomAuthState> {
   Future<bool> joinRoom(String id) async {
     try {
       final info = await _roomService.join(id);
-      emit(state.copyWith(myMember: info.item1, currentRoom: info.item2));
+      final cubit = RoomCubit(room: info.item2, me: info.item1);
+      emit(state.copyWith(currentRoomCubit: cubit));
       return true;
     } catch (er) {
       // TODO:
       return false;
     }
+  }
+
+  Future<bool> leaveRoom() async {
+    state.currentRoomCubit?.close();
+    emit(state.copyWith(currentRoomCubit: null));
+    // so we arent going to delete our reference in firebase, we just stop giving swipes basically
+    // TODO: we can mark as inactive though
+    return true;
   }
 }
