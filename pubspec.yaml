@@ -33,6 +33,7 @@ dependencies:
   uuid: ^3.0.5
   tuple: ^2.0.0
   qr_flutter: ^4.0.0 #generate qr code
+  firebase_dynamic_links: ^2.0.8
 
 
 

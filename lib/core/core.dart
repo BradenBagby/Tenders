@@ -1,3 +1,4 @@
+import 'package:tenders/core/utility/dynamic_links.dart';
 import 'package:tenders/core/utility/injection.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -15,6 +16,7 @@ class Core {
 
   /// called after runApp()
   static Future<void> postInit() async {
+    await DynamicLinks.initDynamicLinks();
     await RootRouteController.listen();
   }
 }
