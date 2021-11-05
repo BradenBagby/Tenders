@@ -16,14 +16,7 @@ class WelcomePage extends StatelessWidget {
             ElevatedButton(
               onPressed: () => BlocProvider.of<RoomAuthCubit>(context)
                   .createRoom(), // TODO: if fail show message
-              child: Text("Create"),
-            ),
-            SizedBox(
-              height: 8,
-            ),
-            ElevatedButton(
-              onPressed: () {}, // TODO:
-              child: Text("Join"),
+              child: Text("Go"),
             ),
           ],
         ),

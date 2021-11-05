@@ -33,7 +33,7 @@ class FireRoom implements IRoom {
     final roomDoc = roomCollection.doc(id);
     final roomData = await roomDoc.get();
     if (!roomData.exists) {
-      throw Exception("Room doesnt exist");
+      // TODO: for now throw Exception("Room doesnt exist");
     }
 
     final roomObject = Room.fromJson(roomData.data() as Map<String, dynamic>);
