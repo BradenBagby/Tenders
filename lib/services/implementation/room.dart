@@ -47,4 +47,12 @@ class FireRoom implements IRoom {
         .set(myMember.toJson());
     return Tuple2(myMember, roomObject);
   }
+
+  @override
+  Stream<Room?> roomUpdates(String id) =>
+      roomCollection.doc(id).snapshots().map((event) {
+        final data = event.data() as Map<String, dynamic>?;
+        if (data == null) return null;
+        return Room.fromJson(data);
+      });
 }

@@ -10,4 +10,7 @@ abstract class IRoom {
   /// auto generates yourself a uniqueue id for using while in the room
   /// this returns [Member] [Room] encapsolated in a tuple
   Future<Tuple2<Member, Room>> join(String id);
+
+  /// listens to room updates, is null if this room has been deleted
+  Stream<Room?> roomUpdates(String id);
 }
