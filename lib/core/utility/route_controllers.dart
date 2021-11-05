@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
-import 'package:tenders/application/cubit/room_auth_cubit.dart';
+import 'package:tenders/application/room/room_auth_cubit.dart';
 import 'package:tenders/widgets/routes/welcome/welcome_page.dart';
 
 class RootRouteController {

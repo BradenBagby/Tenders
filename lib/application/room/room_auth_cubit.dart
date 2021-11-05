@@ -8,8 +8,8 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 part 'room_auth_state.dart';
 part 'room_auth_cubit.freezed.dart';
 
-/// TODO: listen to current room changes. if room ends then kick out with message
-/// if room finds a match, display the match overtop everything
+//// manages authentication on a room
+/// creates and closes dependent cubits on the room
 class RoomAuthCubit extends Cubit<RoomAuthState> {
   IRoom _roomService;
   RoomAuthCubit({required IRoom roomService})
