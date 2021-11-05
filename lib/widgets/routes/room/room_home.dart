@@ -23,7 +23,7 @@ class _RoomHomeState extends State<RoomHome> {
             drawer: RoomDrawer(),
             appBar: AppBar(
               title: Text(
-                state.room.memberCount.toString(),
+                state.members.length.toString(),
               ),
             ),
           );

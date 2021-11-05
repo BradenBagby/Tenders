@@ -12,8 +12,9 @@ part 'room_cubit.freezed.dart';
 
 class RoomCubit extends Cubit<RoomState> {
   StreamSubscription<Room?>? roomDataStreamSubscription;
+  StreamSubscription<Iterable<Member>>? memberDataStreamSubscription;
   RoomCubit({required Room room, required Member me})
-      : super(RoomState(room: room, me: me)) {
+      : super(RoomState(room: room, me: me, members: [me])) {
     // listen to room updates and update state accordinly
     roomDataStreamSubscription =
         GetIt.I<IRoom>().roomUpdates(room.id).listen((event) {
@@ -25,11 +26,17 @@ class RoomCubit extends Cubit<RoomState> {
         emit(state.copyWith(room: event));
       }
     });
+
+    memberDataStreamSubscription =
+        GetIt.I<IRoom>().memberUpdates(room.id).listen((event) {
+      emit(state.copyWith(members: event.toList()));
+    });
   }
 
   @override
   Future<void> close() {
     roomDataStreamSubscription?.cancel();
+    memberDataStreamSubscription?.cancel();
     return super.close();
   }
 }

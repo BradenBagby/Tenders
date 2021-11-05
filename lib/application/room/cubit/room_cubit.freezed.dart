@@ -17,10 +17,14 @@ class _$RoomStateTearOff {
   const _$RoomStateTearOff();
 
   _RoomState call(
-      {required Room room, required Member me, bool closed = false}) {
+      {required Room room,
+      required Member me,
+      required List<Member> members,
+      bool closed = false}) {
     return _RoomState(
       room: room,
       me: me,
+      members: members,
       closed: closed,
     );
   }
@@ -32,7 +36,8 @@ const $RoomState = _$RoomStateTearOff();
 /// @nodoc
 mixin _$RoomState {
   Room get room => throw _privateConstructorUsedError;
-  Member get me =>
+  Member get me => throw _privateConstructorUsedError;
+  List<Member> get members =>
       throw _privateConstructorUsedError; // if this room was closed
   bool get closed => throw _privateConstructorUsedError;
 
@@ -45,7 +50,7 @@ mixin _$RoomState {
 abstract class $RoomStateCopyWith<$Res> {
   factory $RoomStateCopyWith(RoomState value, $Res Function(RoomState) then) =
       _$RoomStateCopyWithImpl<$Res>;
-  $Res call({Room room, Member me, bool closed});
+  $Res call({Room room, Member me, List<Member> members, bool closed});
 
   $RoomCopyWith<$Res> get room;
   $MemberCopyWith<$Res> get me;
@@ -63,6 +68,7 @@ class _$RoomStateCopyWithImpl<$Res> implements $RoomStateCopyWith<$Res> {
   $Res call({
     Object? room = freezed,
     Object? me = freezed,
+    Object? members = freezed,
     Object? closed = freezed,
   }) {
     return _then(_value.copyWith(
@@ -74,6 +80,10 @@ class _$RoomStateCopyWithImpl<$Res> implements $RoomStateCopyWith<$Res> {
           ? _value.me
           : me // ignore: cast_nullable_to_non_nullable
               as Member,
+      members: members == freezed
+          ? _value.members
+          : members // ignore: cast_nullable_to_non_nullable
+              as List<Member>,
       closed: closed == freezed
           ? _value.closed
           : closed // ignore: cast_nullable_to_non_nullable
@@ -102,7 +112,7 @@ abstract class _$RoomStateCopyWith<$Res> implements $RoomStateCopyWith<$Res> {
           _RoomState value, $Res Function(_RoomState) then) =
       __$RoomStateCopyWithImpl<$Res>;
   @override
-  $Res call({Room room, Member me, bool closed});
+  $Res call({Room room, Member me, List<Member> members, bool closed});
 
   @override
   $RoomCopyWith<$Res> get room;
@@ -123,6 +133,7 @@ class __$RoomStateCopyWithImpl<$Res> extends _$RoomStateCopyWithImpl<$Res>
   $Res call({
     Object? room = freezed,
     Object? me = freezed,
+    Object? members = freezed,
     Object? closed = freezed,
   }) {
     return _then(_RoomState(
@@ -134,6 +145,10 @@ class __$RoomStateCopyWithImpl<$Res> extends _$RoomStateCopyWithImpl<$Res>
           ? _value.me
           : me // ignore: cast_nullable_to_non_nullable
               as Member,
+      members: members == freezed
+          ? _value.members
+          : members // ignore: cast_nullable_to_non_nullable
+              as List<Member>,
       closed: closed == freezed
           ? _value.closed
           : closed // ignore: cast_nullable_to_non_nullable
@@ -145,19 +160,24 @@ class __$RoomStateCopyWithImpl<$Res> extends _$RoomStateCopyWithImpl<$Res>
 /// @nodoc
 class _$_RoomState implements _RoomState {
   const _$_RoomState(
-      {required this.room, required this.me, this.closed = false});
+      {required this.room,
+      required this.me,
+      required this.members,
+      this.closed = false});
 
   @override
   final Room room;
   @override
   final Member me;
+  @override
+  final List<Member> members;
   @JsonKey(defaultValue: false)
   @override // if this room was closed
   final bool closed;
 
   @override
   String toString() {
-    return 'RoomState(room: $room, me: $me, closed: $closed)';
+    return 'RoomState(room: $room, me: $me, members: $members, closed: $closed)';
   }
 
   @override
@@ -168,6 +188,9 @@ class _$_RoomState implements _RoomState {
                 const DeepCollectionEquality().equals(other.room, room)) &&
             (identical(other.me, me) ||
                 const DeepCollectionEquality().equals(other.me, me)) &&
+            (identical(other.members, members) ||
+                const DeepCollectionEquality()
+                    .equals(other.members, members)) &&
             (identical(other.closed, closed) ||
                 const DeepCollectionEquality().equals(other.closed, closed)));
   }
@@ -177,6 +200,7 @@ class _$_RoomState implements _RoomState {
       runtimeType.hashCode ^
       const DeepCollectionEquality().hash(room) ^
       const DeepCollectionEquality().hash(me) ^
+      const DeepCollectionEquality().hash(members) ^
       const DeepCollectionEquality().hash(closed);
 
   @JsonKey(ignore: true)
@@ -187,12 +211,17 @@ class _$_RoomState implements _RoomState {
 
 abstract class _RoomState implements RoomState {
   const factory _RoomState(
-      {required Room room, required Member me, bool closed}) = _$_RoomState;
+      {required Room room,
+      required Member me,
+      required List<Member> members,
+      bool closed}) = _$_RoomState;
 
   @override
   Room get room => throw _privateConstructorUsedError;
   @override
   Member get me => throw _privateConstructorUsedError;
+  @override
+  List<Member> get members => throw _privateConstructorUsedError;
   @override // if this room was closed
   bool get closed => throw _privateConstructorUsedError;
   @override

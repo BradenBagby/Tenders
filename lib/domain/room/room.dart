@@ -7,7 +7,6 @@ part 'room.g.dart';
 class Room with _$Room {
   factory Room({
     required String id,
-    required int memberCount,
     required DateTime createdAt,
   }) = _Room;
   factory Room.fromJson(Map<String, dynamic> json) => _$RoomFromJson(json);

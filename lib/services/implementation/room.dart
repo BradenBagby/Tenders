@@ -18,8 +18,7 @@ class FireRoom implements IRoom {
   Future<Room> create() async {
     try {
       final uuid = "testID"; // TODO: for now Uuid().v4();
-      final room =
-          Room(id: uuid, memberCount: 0, createdAt: DateTime.now().toUtc());
+      final room = Room(id: uuid, createdAt: DateTime.now().toUtc());
       await roomCollection.doc(uuid).set(room.toJson());
       return room;
     } catch (er) {
@@ -55,4 +54,11 @@ class FireRoom implements IRoom {
         if (data == null) return null;
         return Room.fromJson(data);
       });
+
+  @override
+  Stream<Iterable<Member>> memberUpdates(String id) => roomCollection
+      .doc(id)
+      .collection(MEMBERS_COLLECTION)
+      .snapshots()
+      .map((event) => event.docs.map((e) => Member.fromJson(e.data())));
 }
