@@ -5,6 +5,7 @@ import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:get_it/get_it.dart';
 import 'package:location/location.dart';
+import 'package:tenders/core/utility/route_controllers.dart';
 import 'package:tenders/domain/member/member.dart';
 import 'package:tenders/domain/restauraunt/restauraunt.dart';
 import 'package:tenders/domain/room/room.dart';
@@ -39,10 +40,12 @@ class RoomCubit extends Cubit<RoomState> {
       emit(state.copyWith(members: event.toList()));
     });
     matchStreamSubscription =
-        GetIt.I<IRoom>().matchUpdates(room.id).listen((event) {
-      final current = List<Restauraunt>.from(state.matchesNeedDisplay);
-      current.addAll(event);
-      emit(state.copyWith(matchesNeedDisplay: current));
+        GetIt.I<IRoom>().matchUpdates(room.id).listen((event) async {
+      for (final Restauraunt rest in event) {
+        await RootRouteController.showMatch(
+            RootRouteController.key.currentContext!,
+            restauraunt: rest);
+      }
     });
 
     loadRestauraunts();
@@ -137,12 +140,6 @@ class RoomCubit extends Cubit<RoomState> {
     if (state.restauraunts.length - state.currentViewIndex < 5) {
       loadRestauraunts();
     }
-  }
-
-  void popMatch() {
-    final current = List<Restauraunt>.from(state.matchesNeedDisplay)
-      ..removeAt(0);
-    emit(state.copyWith(matchesNeedDisplay: current));
   }
 
   @override

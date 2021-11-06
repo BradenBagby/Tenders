@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:tenders/application/room_auth/room_auth_cubit.dart';
+import 'package:tenders/domain/restauraunt/restauraunt.dart';
+import 'package:tenders/widgets/routes/match/match_page.dart';
 import 'package:tenders/widgets/routes/room/swipe/room_home.dart';
 import 'package:tenders/widgets/routes/room/view_qr_code.dart';
 import 'package:tenders/widgets/routes/welcome/welcome_page.dart';
@@ -12,6 +14,7 @@ class RootRouteController {
   static const routeWelcome = "welcome";
   static const routeRoom = "room";
   static const routeQRCode = "qr";
+  static const routeMatch = "match";
 
   //. tells root route controller to start listening for room changes and updating our page uatomatically
   static Future<void> listen() async {
@@ -52,6 +55,10 @@ class RootRouteController {
           builder: (_) => ViewQRCode(),
           fullscreenDialog: true,
         );
+      case routeMatch:
+        return MaterialPageRoute(
+            builder: (context) => MatchPage(settings.arguments as Restauraunt),
+            fullscreenDialog: true);
       default:
         throw UnimplementedError();
     }
@@ -59,4 +66,9 @@ class RootRouteController {
 
   static Future<void> viewQRCode(BuildContext context) =>
       Navigator.of(context).pushNamed(RootRouteController.routeQRCode);
+
+  static Future<void> showMatch(BuildContext context,
+          {required Restauraunt restauraunt}) =>
+      Navigator.of(context)
+          .pushNamed(RootRouteController.routeMatch, arguments: restauraunt);
 }
