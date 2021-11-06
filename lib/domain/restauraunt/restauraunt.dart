@@ -19,7 +19,7 @@ class Restauraunt with _$Restauraunt {
     final name = json['name'] as String;
     final id = json['place_id'] as String;
     final address = json['vicinity'] as String;
-    final rating = json['rating'] as num;
+    final rating = json['rating'] as num? ?? 0;
     final iconUrl = json['icon'] as String;
     return Restauraunt(
         name: name,

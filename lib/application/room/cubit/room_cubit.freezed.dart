@@ -211,7 +211,7 @@ class __$RoomStateCopyWithImpl<$Res> extends _$RoomStateCopyWithImpl<$Res>
 }
 
 /// @nodoc
-class _$_RoomState implements _RoomState {
+class _$_RoomState extends _RoomState {
   const _$_RoomState(
       {required this.room,
       required this.me,
@@ -219,7 +219,8 @@ class _$_RoomState implements _RoomState {
       this.currentLocation = null,
       required this.restauraunts,
       this.currentViewIndex = 0,
-      this.closed = false});
+      this.closed = false})
+      : super._();
 
   @override
   final Room room;
@@ -285,7 +286,7 @@ class _$_RoomState implements _RoomState {
       __$RoomStateCopyWithImpl<_RoomState>(this, _$identity);
 }
 
-abstract class _RoomState implements RoomState {
+abstract class _RoomState extends RoomState {
   const factory _RoomState(
       {required Room room,
       required Member me,
@@ -294,6 +295,7 @@ abstract class _RoomState implements RoomState {
       required List<Restauraunt> restauraunts,
       int currentViewIndex,
       bool closed}) = _$_RoomState;
+  const _RoomState._() : super._();
 
   @override
   Room get room => throw _privateConstructorUsedError;

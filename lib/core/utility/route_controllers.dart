@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:tenders/application/room_auth/room_auth_cubit.dart';
-import 'package:tenders/widgets/routes/room/room_home.dart';
+import 'package:tenders/widgets/routes/room/swipe/room_home.dart';
 import 'package:tenders/widgets/routes/room/view_qr_code.dart';
 import 'package:tenders/widgets/routes/welcome/welcome_page.dart';
 

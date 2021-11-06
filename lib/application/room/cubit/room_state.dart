@@ -2,6 +2,7 @@ part of 'room_cubit.dart';
 
 @freezed
 class RoomState with _$RoomState {
+  const RoomState._();
   const factory RoomState({
     required Room room,
     required Member me,
@@ -12,4 +13,10 @@ class RoomState with _$RoomState {
     // if this room was closed
     @Default(false) bool closed,
   }) = _RoomState;
+
+  /// get current restauraunt to display
+  Restauraunt? get currentViewRestauraunt =>
+      restauraunts.length > currentViewIndex
+          ? restauraunts[currentViewIndex]
+          : null;
 }
