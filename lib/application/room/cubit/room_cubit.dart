@@ -41,6 +41,7 @@ class RoomCubit extends Cubit<RoomState> {
     loadRestauraunts();
   }
 
+  // TODO: clean this up
   String? nextPageToken;
   int radiusMeters = 1000;
   Future<bool> loadRestauraunts() async {
@@ -108,10 +109,13 @@ class RoomCubit extends Cubit<RoomState> {
     return await location.getLocation();
   }
 
-  void test() async {
-    log("${state.currentViewIndex + 20}");
-    emit(state.copyWith(currentViewIndex: state.currentViewIndex + 20));
-    await Future.delayed(const Duration(seconds: 1));
+  void next() async {
+    emit(state.copyWith(currentViewIndex: state.currentViewIndex + 1));
+
+    // load more if we are within 5 from the end
+    if (state.restauraunts.length - state.currentViewIndex < 5) {
+      loadRestauraunts();
+    }
   }
 
   @override

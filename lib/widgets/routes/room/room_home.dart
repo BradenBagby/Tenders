@@ -40,7 +40,7 @@ class _RoomHomeState extends State<RoomHome> {
                   ElevatedButton(
                     child: Text("add"),
                     onPressed: () async {
-                      BlocProvider.of<RoomCubit>(context).test();
+                      BlocProvider.of<RoomCubit>(context).next();
                     },
                   ),
                 ],
