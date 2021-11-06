@@ -35,6 +35,25 @@ class _RoomHomeState extends State<RoomHome> {
                 return CircularProgressIndicator();
               }
 
+              Widget? matchCard;
+
+              if (state.matchesNeedDisplay.isNotEmpty) {
+                final match = state.matchesNeedDisplay.first;
+                matchCard = DraggableCard(
+                  key: ValueKey(match.id),
+                  onAccept: () {
+                    BlocProvider.of<RoomCubit>(context).popMatch();
+                  },
+                  onReject: () {
+                    BlocProvider.of<RoomCubit>(context).popMatch();
+                  },
+                  child: Container(
+                      color: Colors.green,
+                      padding: EdgeInsets.all(8),
+                      child: RestaurauntDisplay(state.currentViewRestauraunt!)),
+                );
+              }
+
               final next =
                   state.currentViewIndex + 1 < state.restauraunts.length
                       ? state.restauraunts[state.currentViewIndex + 1]
@@ -76,6 +95,7 @@ class _RoomHomeState extends State<RoomHome> {
                         child:
                             RestaurauntDisplay(state.currentViewRestauraunt!)),
                   ),
+                  if (matchCard != null) matchCard
                 ],
               );
             },

@@ -17,6 +17,7 @@ part 'room_cubit.freezed.dart';
 class RoomCubit extends Cubit<RoomState> {
   StreamSubscription<Room?>? roomDataStreamSubscription;
   StreamSubscription<Iterable<Member>>? memberDataStreamSubscription;
+  StreamSubscription<Iterable<Restauraunt>>? matchStreamSubscription;
   IRestauraunt _restaurauntService;
   RoomCubit({required Room room, required Member me})
       : _restaurauntService = GetIt.I<IRestauraunt>(),
@@ -36,6 +37,12 @@ class RoomCubit extends Cubit<RoomState> {
     memberDataStreamSubscription =
         GetIt.I<IRoom>().memberUpdates(room.id).listen((event) {
       emit(state.copyWith(members: event.toList()));
+    });
+    matchStreamSubscription =
+        GetIt.I<IRoom>().matchUpdates(room.id).listen((event) {
+      final current = List<Restauraunt>.from(state.matchesNeedDisplay);
+      current.addAll(event);
+      emit(state.copyWith(matchesNeedDisplay: current));
     });
 
     loadRestauraunts();
@@ -132,10 +139,17 @@ class RoomCubit extends Cubit<RoomState> {
     }
   }
 
+  void popMatch() {
+    final current = List<Restauraunt>.from(state.matchesNeedDisplay)
+      ..removeAt(0);
+    emit(state.copyWith(matchesNeedDisplay: current));
+  }
+
   @override
   Future<void> close() {
     roomDataStreamSubscription?.cancel();
     memberDataStreamSubscription?.cancel();
+    matchStreamSubscription?.cancel();
     return super.close();
   }
 }

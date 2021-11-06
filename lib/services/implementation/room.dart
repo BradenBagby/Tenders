@@ -66,6 +66,15 @@ class FireRoom implements IRoom {
       .map((event) => event.docs.map((e) => Member.fromJson(e.data())));
 
   @override
+  Stream<Iterable<Restauraunt>> matchUpdates(String id) => roomCollection
+      .doc(id)
+      .collection(MATCHES_COLLECTION)
+      .snapshots()
+      .map((event) => event.docChanges
+          .where((e) => e.doc.data() != null)
+          .map((e) => Restauraunt.fromJson(e.doc.data()!)));
+
+  @override
   Future<int> acceptRestauraunt(Restauraunt restauraunt,
       {required Room forRoom, required Member forMember}) async {
     final docRef = roomCollection

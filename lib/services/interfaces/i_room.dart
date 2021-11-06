@@ -15,6 +15,10 @@ abstract class IRoom {
   /// listens to room updates, is null if this room has been deleted
   Stream<Room?> roomUpdates(String id);
 
+  /// get match updates on a room
+  /// TODO: somehow pipe stream so one by one
+  Stream<Iterable<Restauraunt>> matchUpdates(String id);
+
   /// member update stream for room id
   Stream<Iterable<Member>> memberUpdates(String id);
 
