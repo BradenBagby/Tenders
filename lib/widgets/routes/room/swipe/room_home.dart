@@ -35,37 +35,50 @@ class _RoomHomeState extends State<RoomHome> {
                 return CircularProgressIndicator();
               }
 
-              return DraggableCard(
-                acceptOverlay: Container(
-                  color: Colors.black,
-                  child: Center(
-                    child: Icon(
-                      Icons.check,
-                      color: Colors.green,
-                      size: 50,
+              final next =
+                  state.currentViewIndex + 1 < state.restauraunts.length
+                      ? state.restauraunts[state.currentViewIndex + 1]
+                      : null;
+
+              return Stack(
+                children: [
+                  if (next != null) RestaurauntDisplay(next),
+                  DraggableCard(
+                    key: ValueKey(state.currentViewRestauraunt!.id),
+                    acceptOverlay: Container(
+                      color: Colors.black,
+                      child: Center(
+                        child: Icon(
+                          Icons.check,
+                          color: Colors.green,
+                          size: 50,
+                        ),
+                      ),
                     ),
-                  ),
-                ),
-                denyOverlay: Container(
-                  color: Colors.black,
-                  child: Center(
-                    child: Icon(
-                      Icons.cancel,
-                      color: Colors.red,
-                      size: 50,
+                    denyOverlay: Container(
+                      color: Colors.black,
+                      child: Center(
+                        child: Icon(
+                          Icons.cancel,
+                          color: Colors.red,
+                          size: 50,
+                        ),
+                      ),
                     ),
+                    onAccept: () {
+                      log("Accepted");
+                      BlocProvider.of<RoomCubit>(context).next();
+                    },
+                    onReject: () {
+                      log("rejected");
+                      BlocProvider.of<RoomCubit>(context).next();
+                    },
+                    child: Container(
+                        color: Colors.red,
+                        child:
+                            RestaurauntDisplay(state.currentViewRestauraunt!)),
                   ),
-                ),
-                onAccept: () {
-                  log("Accepted");
-                  BlocProvider.of<RoomCubit>(context).next();
-                },
-                onReject: () {
-                  log("rejected");
-                },
-                child: Container(
-                    color: Colors.red,
-                    child: RestaurauntDisplay(state.currentViewRestauraunt!)),
+                ],
               );
             },
           )),
