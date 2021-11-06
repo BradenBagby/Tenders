@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tenders/application/room/cubit/room_cubit.dart';
@@ -54,6 +56,13 @@ class _RoomHomeState extends State<RoomHome> {
                     ),
                   ),
                 ),
+                onAccept: () {
+                  log("Accepted");
+                  BlocProvider.of<RoomCubit>(context).next();
+                },
+                onReject: () {
+                  log("rejected");
+                },
                 child: Container(
                     color: Colors.red,
                     child: RestaurauntDisplay(state.currentViewRestauraunt!)),
