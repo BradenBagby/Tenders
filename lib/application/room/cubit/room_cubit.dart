@@ -41,9 +41,10 @@ class RoomCubit extends Cubit<RoomState> {
     loadRestauraunts();
   }
 
-  // TODO: clean this up
+  // TODO: clean this up this is so bad
+  // TODO: max radius in settings
   String? nextPageToken;
-  int radiusMeters = 1000;
+  int radiusMeters = 5000;
   Future<bool> loadRestauraunts() async {
     bool needsFilter = nextPageToken == null;
     final location = state.currentLocation ?? await _loadLocation();
@@ -51,23 +52,24 @@ class RoomCubit extends Cubit<RoomState> {
       throw Exception("Enable location in settings"); // TODO: error bloc
     }
     final info = await _restaurauntService.load(
-        location: location, radiusMeters: radiusMeters);
+        pageToken: nextPageToken,
+        location: location,
+        radiusMeters: radiusMeters);
 
     nextPageToken = info.item2;
     List<Restauraunt> results = info.item1;
-    log("radius: $radiusMeters nextPage: ${nextPageToken != null} resultLength: ${results.length} currentAmount: ${state.restauraunts.length} at: ${state.currentViewIndex}");
-    if (results.length < 20 && nextPageToken == null) {
-      radiusMeters += 1000;
-    }
+    log("radius: $radiusMeters nextPage: ${nextPageToken?.substring(0, 10) ?? 'none'} resultLength: ${results.length} currentAmount: ${state.restauraunts.length} at: ${state.currentViewIndex}");
 
     /// we have increased the radius and need to filtder results so we dont show again
-    if (needsFilter) {
-      results = results
-          .where((element) =>
-              state.restauraunts
-                  .firstWhereOrNull((current) => element.id == current.id) ==
-              null)
-          .toList();
+    results = results
+        .where((element) =>
+            state.restauraunts
+                .firstWhereOrNull((current) => element.id == current.id) ==
+            null)
+        .toList();
+
+    if (results.length < 20 && nextPageToken == null) {
+      radiusMeters += 5000;
     }
 
     final currentCount = state.restauraunts.length + results.length;

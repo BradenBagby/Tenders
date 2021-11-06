@@ -23,10 +23,9 @@ class GoogleRestauraunt implements IRestauraunt {
     String url =
         "place/nearbysearch/json?location=${GoogleRestaurauntURL.location(location)}&radius=$radiusMeters&type=restaurant&opennow=true&key=$API_KEY";
     if (pageToken != null) {
-      url = "$url&pageToken=${pageToken}";
+      url = "$url&pagetoken=${pageToken}";
     }
     final uri = Uri.encodeFull(url);
-    log(uri.toString());
     final res = await dio.get(uri);
     final data = Map<String, dynamic>.from(res.data as Map<dynamic, dynamic>);
     final nextPageToken = data['next_page_token'] as String?;
