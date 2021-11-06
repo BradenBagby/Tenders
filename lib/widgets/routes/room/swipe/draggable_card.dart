@@ -3,10 +3,15 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter/physics.dart';
 
+/// TODO: clean this up
 class DraggableCard extends StatefulWidget {
-  const DraggableCard({required this.child, Key? key}) : super(key: key);
+  const DraggableCard(
+      {required this.child, Key? key, this.acceptOverlay, this.denyOverlay})
+      : super(key: key);
 
   final Widget child;
+  final Widget? acceptOverlay;
+  final Widget? denyOverlay;
 
   @override
   _DraggableCardState createState() => _DraggableCardState();
@@ -70,6 +75,23 @@ class _DraggableCardState extends State<DraggableCard>
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
+
+    Widget? overlay;
+    final acceptBounds = size.width * (1.0 / 4.0);
+    final denyBounds = size.width * -(1.0 / 4.0);
+    if (_dragOffset.dx > acceptBounds) {
+      final opacity = (_dragOffset.dx - acceptBounds) / acceptBounds;
+      overlay = Opacity(
+        opacity: opacity > 1 ? 1 : opacity,
+        child: widget.acceptOverlay,
+      );
+    } else if (_dragOffset.dx < denyBounds) {
+      final opacity = (_dragOffset.dx - denyBounds) / -acceptBounds;
+      overlay = Opacity(
+        child: widget.denyOverlay,
+        opacity: opacity > 1 ? 1 : opacity,
+      );
+    }
     return GestureDetector(
         onPanDown: (details) {
           start = details.globalPosition;
@@ -86,8 +108,13 @@ class _DraggableCardState extends State<DraggableCard>
         },
         child: Transform.translate(
           offset: _dragOffset,
-          child: Card(
-            child: widget.child,
+          child: Stack(
+            children: [
+              Card(
+                child: widget.child,
+              ),
+              if (overlay != null) Positioned.fill(child: overlay)
+            ],
           ),
         ));
   }

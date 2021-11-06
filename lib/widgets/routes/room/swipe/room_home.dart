@@ -34,6 +34,26 @@ class _RoomHomeState extends State<RoomHome> {
               }
 
               return DraggableCard(
+                acceptOverlay: Container(
+                  color: Colors.black,
+                  child: Center(
+                    child: Icon(
+                      Icons.check,
+                      color: Colors.green,
+                      size: 50,
+                    ),
+                  ),
+                ),
+                denyOverlay: Container(
+                  color: Colors.black,
+                  child: Center(
+                    child: Icon(
+                      Icons.cancel,
+                      color: Colors.red,
+                      size: 50,
+                    ),
+                  ),
+                ),
                 child: Container(
                     color: Colors.red,
                     child: RestaurauntDisplay(state.currentViewRestauraunt!)),
