@@ -1,0 +1,46 @@
+import 'dart:developer';
+
+import 'package:dio/dio.dart';
+import 'package:location/location.dart';
+import 'package:tenders/domain/restauraunt/restauraunt.dart';
+import 'package:tenders/services/interfaces/i_restauraunt.dart';
+
+class GoogleRestauraunt implements IRestauraunt {
+  static const API_KEY = "AIzaSyA6zyz3WKdq1W2SBTUHKdLAqND_fQxVZg0"; // TODO:
+  static const NEARBY_URL = "place/nearbysearch/json";
+
+  static final Dio dio =
+      Dio(BaseOptions(baseUrl: "https://maps.googleapis.com/maps/api/"));
+
+  @override
+  Future<List<Restauraunt>> load({
+    required LocationData location,
+    String? pageToken,
+    int radiusMeters = 1500,
+  }) async {
+    // TODO: catch errors
+    String url =
+        "place/nearbysearch/json?location=${GoogleRestaurauntURL.location(location)}&radius=$radiusMeters&type=restaurant&opennow=true&key=$API_KEY";
+    if (pageToken != null) {
+      url = "$url&pageToken=${pageToken}";
+    }
+    final uri = Uri.encodeFull(url);
+    log(uri.toString());
+    final res = await dio.get(uri);
+    final data = Map<String, dynamic>.from(res.data as Map<dynamic, dynamic>);
+    if (data['status'] as String == "OK") {
+      final listData =
+          List<Map<String, dynamic>>.from(data['results'] as Iterable<dynamic>);
+      return listData.map((e) => Restauraunt.fromGoogleJson(e)).toList();
+    } else {
+      // TODO
+      return [];
+    }
+  }
+}
+
+/// helpers for generating urls
+extension GoogleRestaurauntURL on GoogleRestauraunt {
+  static String location(LocationData data) =>
+      "${data.latitude},${data.longitude}";
+}
