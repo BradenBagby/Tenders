@@ -1,4 +1,5 @@
 import 'package:tenders/domain/member/member.dart';
+import 'package:tenders/domain/restauraunt/restauraunt.dart';
 import 'package:tenders/domain/room/room.dart';
 import 'package:tuple/tuple.dart';
 
@@ -16,4 +17,13 @@ abstract class IRoom {
 
   /// member update stream for room id
   Stream<Iterable<Member>> memberUpdates(String id);
+
+  /// gets current doc on rest if someone else already accepted
+  /// adds self's name to it
+  /// returns accepted count so bloc can check if theres name.length == roommembers.length then add to accepted collection
+  Future<int> acceptRestauraunt(Restauraunt restauraunt,
+      {required Room forRoom, required Member forMember});
+
+  /// report this restauraunt as a match
+  Future<void> reportMatch(Restauraunt restauraunt, {required Room forRoom});
 }

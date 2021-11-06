@@ -66,10 +66,10 @@ class _RoomHomeState extends State<RoomHome> {
                       ),
                     ),
                     onAccept: () {
-                      BlocProvider.of<RoomCubit>(context).next();
+                      BlocProvider.of<RoomCubit>(context).next(accepted: true);
                     },
                     onReject: () {
-                      BlocProvider.of<RoomCubit>(context).next();
+                      BlocProvider.of<RoomCubit>(context).next(accepted: false);
                     },
                     child: Container(
                         color: Colors.red,

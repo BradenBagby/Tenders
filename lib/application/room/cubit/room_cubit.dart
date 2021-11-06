@@ -111,7 +111,19 @@ class RoomCubit extends Cubit<RoomState> {
     return await location.getLocation();
   }
 
-  void next() async {
+  Future<void> next({required bool accepted}) async {
+    if (accepted) {
+      final acceptedRestauraunt = state.currentViewRestauraunt;
+      final acceptedAmount = await GetIt.I<IRoom>().acceptRestauraunt(
+          acceptedRestauraunt!,
+          forRoom: state.room,
+          forMember: state.me);
+      if (acceptedAmount == state.members.length) {
+        // report as a match
+        await GetIt.I<IRoom>()
+            .reportMatch(acceptedRestauraunt, forRoom: state.room);
+      }
+    }
     emit(state.copyWith(currentViewIndex: state.currentViewIndex + 1));
 
     // load more if we are within 5 from the end

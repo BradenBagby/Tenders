@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:tenders/domain/member/member.dart';
+import 'package:tenders/domain/restauraunt/restauraunt.dart';
 import 'package:tenders/domain/room/room.dart';
 import 'package:tenders/services/interfaces/i_room.dart';
 import 'package:tuple/tuple.dart';
@@ -11,6 +12,8 @@ class FireRoom implements IRoom {
   // collection definitions
   static const ROOM_COLLECTION = 'rooms';
   static const MEMBERS_COLLECTION = 'members';
+  static const ACCEPTED_COLLECTION = 'accepted';
+  static const MATCHES_COLLECTION = 'matches';
   static CollectionReference get roomCollection =>
       FirebaseFirestore.instance.collection(ROOM_COLLECTION);
 
@@ -61,4 +64,38 @@ class FireRoom implements IRoom {
       .collection(MEMBERS_COLLECTION)
       .snapshots()
       .map((event) => event.docs.map((e) => Member.fromJson(e.data())));
+
+  @override
+  Future<int> acceptRestauraunt(Restauraunt restauraunt,
+      {required Room forRoom, required Member forMember}) async {
+    final docRef = roomCollection
+        .doc(forRoom.id)
+        .collection(ACCEPTED_COLLECTION)
+        .doc(restauraunt.id);
+    final doc = await docRef.get();
+    if (doc.exists) {
+      final currentAccepted =
+          List<String>.from(doc.data()!['accepted'] as Iterable<dynamic>);
+      if (!currentAccepted.contains(forMember.id)) {
+        currentAccepted.add(forMember.id);
+        await docRef.update({"accepted": currentAccepted});
+      }
+
+      return currentAccepted.length;
+    } else {
+      await docRef.set({
+        "accepted": [forMember.id]
+      });
+      return 1;
+    }
+  }
+
+  @override
+  Future<void> reportMatch(Restauraunt restauraunt, {required Room forRoom}) {
+    return roomCollection
+        .doc(forRoom.id)
+        .collection(MATCHES_COLLECTION)
+        .doc(restauraunt.id)
+        .set(restauraunt.toJson());
+  }
 }
