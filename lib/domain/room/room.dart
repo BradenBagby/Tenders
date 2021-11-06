@@ -6,6 +6,7 @@ part 'room.g.dart';
 
 @freezed
 class Room with _$Room {
+  @JsonSerializable(explicitToJson: true)
   factory Room(
       {required String id,
       required DateTime createdAt,

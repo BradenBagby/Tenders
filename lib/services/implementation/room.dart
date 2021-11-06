@@ -24,7 +24,9 @@ class FireRoom implements IRoom {
       final uuid = "testID"; // TODO: for now Uuid().v4();
       final room =
           Room(id: uuid, createdAt: DateTime.now().toUtc(), settings: settings);
-      await roomCollection.doc(uuid).set(room.toJson());
+      final data = room.toJson();
+      //data["settings"] = data["settings"].toJson();
+      await roomCollection.doc(uuid).set(data);
       return room;
     } catch (er) {
       // TODO: make nice exceptions

@@ -3,7 +3,14 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 part 'room_settings.freezed.dart';
 part 'room_settings.g.dart';
 
-enum PlaceType { RESTAURAUNT, FOOD, DRINKS }
+enum PlaceType {
+  @JsonValue("RESTAURAUNT")
+  RESTAURAUNT,
+  @JsonValue("FOOD")
+  FOOD,
+  @JsonValue("DRINKS")
+  DRINKS,
+}
 
 extension PlaceTypeString on PlaceType {
   String toQueryString() {
