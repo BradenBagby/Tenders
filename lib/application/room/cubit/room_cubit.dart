@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer';
 
 import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
@@ -40,15 +41,45 @@ class RoomCubit extends Cubit<RoomState> {
     loadRestauraunts();
   }
 
-  Future<bool> loadRestauraunts({int amount = 5}) async {
+  String? nextPageToken;
+  int radiusMeters = 1000;
+  Future<bool> loadRestauraunts() async {
+    bool needsFilter = nextPageToken == null;
     final location = state.currentLocation ?? await _loadLocation();
     if (location == null) {
       throw Exception("Enable location in settings"); // TODO: error bloc
     }
-    final restauraunts = await _restaurauntService.load(
-      location: location,
-    );
-    emit(state.copyWith(restauraunts: restauraunts));
+    final info = await _restaurauntService.load(
+        location: location, radiusMeters: radiusMeters);
+
+    nextPageToken = info.item2;
+    List<Restauraunt> results = info.item1;
+    log("radius: $radiusMeters nextPage: ${nextPageToken != null} resultLength: ${results.length} currentAmount: ${state.restauraunts.length} at: ${state.currentViewIndex}");
+    if (results.length < 20 && nextPageToken == null) {
+      radiusMeters += 1000;
+    }
+
+    /// we have increased the radius and need to filtder results so we dont show again
+    if (needsFilter) {
+      results = results
+          .where((element) =>
+              state.restauraunts
+                  .firstWhereOrNull((current) => element.id == current.id) ==
+              null)
+          .toList();
+    }
+
+    final currentCount = state.restauraunts.length + results.length;
+    emit(state.copyWith(
+        restauraunts: List<Restauraunt>.from(state.restauraunts)
+          ..addAll(results)));
+
+    // load at least 20 until we are done
+    if (currentCount - state.currentViewIndex < 20) {
+      log("Recursion current count: $currentCount needed: ${state.currentViewIndex + 20} ");
+      return loadRestauraunts();
+    }
+
     return true; // TODO: TODO: TODO:
   }
 
@@ -75,6 +106,12 @@ class RoomCubit extends Cubit<RoomState> {
     }
 
     return await location.getLocation();
+  }
+
+  void test() async {
+    log("${state.currentViewIndex + 20}");
+    emit(state.copyWith(currentViewIndex: state.currentViewIndex + 20));
+    await Future.delayed(const Duration(seconds: 1));
   }
 
   @override

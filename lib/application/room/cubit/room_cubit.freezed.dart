@@ -22,6 +22,7 @@ class _$RoomStateTearOff {
       required List<Member> members,
       LocationData? currentLocation = null,
       required List<Restauraunt> restauraunts,
+      int currentViewIndex = 0,
       bool closed = false}) {
     return _RoomState(
       room: room,
@@ -29,6 +30,7 @@ class _$RoomStateTearOff {
       members: members,
       currentLocation: currentLocation,
       restauraunts: restauraunts,
+      currentViewIndex: currentViewIndex,
       closed: closed,
     );
   }
@@ -43,7 +45,8 @@ mixin _$RoomState {
   Member get me => throw _privateConstructorUsedError;
   List<Member> get members => throw _privateConstructorUsedError;
   LocationData? get currentLocation => throw _privateConstructorUsedError;
-  List<Restauraunt> get restauraunts =>
+  List<Restauraunt> get restauraunts => throw _privateConstructorUsedError;
+  int get currentViewIndex =>
       throw _privateConstructorUsedError; // if this room was closed
   bool get closed => throw _privateConstructorUsedError;
 
@@ -62,6 +65,7 @@ abstract class $RoomStateCopyWith<$Res> {
       List<Member> members,
       LocationData? currentLocation,
       List<Restauraunt> restauraunts,
+      int currentViewIndex,
       bool closed});
 
   $RoomCopyWith<$Res> get room;
@@ -83,6 +87,7 @@ class _$RoomStateCopyWithImpl<$Res> implements $RoomStateCopyWith<$Res> {
     Object? members = freezed,
     Object? currentLocation = freezed,
     Object? restauraunts = freezed,
+    Object? currentViewIndex = freezed,
     Object? closed = freezed,
   }) {
     return _then(_value.copyWith(
@@ -106,6 +111,10 @@ class _$RoomStateCopyWithImpl<$Res> implements $RoomStateCopyWith<$Res> {
           ? _value.restauraunts
           : restauraunts // ignore: cast_nullable_to_non_nullable
               as List<Restauraunt>,
+      currentViewIndex: currentViewIndex == freezed
+          ? _value.currentViewIndex
+          : currentViewIndex // ignore: cast_nullable_to_non_nullable
+              as int,
       closed: closed == freezed
           ? _value.closed
           : closed // ignore: cast_nullable_to_non_nullable
@@ -140,6 +149,7 @@ abstract class _$RoomStateCopyWith<$Res> implements $RoomStateCopyWith<$Res> {
       List<Member> members,
       LocationData? currentLocation,
       List<Restauraunt> restauraunts,
+      int currentViewIndex,
       bool closed});
 
   @override
@@ -164,6 +174,7 @@ class __$RoomStateCopyWithImpl<$Res> extends _$RoomStateCopyWithImpl<$Res>
     Object? members = freezed,
     Object? currentLocation = freezed,
     Object? restauraunts = freezed,
+    Object? currentViewIndex = freezed,
     Object? closed = freezed,
   }) {
     return _then(_RoomState(
@@ -187,6 +198,10 @@ class __$RoomStateCopyWithImpl<$Res> extends _$RoomStateCopyWithImpl<$Res>
           ? _value.restauraunts
           : restauraunts // ignore: cast_nullable_to_non_nullable
               as List<Restauraunt>,
+      currentViewIndex: currentViewIndex == freezed
+          ? _value.currentViewIndex
+          : currentViewIndex // ignore: cast_nullable_to_non_nullable
+              as int,
       closed: closed == freezed
           ? _value.closed
           : closed // ignore: cast_nullable_to_non_nullable
@@ -203,6 +218,7 @@ class _$_RoomState implements _RoomState {
       required this.members,
       this.currentLocation = null,
       required this.restauraunts,
+      this.currentViewIndex = 0,
       this.closed = false});
 
   @override
@@ -216,13 +232,16 @@ class _$_RoomState implements _RoomState {
   final LocationData? currentLocation;
   @override
   final List<Restauraunt> restauraunts;
+  @JsonKey(defaultValue: 0)
+  @override
+  final int currentViewIndex;
   @JsonKey(defaultValue: false)
   @override // if this room was closed
   final bool closed;
 
   @override
   String toString() {
-    return 'RoomState(room: $room, me: $me, members: $members, currentLocation: $currentLocation, restauraunts: $restauraunts, closed: $closed)';
+    return 'RoomState(room: $room, me: $me, members: $members, currentLocation: $currentLocation, restauraunts: $restauraunts, currentViewIndex: $currentViewIndex, closed: $closed)';
   }
 
   @override
@@ -242,6 +261,9 @@ class _$_RoomState implements _RoomState {
             (identical(other.restauraunts, restauraunts) ||
                 const DeepCollectionEquality()
                     .equals(other.restauraunts, restauraunts)) &&
+            (identical(other.currentViewIndex, currentViewIndex) ||
+                const DeepCollectionEquality()
+                    .equals(other.currentViewIndex, currentViewIndex)) &&
             (identical(other.closed, closed) ||
                 const DeepCollectionEquality().equals(other.closed, closed)));
   }
@@ -254,6 +276,7 @@ class _$_RoomState implements _RoomState {
       const DeepCollectionEquality().hash(members) ^
       const DeepCollectionEquality().hash(currentLocation) ^
       const DeepCollectionEquality().hash(restauraunts) ^
+      const DeepCollectionEquality().hash(currentViewIndex) ^
       const DeepCollectionEquality().hash(closed);
 
   @JsonKey(ignore: true)
@@ -269,6 +292,7 @@ abstract class _RoomState implements RoomState {
       required List<Member> members,
       LocationData? currentLocation,
       required List<Restauraunt> restauraunts,
+      int currentViewIndex,
       bool closed}) = _$_RoomState;
 
   @override
@@ -281,6 +305,8 @@ abstract class _RoomState implements RoomState {
   LocationData? get currentLocation => throw _privateConstructorUsedError;
   @override
   List<Restauraunt> get restauraunts => throw _privateConstructorUsedError;
+  @override
+  int get currentViewIndex => throw _privateConstructorUsedError;
   @override // if this room was closed
   bool get closed => throw _privateConstructorUsedError;
   @override

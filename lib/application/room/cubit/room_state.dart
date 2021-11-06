@@ -8,6 +8,7 @@ class RoomState with _$RoomState {
     required List<Member> members,
     @Default(null) LocationData? currentLocation,
     required List<Restauraunt> restauraunts,
+    @Default(0) int currentViewIndex,
     // if this room was closed
     @Default(false) bool closed,
   }) = _RoomState;

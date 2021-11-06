@@ -23,7 +23,27 @@ class _RoomHomeState extends State<RoomHome> {
             drawer: RoomDrawer(),
             appBar: AppBar(
               title: Text(
-                state.members.length.toString(),
+                state.currentViewIndex.toString() +
+                    " / " +
+                    state.restauraunts.length.toString(),
+              ),
+            ),
+            body: Center(
+              child: Column(
+                children: [
+                  ElevatedButton(
+                    child: Text("Test"),
+                    onPressed: () async {
+                      BlocProvider.of<RoomCubit>(context).loadRestauraunts();
+                    },
+                  ),
+                  ElevatedButton(
+                    child: Text("add"),
+                    onPressed: () async {
+                      BlocProvider.of<RoomCubit>(context).test();
+                    },
+                  ),
+                ],
               ),
             ),
           );
