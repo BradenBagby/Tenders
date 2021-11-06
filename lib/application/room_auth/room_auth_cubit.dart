@@ -1,6 +1,7 @@
 import 'package:tenders/application/room/cubit/room_cubit.dart';
 import 'package:tenders/domain/member/member.dart';
 import 'package:tenders/domain/room/room.dart';
+import 'package:tenders/domain/room_settings/room_settings.dart';
 import 'package:tenders/services/implementation/room.dart';
 import 'package:tenders/services/interfaces/i_room.dart';
 import 'package:bloc/bloc.dart';
@@ -18,13 +19,13 @@ class RoomAuthCubit extends Cubit<RoomAuthState> {
         super(const RoomAuthState()) {}
 
   /// create a room, auto joins after
-  Future<bool> createRoom() async {
+  Future<bool> createRoom({required RoomSettings settings}) async {
     if (state.currentRoomCubit != null) {
       // TODO: alert dialog for already being in a room
       return false;
     }
     try {
-      final newRoom = await _roomService.create();
+      final newRoom = await _roomService.create(settings: settings);
       return joinRoom(newRoom.id);
     } catch (er) {
       // TODO: alert dialog for failing to create a room

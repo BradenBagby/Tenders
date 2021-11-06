@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:dio/dio.dart';
 import 'package:location/location.dart';
 import 'package:tenders/domain/restauraunt/restauraunt.dart';
+import 'package:tenders/domain/room_settings/room_settings.dart';
 import 'package:tenders/services/interfaces/i_restauraunt.dart';
 import 'package:tuple/tuple.dart';
 
@@ -17,13 +18,13 @@ class GoogleRestauraunt implements IRestauraunt {
   Future<Tuple2<List<Restauraunt>, String?>> load({
     required LocationData location,
     String? pageToken,
-    int radiusMeters = 1500000,
+    required RoomSettings settings,
   }) async {
     // TODO: catch errors
     String url =
-        "place/nearbysearch/json?location=${GoogleRestaurauntURL.location(location)}&radius=$radiusMeters&type=restaurant&opennow=true&key=$API_KEY";
+        "place/nearbysearch/json?location=${GoogleRestaurauntURL.location(location)}&radius=${settings.radius}&type=${settings.type.toQueryString()}${settings.openNow ? '&opennow=true' : ''}&key=$API_KEY";
     if (pageToken != null) {
-      url = "$url&pagetoken=${pageToken}";
+      url = "$url&pagetoken=$pageToken";
     }
     final uri = Uri.encodeFull(url);
     final res = await dio.get(uri);

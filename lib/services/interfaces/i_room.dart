@@ -1,11 +1,12 @@
 import 'package:tenders/domain/member/member.dart';
 import 'package:tenders/domain/restauraunt/restauraunt.dart';
 import 'package:tenders/domain/room/room.dart';
+import 'package:tenders/domain/room_settings/room_settings.dart';
 import 'package:tuple/tuple.dart';
 
 abstract class IRoom {
   /// create a room. returns [String] of room ID
-  Future<Room> create();
+  Future<Room> create({required RoomSettings settings});
 
   /// join a room by room id
   /// auto generates yourself a uniqueue id for using while in the room

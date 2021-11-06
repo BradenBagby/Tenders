@@ -51,47 +51,20 @@ class RoomCubit extends Cubit<RoomState> {
     loadRestauraunts();
   }
 
-  // TODO: clean this up this is so bad
-  // TODO: max radius in settings
-  String? nextPageToken;
-  int radiusMeters = 5000;
   Future<bool> loadRestauraunts() async {
-    bool needsFilter = nextPageToken == null;
     final location = state.currentLocation ?? await _loadLocation();
     if (location == null) {
       throw Exception("Enable location in settings"); // TODO: error bloc
     }
     final info = await _restaurauntService.load(
-        pageToken: nextPageToken,
+        pageToken: state.pageToken,
         location: location,
-        radiusMeters: radiusMeters);
+        settings: state.room.settings);
 
-    nextPageToken = info.item2;
-    List<Restauraunt> results = info.item1;
-    log("radius: $radiusMeters nextPage: ${nextPageToken?.substring(0, 10) ?? 'none'} resultLength: ${results.length} currentAmount: ${state.restauraunts.length} at: ${state.currentViewIndex}");
-
-    /// we have increased the radius and need to filtder results so we dont show again
-    results = results
-        .where((element) =>
-            state.restauraunts
-                .firstWhereOrNull((current) => element.id == current.id) ==
-            null)
-        .toList();
-
-    if (results.length < 20 && nextPageToken == null) {
-      radiusMeters += 5000;
-    }
-
-    final currentCount = state.restauraunts.length + results.length;
     emit(state.copyWith(
+        pageToken: info.item2,
         restauraunts: List<Restauraunt>.from(state.restauraunts)
-          ..addAll(results)));
-
-    // load at least 20 until we are done
-    if (currentCount - state.currentViewIndex < 20) {
-      log("Recursion current count: $currentCount needed: ${state.currentViewIndex + 20} ");
-      return loadRestauraunts();
-    }
+          ..addAll(info.item1)));
 
     return true; // TODO: TODO: TODO:
   }
@@ -136,8 +109,9 @@ class RoomCubit extends Cubit<RoomState> {
     }
     emit(state.copyWith(currentViewIndex: state.currentViewIndex + 1));
 
-    // load more if we are within 5 from the end
-    if (state.restauraunts.length - state.currentViewIndex < 5) {
+    // load more if we are within 5 from the end and we have more to load
+    if (state.restauraunts.length - state.currentViewIndex < 5 &&
+        state.pageToken != null) {
       loadRestauraunts();
     }
   }

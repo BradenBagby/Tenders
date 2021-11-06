@@ -1,5 +1,6 @@
 import 'package:location/location.dart';
 import 'package:tenders/domain/restauraunt/restauraunt.dart';
+import 'package:tenders/domain/room_settings/room_settings.dart';
 import 'package:tuple/tuple.dart';
 
 abstract class IRestauraunt {
@@ -7,6 +8,6 @@ abstract class IRestauraunt {
   Future<Tuple2<List<Restauraunt>, String?>> load({
     required LocationData location,
     String? pageToken,
-    int radiusMeters = 25,
+    required RoomSettings settings,
   });
 }

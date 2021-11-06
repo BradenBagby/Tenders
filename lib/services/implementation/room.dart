@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:tenders/domain/member/member.dart';
 import 'package:tenders/domain/restauraunt/restauraunt.dart';
 import 'package:tenders/domain/room/room.dart';
+import 'package:tenders/domain/room_settings/room_settings.dart';
 import 'package:tenders/services/interfaces/i_room.dart';
 import 'package:tuple/tuple.dart';
 import 'package:uuid/uuid.dart';
@@ -18,10 +19,11 @@ class FireRoom implements IRoom {
       FirebaseFirestore.instance.collection(ROOM_COLLECTION);
 
   @override
-  Future<Room> create() async {
+  Future<Room> create({required RoomSettings settings}) async {
     try {
       final uuid = "testID"; // TODO: for now Uuid().v4();
-      final room = Room(id: uuid, createdAt: DateTime.now().toUtc());
+      final room =
+          Room(id: uuid, createdAt: DateTime.now().toUtc(), settings: settings);
       await roomCollection.doc(uuid).set(room.toJson());
       return room;
     } catch (er) {
