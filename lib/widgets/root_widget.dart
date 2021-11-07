@@ -15,6 +15,33 @@ class RootWidget extends StatelessWidget {
       ],
       child: MaterialApp(
         title: "Expense App",
+        theme: ThemeData(
+          elevatedButtonTheme: ElevatedButtonThemeData(
+            style: ButtonStyle(
+              shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(1800.0),
+                    side: BorderSide(color: Colors.black, width: 0.2)),
+              ),
+              foregroundColor: MaterialStateProperty.all(Colors.black),
+              elevation: MaterialStateProperty.resolveWith(
+                (states) {
+                  if (states.contains(MaterialState.focused) ||
+                      states.contains(MaterialState.pressed)) return 4;
+                  return 0;
+                },
+              ),
+              backgroundColor: MaterialStateProperty.resolveWith(
+                (states) {
+                  if (states.contains(MaterialState.focused) ||
+                      states.contains(MaterialState.pressed))
+                    return Colors.white;
+                  return Colors.transparent;
+                },
+              ),
+            ),
+          ),
+        ),
         debugShowCheckedModeBanner: false,
         navigatorKey: RootRouteController.key,
         initialRoute: RootRouteController.routeWelcome,
