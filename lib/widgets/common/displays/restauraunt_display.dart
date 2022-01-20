@@ -32,6 +32,20 @@ class RestaurauntDisplay extends StatelessWidget {
               ),
             ),
           ),
+          Align(
+            alignment: Alignment.topLeft,
+            child: SafeArea(
+              child: IconButton(
+                icon: Icon(
+                  Icons.menu,
+                  color: Colors.white,
+                ),
+                onPressed: () {
+                  Scaffold.of(context).openDrawer();
+                },
+              ),
+            ),
+          )
         ],
       ),
     );

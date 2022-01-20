@@ -22,12 +22,6 @@ class _RoomHomeState extends State<RoomHome> {
       value: roomCubit,
       child: Scaffold(
           drawer: RoomDrawer(),
-          appBar: AppBar(
-            backgroundColor: Colors.transparent,
-            elevation: 0,
-            iconTheme:
-                IconThemeData(color: Theme.of(context).colorScheme.onSurface),
-          ),
           body: BlocBuilder<RoomCubit, RoomState>(
             bloc: roomCubit,
             builder: (context, state) {
