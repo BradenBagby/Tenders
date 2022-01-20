@@ -52,7 +52,7 @@ class _WelcomePageState extends State<WelcomePage> {
           ? null
           : BlocProvider.of<RoomAuthCubit>(context).createRoom(
               settings: RoomSettings(
-                  radius: 777,
+                  radius: 777777,
                   type: PlaceType.RESTAURAT,
                   openNow: false)), // TODO: if fail show message
       child: Padding(

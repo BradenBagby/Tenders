@@ -19,8 +19,8 @@ class RestaurauntDisplay extends StatelessWidget {
           if (restauraunt.photos.isNotEmpty)
             Positioned.fill(
               child: URLImage(restauraunt.photos.first.url(
-                  maxHeight: size.height.toInt(),
-                  maxWidth: size.width.toInt())),
+                  maxHeight: size.height.toInt() * 2,
+                  maxWidth: size.width.toInt() * 2)),
             ),
           Positioned.fill(
             child: SafeArea(
