@@ -58,29 +58,35 @@ class RestaurauntDisplay extends StatelessWidget {
       child: SafeArea(
         top: false,
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            Text(
+              restauraunt.name,
+              maxLines: 4,
+              style: Theme.of(context).textTheme.headline4!.copyWith(
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                  ),
+            ),
             Row(
               children: [
-                Text(
-                  restauraunt.name,
-                  style: Theme.of(context).textTheme.headline4!.copyWith(
-                      fontWeight: FontWeight.bold, color: Colors.white),
-                ),
-                SizedBox(
-                  width: 8,
-                ),
                 ...List.generate(restauraunt.rating.toInt(), (x) => x)
                     .map((e) => Icon(
                           Icons.star,
                           color: Colors.white,
+                          size: 16,
                         ))
                     .toList(),
               ],
             ),
-            PhotoSlider(
-              restauraunt.photos,
-              height: size.height * 0.15,
-            )
+            SizedBox(
+              height: 8,
+            ),
+            if (restauraunt.photos.length > 1)
+              PhotoSlider(
+                restauraunt.photos,
+                height: size.height * 0.15,
+              )
           ],
         ),
       ),
