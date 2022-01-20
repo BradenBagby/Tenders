@@ -43,7 +43,7 @@ class FireRoom implements IRoom {
     }
 
     final roomObject = Room.fromJson(roomData.data() as Map<String, dynamic>);
-    final uuid = "testUserID"; // TODO: for now Uuid().v4()
+    final uuid = const Uuid().v4();
     final myMember = Member(
         joinedAt: DateTime.now().toUtc(),
         id: uuid); // TODO: your id should be from firebase anonymous auth

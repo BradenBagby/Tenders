@@ -101,7 +101,7 @@ class RoomCubit extends Cubit<RoomState> {
           acceptedRestauraunt!,
           forRoom: state.room,
           forMember: state.me);
-      if (acceptedAmount == state.members.length) {
+      if (acceptedAmount == state.members.length && state.members.length > 1) {
         // report as a match
         await GetIt.I<IRoom>()
             .reportMatch(acceptedRestauraunt, forRoom: state.room);

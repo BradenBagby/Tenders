@@ -15,31 +15,28 @@ class ViewQRCode extends StatelessWidget {
         .currentRoomCubit
         ?.state
         .room;
-    return Scaffold(
-      appBar: AppBar(),
-      body: Center(
-        child: currentRoom != null
-            ? FutureBuilder<String>(
-                future: DynamicLinks.createLink('room/${currentRoom.id}'),
-                builder: (context, snapshot) {
-                  if (!snapshot.hasData) return CircularProgressIndicator();
-                  log("link: ${snapshot.data!}");
-                  return Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      QrImage(
-                        data: snapshot
-                            .data!, // TODO: make this a dynamic link into the app so you can scan it and join without having the app
-                        version: QrVersions.auto,
-                        size: 200.0,
-                      ),
-                    ],
-                  );
-                })
-            : Center(
-                child: Text("Failed to get QR for current room"),
-              ),
-      ),
+    return Center(
+      child: currentRoom != null
+          ? FutureBuilder<String>(
+              future: DynamicLinks.createLink('room/${currentRoom.id}'),
+              builder: (context, snapshot) {
+                if (!snapshot.hasData) return CircularProgressIndicator();
+                log("link: ${snapshot.data!}");
+                return Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    QrImage(
+                      data: snapshot
+                          .data!, // TODO: make this a dynamic link into the app so you can scan it and join without having the app
+                      version: QrVersions.auto,
+                      size: 200.0,
+                    ),
+                  ],
+                );
+              })
+          : Center(
+              child: Text("Failed to get QR for current room"),
+            ),
     );
   }
 }
