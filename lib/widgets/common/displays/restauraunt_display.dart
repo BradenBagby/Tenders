@@ -6,9 +6,14 @@ class RestaurauntDisplay extends StatelessWidget {
   const RestaurauntDisplay(this.restauraunt);
   @override
   Widget build(BuildContext context) {
-    return Card(
-      child: Center(
-        child: Text(restauraunt.name),
+    return Container(
+      child: Column(
+        children: [
+          Text(
+            restauraunt.name,
+            style: Theme.of(context).textTheme.headline3,
+          )
+        ],
       ),
     );
   }

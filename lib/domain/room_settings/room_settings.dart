@@ -4,8 +4,8 @@ part 'room_settings.freezed.dart';
 part 'room_settings.g.dart';
 
 enum PlaceType {
-  @JsonValue("RESTAURAUNT")
-  RESTAURAUNT,
+  @JsonValue("RESTAURANT")
+  RESTAURAT,
   @JsonValue("FOOD")
   FOOD,
   @JsonValue("DRINKS")
@@ -15,8 +15,8 @@ enum PlaceType {
 extension PlaceTypeString on PlaceType {
   String toQueryString() {
     switch (this) {
-      case PlaceType.RESTAURAUNT:
-        return "restauraunt";
+      case PlaceType.RESTAURAT:
+        return "restaurant";
       case PlaceType.FOOD:
         return "food";
       case PlaceType.DRINKS:

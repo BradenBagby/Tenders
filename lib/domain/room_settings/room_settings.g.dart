@@ -47,7 +47,7 @@ K _$enumDecode<K, V>(
 }
 
 const _$PlaceTypeEnumMap = {
-  PlaceType.RESTAURAUNT: 'RESTAURAUNT',
+  PlaceType.RESTAURAT: 'RESTAURANT',
   PlaceType.FOOD: 'FOOD',
   PlaceType.DRINKS: 'DRINKS',
 };
