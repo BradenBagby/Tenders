@@ -1,4 +1,5 @@
 import 'package:location/location.dart';
+import 'package:tenders/domain/restauraunt/photo.dart';
 import 'package:tenders/domain/restauraunt/restauraunt.dart';
 import 'package:tenders/domain/room_settings/room_settings.dart';
 import 'package:tuple/tuple.dart';
@@ -10,4 +11,6 @@ abstract class IRestauraunt {
     String? pageToken,
     required RoomSettings settings,
   });
+
+  String urlForPhoto(Photo photo, {int? maxWidth, int? maxHeight});
 }

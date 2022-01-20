@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:dio/dio.dart';
 import 'package:location/location.dart';
+import 'package:tenders/domain/restauraunt/photo.dart';
 import 'package:tenders/domain/restauraunt/restauraunt.dart';
 import 'package:tenders/domain/room_settings/room_settings.dart';
 import 'package:tenders/services/interfaces/i_restauraunt.dart';
@@ -40,6 +41,13 @@ class GoogleRestauraunt implements IRestauraunt {
       // TODO
       return Tuple2(<Restauraunt>[], null);
     }
+  }
+
+  @override
+  String urlForPhoto(Photo photo, {int? maxWidth, int? maxHeight}) {
+    final url =
+        'https://maps.googleapis.com/maps/api/place/photo?photoreference=${photo.photoReference}&sensor=false${maxHeight != null ? '&maxheight=$maxHeight' : ''}${maxWidth != null ? '&maxwidth=$maxWidth' : ''}&key=$API_KEY';
+    return url;
   }
 }
 

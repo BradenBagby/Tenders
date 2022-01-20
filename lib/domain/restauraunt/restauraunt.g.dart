@@ -13,6 +13,10 @@ _$_Restauraunt _$_$_RestaurauntFromJson(Map<String, dynamic> json) {
     address: json['address'] as String,
     rating: (json['rating'] as num).toDouble(),
     iconUrl: json['iconUrl'] as String,
+    photos: (json['photos'] as List<dynamic>?)
+            ?.map((e) => Photo.fromJson(e as Map<String, dynamic>))
+            .toList() ??
+        [],
   );
 }
 
@@ -23,4 +27,5 @@ Map<String, dynamic> _$_$_RestaurauntToJson(_$_Restauraunt instance) =>
       'address': instance.address,
       'rating': instance.rating,
       'iconUrl': instance.iconUrl,
+      'photos': instance.photos,
     };

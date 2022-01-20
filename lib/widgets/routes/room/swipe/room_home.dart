@@ -71,10 +71,7 @@ class _RoomHomeState extends State<RoomHome> {
                     onReject: () {
                       BlocProvider.of<RoomCubit>(context).next(accepted: false);
                     },
-                    child: Container(
-                        color: Colors.red,
-                        child:
-                            RestaurauntDisplay(state.currentViewRestauraunt!)),
+                    child: RestaurauntDisplay(state.currentViewRestauraunt!),
                   ),
                 ],
               );

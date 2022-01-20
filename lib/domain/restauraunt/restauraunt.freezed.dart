@@ -25,13 +25,15 @@ class _$RestaurauntTearOff {
       required String id,
       required String address,
       required double rating,
-      required String iconUrl}) {
+      required String iconUrl,
+      List<Photo> photos = const []}) {
     return _Restauraunt(
       name: name,
       id: id,
       address: address,
       rating: rating,
       iconUrl: iconUrl,
+      photos: photos,
     );
   }
 
@@ -50,6 +52,7 @@ mixin _$Restauraunt {
   String get address => throw _privateConstructorUsedError;
   double get rating => throw _privateConstructorUsedError;
   String get iconUrl => throw _privateConstructorUsedError;
+  List<Photo> get photos => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -63,7 +66,12 @@ abstract class $RestaurauntCopyWith<$Res> {
           Restauraunt value, $Res Function(Restauraunt) then) =
       _$RestaurauntCopyWithImpl<$Res>;
   $Res call(
-      {String name, String id, String address, double rating, String iconUrl});
+      {String name,
+      String id,
+      String address,
+      double rating,
+      String iconUrl,
+      List<Photo> photos});
 }
 
 /// @nodoc
@@ -81,6 +89,7 @@ class _$RestaurauntCopyWithImpl<$Res> implements $RestaurauntCopyWith<$Res> {
     Object? address = freezed,
     Object? rating = freezed,
     Object? iconUrl = freezed,
+    Object? photos = freezed,
   }) {
     return _then(_value.copyWith(
       name: name == freezed
@@ -103,6 +112,10 @@ class _$RestaurauntCopyWithImpl<$Res> implements $RestaurauntCopyWith<$Res> {
           ? _value.iconUrl
           : iconUrl // ignore: cast_nullable_to_non_nullable
               as String,
+      photos: photos == freezed
+          ? _value.photos
+          : photos // ignore: cast_nullable_to_non_nullable
+              as List<Photo>,
     ));
   }
 }
@@ -115,7 +128,12 @@ abstract class _$RestaurauntCopyWith<$Res>
       __$RestaurauntCopyWithImpl<$Res>;
   @override
   $Res call(
-      {String name, String id, String address, double rating, String iconUrl});
+      {String name,
+      String id,
+      String address,
+      double rating,
+      String iconUrl,
+      List<Photo> photos});
 }
 
 /// @nodoc
@@ -135,6 +153,7 @@ class __$RestaurauntCopyWithImpl<$Res> extends _$RestaurauntCopyWithImpl<$Res>
     Object? address = freezed,
     Object? rating = freezed,
     Object? iconUrl = freezed,
+    Object? photos = freezed,
   }) {
     return _then(_Restauraunt(
       name: name == freezed
@@ -157,6 +176,10 @@ class __$RestaurauntCopyWithImpl<$Res> extends _$RestaurauntCopyWithImpl<$Res>
           ? _value.iconUrl
           : iconUrl // ignore: cast_nullable_to_non_nullable
               as String,
+      photos: photos == freezed
+          ? _value.photos
+          : photos // ignore: cast_nullable_to_non_nullable
+              as List<Photo>,
     ));
   }
 }
@@ -170,7 +193,8 @@ class _$_Restauraunt extends _Restauraunt {
       required this.id,
       required this.address,
       required this.rating,
-      required this.iconUrl})
+      required this.iconUrl,
+      this.photos = const []})
       : super._();
 
   factory _$_Restauraunt.fromJson(Map<String, dynamic> json) =>
@@ -186,10 +210,13 @@ class _$_Restauraunt extends _Restauraunt {
   final double rating;
   @override
   final String iconUrl;
+  @JsonKey(defaultValue: const [])
+  @override
+  final List<Photo> photos;
 
   @override
   String toString() {
-    return 'Restauraunt(name: $name, id: $id, address: $address, rating: $rating, iconUrl: $iconUrl)';
+    return 'Restauraunt(name: $name, id: $id, address: $address, rating: $rating, iconUrl: $iconUrl, photos: $photos)';
   }
 
   @override
@@ -206,7 +233,10 @@ class _$_Restauraunt extends _Restauraunt {
             (identical(other.rating, rating) ||
                 const DeepCollectionEquality().equals(other.rating, rating)) &&
             (identical(other.iconUrl, iconUrl) ||
-                const DeepCollectionEquality().equals(other.iconUrl, iconUrl)));
+                const DeepCollectionEquality()
+                    .equals(other.iconUrl, iconUrl)) &&
+            (identical(other.photos, photos) ||
+                const DeepCollectionEquality().equals(other.photos, photos)));
   }
 
   @override
@@ -216,7 +246,8 @@ class _$_Restauraunt extends _Restauraunt {
       const DeepCollectionEquality().hash(id) ^
       const DeepCollectionEquality().hash(address) ^
       const DeepCollectionEquality().hash(rating) ^
-      const DeepCollectionEquality().hash(iconUrl);
+      const DeepCollectionEquality().hash(iconUrl) ^
+      const DeepCollectionEquality().hash(photos);
 
   @JsonKey(ignore: true)
   @override
@@ -235,7 +266,8 @@ abstract class _Restauraunt extends Restauraunt {
       required String id,
       required String address,
       required double rating,
-      required String iconUrl}) = _$_Restauraunt;
+      required String iconUrl,
+      List<Photo> photos}) = _$_Restauraunt;
   _Restauraunt._() : super._();
 
   factory _Restauraunt.fromJson(Map<String, dynamic> json) =
@@ -251,6 +283,8 @@ abstract class _Restauraunt extends Restauraunt {
   double get rating => throw _privateConstructorUsedError;
   @override
   String get iconUrl => throw _privateConstructorUsedError;
+  @override
+  List<Photo> get photos => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$RestaurauntCopyWith<_Restauraunt> get copyWith =>

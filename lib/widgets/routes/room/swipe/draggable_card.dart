@@ -158,13 +158,14 @@ class _DraggableCardState extends State<DraggableCard>
         },
         child: Transform.translate(
           offset: _dragOffset,
-          child: Stack(
-            children: [
-              Card(
-                child: widget.child,
-              ),
-              if (overlay != null) Positioned.fill(child: overlay)
-            ],
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(20),
+            child: Stack(
+              children: [
+                widget.child,
+                if (overlay != null) Positioned.fill(child: overlay)
+              ],
+            ),
           ),
         ));
   }
