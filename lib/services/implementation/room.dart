@@ -21,7 +21,7 @@ class FireRoom implements IRoom {
   @override
   Future<Room> create({required RoomSettings settings}) async {
     try {
-      final uuid = "testID"; // TODO: for now Uuid().v4();
+      final uuid = const Uuid().v4(); // TODO: for now
       final room =
           Room(id: uuid, createdAt: DateTime.now().toUtc(), settings: settings);
       final data = room.toJson();

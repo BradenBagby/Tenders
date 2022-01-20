@@ -43,6 +43,11 @@ class DynamicLinks {
   }
 
   static Future<String> createLink(String path) async {
+    if (kIsWeb) {
+      final link =
+          '${'https://app.stubtrack.com'}/?link=${Uri.parse('https://app.stubtrack.com${path.isNotEmpty ? "/$path" : ""}')}&apn=${'com.stubtrack.app'}&ibi=${'com.stubtrack.app'}';
+      return link;
+    }
     //TODO:
     final DynamicLinkParameters parameters = DynamicLinkParameters(
       uriPrefix: 'https://tenders.page.link',
