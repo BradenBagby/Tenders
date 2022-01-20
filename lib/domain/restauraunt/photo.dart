@@ -6,7 +6,7 @@ part 'photo.freezed.dart';
 
 @freezed
 class Photo with _$Photo {
-  const Photo._();
+  @JsonSerializable(explicitToJson: true)
   factory Photo({
     @Default(0) int height,
     @Default(0) int width,
@@ -22,6 +22,7 @@ class Photo with _$Photo {
     final photoRefernece = json['photo_reference'] as String? ?? 'BAD';
     return Photo(photoReference: photoRefernece, height: height, width: width);
   }
+  const Photo._();
 
   Map<String, dynamic> toJson() {
     return {

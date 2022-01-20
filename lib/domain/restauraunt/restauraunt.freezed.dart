@@ -184,7 +184,7 @@ class __$RestaurauntCopyWithImpl<$Res> extends _$RestaurauntCopyWithImpl<$Res>
   }
 }
 
-@JsonSerializable()
+@JsonSerializable(explicitToJson: true)
 
 /// @nodoc
 class _$_Restauraunt extends _Restauraunt {

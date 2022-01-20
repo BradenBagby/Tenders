@@ -7,7 +7,7 @@ part 'restauraunt.g.dart';
 
 @freezed
 class Restauraunt with _$Restauraunt {
-  const Restauraunt._();
+  @JsonSerializable(explicitToJson: true)
   factory Restauraunt({
     required String name,
     required String id,
@@ -16,6 +16,7 @@ class Restauraunt with _$Restauraunt {
     required String iconUrl,
     @Default([]) List<Photo> photos,
   }) = _Restauraunt;
+  const Restauraunt._();
   factory Restauraunt.fromJson(Map<String, dynamic> json) =>
       _$RestaurauntFromJson(json);
 

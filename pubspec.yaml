@@ -39,6 +39,7 @@ dependencies:
   window_location_href: ^1.0.0
   transparent_image: ^2.0.0
   cached_network_image: ^3.2.0
+  confetti: ^0.6.0
 
 
 targets:

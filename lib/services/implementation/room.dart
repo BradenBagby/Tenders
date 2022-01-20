@@ -105,10 +105,11 @@ class FireRoom implements IRoom {
 
   @override
   Future<void> reportMatch(Restauraunt restauraunt, {required Room forRoom}) {
+    final json = restauraunt.toJson();
     return roomCollection
         .doc(forRoom.id)
         .collection(MATCHES_COLLECTION)
         .doc(restauraunt.id)
-        .set(restauraunt.toJson());
+        .set(json);
   }
 }

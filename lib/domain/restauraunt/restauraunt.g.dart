@@ -27,5 +27,5 @@ Map<String, dynamic> _$_$_RestaurauntToJson(_$_Restauraunt instance) =>
       'address': instance.address,
       'rating': instance.rating,
       'iconUrl': instance.iconUrl,
-      'photos': instance.photos,
+      'photos': instance.photos.map((e) => e.toJson()).toList(),
     };

@@ -116,6 +116,8 @@ class __$PhotoCopyWithImpl<$Res> extends _$PhotoCopyWithImpl<$Res>
   }
 }
 
+@JsonSerializable(explicitToJson: true)
+
 /// @nodoc
 class _$_Photo extends _Photo {
   _$_Photo({this.height = 0, this.width = 0, required this.photoReference})
