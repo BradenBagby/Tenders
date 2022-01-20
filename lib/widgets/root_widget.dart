@@ -36,7 +36,7 @@ class RootWidget extends StatelessWidget {
                   if (states.contains(MaterialState.focused) ||
                       states.contains(MaterialState.pressed))
                     return Colors.white;
-                  return Colors.transparent;
+                  return Colors.white;
                 },
               ),
             ),
