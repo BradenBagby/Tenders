@@ -63,6 +63,62 @@ class _WelcomePageState extends State<WelcomePage>
               width: size.width / 2,
             ),
           ),
+        ),
+        Align(
+          alignment: Alignment.topRight,
+          child: SafeArea(
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                TextButton(
+                    onPressed: () {
+                      showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return AlertDialog(
+                            title: Text("Join with Code"),
+                            content: Text(
+                                "Join with code is coming soon. For now, scan your friends QR code to join. \n\n Ask them to tap the menu icon in the top left"),
+                            actions: <Widget>[
+                              ElevatedButton(
+                                onPressed: () {
+                                  Navigator.pop(context);
+                                },
+                                child: Text("Okay"),
+                              )
+                            ],
+                          );
+                        },
+                      );
+                    },
+                    child: Text("Join with Code")),
+                IconButton(
+                  padding: EdgeInsets.only(right: 16),
+                  onPressed: () {
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return AlertDialog(
+                          title: Text("Help"),
+                          content: Text(
+                              "To join your friend, have them tap the menu icon in the top left while searching for tendies. Scan the QR code with your camera"),
+                          actions: <Widget>[
+                            ElevatedButton(
+                              onPressed: () {
+                                Navigator.pop(context);
+                              },
+                              child: Text("Okay"),
+                            )
+                          ],
+                        );
+                      },
+                    );
+                  },
+                  icon: Icon(Icons.help_outline_outlined),
+                ),
+              ],
+            ),
+          ),
         )
       ],
     ));

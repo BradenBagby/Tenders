@@ -16,6 +16,9 @@ class RestaurauntDisplay extends StatelessWidget {
       borderRadius: BorderRadius.circular(20),
       child: Stack(
         children: [
+          Positioned.fill(
+            child: Container(color: Theme.of(context).colorScheme.surface),
+          ),
           if (restauraunt.photos.isNotEmpty)
             Positioned.fill(
               child: URLImage(restauraunt.photos.first.url(
