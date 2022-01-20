@@ -31,8 +31,14 @@
 .pub/
 /build/
 
+# web
+web/firebase-config.js
+
 # Web related
 lib/generated_plugin_registrant.dart
+
+#api keys
+config/environment.json
 
 # Symbolication related
 app.*.symbols

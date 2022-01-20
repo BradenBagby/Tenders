@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:dio/dio.dart';
 import 'package:location/location.dart';
+import 'package:tenders/core/utility/environment.dart';
 import 'package:tenders/domain/restauraunt/photo.dart';
 import 'package:tenders/domain/restauraunt/restauraunt.dart';
 import 'package:tenders/domain/room_settings/room_settings.dart';
@@ -9,7 +10,7 @@ import 'package:tenders/services/interfaces/i_restauraunt.dart';
 import 'package:tuple/tuple.dart';
 
 class GoogleRestauraunt implements IRestauraunt {
-  static const API_KEY = "AIzaSyA6zyz3WKdq1W2SBTUHKdLAqND_fQxVZg0"; // TODO:
+  String get API_KEY => Environment.placesApiKey; // TODO:
   static const NEARBY_URL = "place/nearbysearch/json";
 
   static final Dio dio =

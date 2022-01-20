@@ -1,4 +1,5 @@
 import 'package:tenders/core/utility/dynamic_links.dart';
+import 'package:tenders/core/utility/environment.dart';
 import 'package:tenders/core/utility/injection.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -11,6 +12,7 @@ class Core {
   static Future<void> init() async {
     WidgetsFlutterBinding.ensureInitialized();
     await Firebase.initializeApp();
+    await Environment.init();
     await Injection.setup();
   }
 

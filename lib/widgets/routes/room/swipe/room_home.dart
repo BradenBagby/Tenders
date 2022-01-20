@@ -25,8 +25,12 @@ class _RoomHomeState extends State<RoomHome> {
           body: BlocBuilder<RoomCubit, RoomState>(
             bloc: roomCubit,
             builder: (context, state) {
+              if (state.showNeedsLocation)
+                return Center(
+                  child: Text("Enable location in settings to continue"),
+                );
               if (state.currentViewRestauraunt == null) {
-                return CircularProgressIndicator();
+                return Center(child: CircularProgressIndicator());
               }
 
               final next =
