@@ -3,6 +3,7 @@ import 'dart:developer';
 
 import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 import 'package:flutter/foundation.dart';
+import 'package:window_location_href/window_location_href.dart';
 
 class DynamicLinks {
   const DynamicLinks._();
@@ -12,6 +13,12 @@ class DynamicLinks {
 
   /// get initial dynamic link and begin listening for more
   static Future<void> initDynamicLinks() async {
+    if (kIsWeb) {
+      final Uri uri = Uri.dataFromString(getHref()!);
+      _handleLink(uri);
+      return;
+    }
+
     final PendingDynamicLinkData? data =
         await FirebaseDynamicLinks.instance.getInitialLink();
     final Uri? deepLink = data?.link;

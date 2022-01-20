@@ -21,10 +21,10 @@
     <!-- iOS meta tags & icons -->
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
-    <meta name="apple-mobile-web-app-title" content="tenders">
+    <meta name="apple-mobile-web-app-title" content="app">
     <link rel="apple-touch-icon" href="icons/Icon-192.png">
 
-    <title>tenders</title>
+    <title>app</title>
     <link rel="manifest" href="manifest.json">
 </head>
 
@@ -33,6 +33,7 @@
     <!-- Firebase -->
     <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-firestore.js"></script>
     <!-- Firebase Configuration -->
     <script>
         const firebaseConfig = {
@@ -48,6 +49,7 @@
         // Initialize Firebase
         firebase.initializeApp(firebaseConfig);
     </script>
+
     <!-- This script installs service_worker.js to provide PWA functionality to
        application. For more information, see:
        https://developers.google.com/web/fundamentals/primers/service-workers -->
@@ -86,7 +88,7 @@
                         if (!reg.active && (reg.installing || reg.waiting)) {
                             // No active web worker and we have installed or are installing
                             // one for the first time. Simply wait for it to activate.
-                            waitForActivation(reg.installing ? ? reg.waiting);
+                            waitForActivation(reg.installing || reg.waiting);
                         } else if (!reg.active.scriptURL.endsWith(serviceWorkerVersion)) {
                             // When the app updates the serviceWorkerVersion changes, so we
                             // need to ask the service worker to update.
