@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_share/flutter_share.dart';
 import 'package:tenders/application/room/cubit/room_cubit.dart';
 import 'package:tenders/core/utility/dynamic_links.dart';
+import 'package:tenders/core/utility/share.dart';
 
 class MemberCount extends StatelessWidget {
   @override
@@ -14,11 +15,8 @@ class MemberCount extends StatelessWidget {
             final link = await DynamicLinks.createLink(
                 'room/${BlocProvider.of<RoomCubit>(context).state.room.id}',
                 preferShort: true);
-            await FlutterShare.share(
-              title: 'Find Tendies!',
-              text: 'Swipe with me to match my appetite',
-              linkUrl: link,
-            );
+            await Share.shareInvite(
+                link: link, message: 'Swipe with me to match my appetite');
           },
           child: Wrap(
             alignment: WrapAlignment.center,

@@ -6,6 +6,7 @@ import 'package:get_it/get_it.dart';
 import 'package:tenders/application/room/cubit/room_cubit.dart';
 import 'package:tenders/application/room_auth/room_auth_cubit.dart';
 import 'package:tenders/core/utility/dynamic_links.dart';
+import 'package:tenders/core/utility/share.dart';
 import 'package:tenders/widgets/routes/room/view_qr_code.dart';
 
 class WaitingForFriends extends StatelessWidget {
@@ -45,11 +46,8 @@ class WaitingForFriends extends StatelessWidget {
                 final link = await DynamicLinks.createLink(
                     'room/${BlocProvider.of<RoomCubit>(context).state.room.id}',
                     preferShort: true);
-                await FlutterShare.share(
-                  title: 'Find Tendies!',
-                  text: 'Swipe with me to match my appetite',
-                  linkUrl: link,
-                );
+                await Share.shareInvite(
+                    link: link, message: 'Swipe with me to match my appetite');
               },
               child: Column(
                 children: [

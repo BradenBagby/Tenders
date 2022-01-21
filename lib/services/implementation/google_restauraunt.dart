@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:dio/dio.dart';
+import 'package:flutter/foundation.dart';
 import 'package:location/location.dart';
 import 'package:tenders/core/utility/environment.dart';
 import 'package:tenders/domain/restauraunt/photo.dart';
@@ -13,8 +14,12 @@ class GoogleRestauraunt implements IRestauraunt {
   String get API_KEY => Environment.placesApiKey; // TODO:
   static const NEARBY_URL = "place/nearbysearch/json";
 
-  static final Dio dio =
-      Dio(BaseOptions(baseUrl: "https://maps.googleapis.com/maps/api/"));
+  static final Dio dio = Dio(BaseOptions(
+    headers: kIsWeb
+        ? {"Access-Control-Allow-Origin": "https://maps.googleapis.com"}
+        : {},
+    baseUrl: "https://maps.googleapis.com/maps/api/",
+  ));
 
   @override
   Future<Tuple2<List<Restauraunt>, String?>> load({
