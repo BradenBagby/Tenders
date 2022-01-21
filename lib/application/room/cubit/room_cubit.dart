@@ -77,6 +77,7 @@ class RoomCubit extends Cubit<RoomState> {
 
   Future<bool> loadRestauraunts() async {
     final location = state.currentLocation ?? await _loadLocation();
+    emit(state.copyWith(currentLocation: location));
     if (location == null) {
       emit(state.copyWith(showNeedsLocation: true));
       throw Exception("Enable location in settings"); // TODO: error bloc

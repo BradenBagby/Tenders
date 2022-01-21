@@ -29,6 +29,7 @@ class _PhotoSliderState extends State<PhotoSlider> {
         ClipRRect(
           borderRadius: BorderRadius.circular(12),
           child: GridView.count(
+            padding: EdgeInsets.zero,
             physics: NeverScrollableScrollPhysics(),
             shrinkWrap: true,
             scrollDirection: Axis.vertical,

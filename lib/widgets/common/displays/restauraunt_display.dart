@@ -4,6 +4,9 @@ import 'package:tenders/domain/restauraunt/photo.dart';
 import 'package:tenders/domain/restauraunt/restauraunt.dart';
 import 'package:tenders/services/interfaces/i_restauraunt.dart';
 import 'package:tenders/widgets/common/custom/spinner.dart';
+import 'package:tenders/widgets/common/displays/contact.dart';
+import 'package:tenders/widgets/common/displays/hours.dart';
+import 'package:tenders/widgets/common/displays/navigation.dart';
 import 'package:tenders/widgets/common/displays/photo_slider.dart';
 import 'package:tenders/widgets/common/displays/reviews.dart';
 import 'package:tenders/widgets/common/displays/url_image.dart';
@@ -129,7 +132,10 @@ class _RestaurauntDisplayState extends State<RestaurauntDisplay> {
               color: Colors.transparent,
               height: titleSize?.height ?? 0,
             ),
-            _expandedInfo(),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: _expandedInfo(),
+            ),
           ],
         ),
       );
@@ -143,7 +149,13 @@ class _RestaurauntDisplayState extends State<RestaurauntDisplay> {
       );
     }
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
+        Hours(allInfo!),
+        SizedBox(
+          height: 48,
+        ),
+        Navigation(allInfo!),
         SizedBox(
           height: 48,
         ),
@@ -152,6 +164,10 @@ class _RestaurauntDisplayState extends State<RestaurauntDisplay> {
           height: 48,
         ),
         PhotoSlider(allInfo!.photos),
+        SizedBox(
+          height: 48,
+        ),
+        Contact(allInfo!)
       ],
     );
   }
@@ -186,8 +202,15 @@ class _RestaurauntDisplayState extends State<RestaurauntDisplay> {
           },
           child: Container(
             padding: EdgeInsets.all(8),
-            color:
-                Colors.black.withAlpha((100.0 * (1.0 - titlePercent)).toInt()),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(
+                    20,
+                  ),
+                  topRight: Radius.circular(20)),
+              color: Colors.black
+                  .withAlpha((100.0 * (1.0 - titlePercent)).toInt()),
+            ),
             child: SafeArea(
               top: false,
               bottom: true,

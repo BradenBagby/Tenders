@@ -29,6 +29,7 @@ class Restauraunt with _$Restauraunt {
     @Default([]) List<String> hoursText,
     @Default([]) List<Review> reviews,
   }) = _Restauraunt;
+
   const Restauraunt._();
   factory Restauraunt.fromJson(Map<String, dynamic> json) =>
       _$RestaurauntFromJson(json);
