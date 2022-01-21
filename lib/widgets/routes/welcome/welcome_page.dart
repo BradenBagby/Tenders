@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tenders/application/room_auth/room_auth_cubit.dart';
 import 'package:tenders/domain/room_settings/room_settings.dart';
 import 'package:tenders/widgets/common/displays/chicken.dart';
+import 'package:tenders/widgets/routes/scan/scan_page.dart';
 
 class WelcomePage extends StatefulWidget {
   @override
@@ -67,58 +68,48 @@ class _WelcomePageState extends State<WelcomePage>
         Align(
           alignment: Alignment.topRight,
           child: SafeArea(
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                TextButton(
-                    onPressed: () {
-                      showDialog(
-                        context: context,
-                        builder: (BuildContext context) {
-                          return AlertDialog(
-                            title: Text("Join with Code"),
-                            content: Text(
-                                "Join with code is coming soon. For now, scan your friends QR code to join. \n\n Ask them to tap the menu icon in the top left"),
-                            actions: <Widget>[
-                              ElevatedButton(
-                                onPressed: () {
-                                  Navigator.pop(context);
-                                },
-                                child: Text("Okay"),
-                              )
-                            ],
-                          );
-                        },
-                      );
-                    },
-                    child: Text("Join with Code")),
-                IconButton(
-                  padding: EdgeInsets.only(right: 16),
-                  onPressed: () {
-                    showDialog(
-                      context: context,
-                      builder: (BuildContext context) {
-                        return AlertDialog(
-                          title: Text("Help"),
-                          content: Text(
-                              "To join your friend, have them tap the menu icon in the top left while searching for tendies. Scan the QR code with your camera"),
-                          actions: <Widget>[
-                            ElevatedButton(
-                              onPressed: () {
-                                Navigator.pop(context);
-                              },
-                              child: Text("Okay"),
-                            )
-                          ],
-                        );
-                      },
+            child: IconButton(
+              padding: EdgeInsets.only(right: 16),
+              onPressed: () {
+                showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return AlertDialog(
+                      title: Text("Help"),
+                      content: Text(
+                          "To join your friend, have them tap the menu icon in the top left while searching for tendies. Scan the QR code with your camera"),
+                      actions: <Widget>[
+                        ElevatedButton(
+                          onPressed: () {
+                            Navigator.pop(context);
+                          },
+                          child: Text("Okay"),
+                        )
+                      ],
                     );
                   },
-                  icon: Icon(Icons.help_outline_outlined),
-                ),
-              ],
+                );
+              },
+              icon: Icon(Icons.help_outline_outlined),
             ),
           ),
+        ),
+        Align(
+          alignment: Alignment.bottomLeft,
+          child: SafeArea(
+              child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: IconButton(
+              onPressed: () {
+                Navigator.of(context)
+                    .push(MaterialPageRoute(builder: (context) => ScanPage()));
+              },
+              icon: Icon(
+                Icons.qr_code_scanner_sharp,
+                size: 64,
+              ),
+            ),
+          )),
         )
       ],
     ));
