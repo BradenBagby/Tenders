@@ -32,25 +32,41 @@ class _ScanPageState extends State<ScanPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Builder(
-        builder: (context) {
-          if (!hasPermissions) {
-            return Center(
-              child: Text("Give Tender camera permissions to scan a QR code"),
-            );
-          }
+        body: Stack(
+      children: [
+        _build(),
+        Align(
+            alignment: Alignment.topLeft,
+            child: SafeArea(
+              child: IconButton(
+                  icon: Icon(Icons.close, color: Colors.white),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  }),
+            ))
+      ],
+    ));
+  }
 
+  Widget _build() {
+    return Builder(
+      builder: (context) {
+        if (!hasPermissions) {
           return Center(
-            child: kIsWeb
-                ? Text("Scan QR Code of your friend to join")
-                : QRView(
-                    key: qrKey,
-                    onQRViewCreated: (QRViewController controller) {
-                      _onQRViewCreated(controller, context);
-                    }),
+            child: Text("Give Tender camera permissions to scan a QR code"),
           );
-        },
-      ),
+        }
+
+        return Center(
+          child: kIsWeb
+              ? Text("Scan QR Code of your friend to join")
+              : QRView(
+                  key: qrKey,
+                  onQRViewCreated: (QRViewController controller) {
+                    _onQRViewCreated(controller, context);
+                  }),
+        );
+      },
     );
   }
 

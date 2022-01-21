@@ -100,13 +100,13 @@ class _WelcomePageState extends State<WelcomePage>
               child: Padding(
             padding: const EdgeInsets.all(8.0),
             child: IconButton(
+              iconSize: 64,
               onPressed: () {
                 Navigator.of(context)
                     .push(MaterialPageRoute(builder: (context) => ScanPage()));
               },
               icon: Icon(
                 Icons.qr_code_scanner_sharp,
-                size: 64,
               ),
             ),
           )),
