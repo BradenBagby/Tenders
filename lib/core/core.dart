@@ -1,3 +1,4 @@
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:tenders/core/utility/dynamic_links.dart';
 import 'package:tenders/core/utility/environment.dart';
 import 'package:tenders/core/utility/injection.dart';
@@ -11,6 +12,7 @@ class Core {
   /// initializes all tools before app starts
   static Future<void> init() async {
     WidgetsFlutterBinding.ensureInitialized();
+    MobileAds.instance.initialize();
     await Firebase.initializeApp();
     await Environment.init();
     await Injection.setup();

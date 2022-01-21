@@ -1,3 +1,4 @@
+import 'package:tenders/application/ads/ads_cubit.dart';
 import 'package:tenders/application/room_auth/room_auth_cubit.dart';
 import 'package:tenders/services/implementation/auth.dart';
 import 'package:tenders/services/implementation/google_restauraunt.dart';
@@ -21,6 +22,7 @@ class Injection {
     // singleton blocs
     getIt.registerSingleton<RoomAuthCubit>(
         RoomAuthCubit(roomService: GetIt.I<IRoom>()));
+    getIt.registerSingleton<AdsCubit>(AdsCubit());
 
     return GetIt.I.allReady();
   }

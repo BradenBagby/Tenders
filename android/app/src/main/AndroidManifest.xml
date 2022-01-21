@@ -6,6 +6,9 @@
    <application
         android:label="tenders"
         android:icon="@mipmap/launcher_icon">
+               <meta-data
+            android:name="com.google.android.gms.ads.APPLICATION_ID"
+            android:value="ca-app-pub-3602460165075558~7942119958"/>
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"

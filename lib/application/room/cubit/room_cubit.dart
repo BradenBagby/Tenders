@@ -1,10 +1,12 @@
 import 'dart:async';
 import 'dart:developer';
+import 'dart:math' as math;
 
 import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:get_it/get_it.dart';
 import 'package:location/location.dart';
+import 'package:tenders/application/ads/ads_cubit.dart';
 import 'package:tenders/core/utility/route_controllers.dart';
 import 'package:tenders/domain/member/member.dart';
 import 'package:tenders/domain/restauraunt/restauraunt.dart';
@@ -21,9 +23,14 @@ class RoomCubit extends Cubit<RoomState> {
   StreamSubscription<Iterable<Member>>? memberDataStreamSubscription;
   StreamSubscription<Iterable<Restauraunt>>? matchStreamSubscription;
   IRestauraunt _restaurauntService;
+
+  int showAdCounter = 8;
+  int adsShown = 0;
   RoomCubit({required Room room, required Member me})
       : _restaurauntService = GetIt.I<IRestauraunt>(),
         super(RoomState(room: room, me: me, members: [me], restauraunts: [])) {
+    showAdCounter = math.Random().nextInt(4) + 6;
+
     // listen to room updates and update state accordinly
     roomDataStreamSubscription =
         GetIt.I<IRoom>().roomUpdates(room.id).listen((event) {
@@ -50,6 +57,16 @@ class RoomCubit extends Cubit<RoomState> {
     });
 
     loadRestauraunts();
+  }
+
+  void possibleShowAd() {
+    print("Possibly show ad: Coutner:${showAdCounter}");
+    if (showAdCounter < 1) {
+      adsShown++;
+      GetIt.I<AdsCubit>().show();
+      showAdCounter = math.Random().nextInt(4) + 6 + (adsShown * 2);
+    }
+    showAdCounter--;
   }
 
   Future<bool> loadRestauraunts() async {
@@ -98,6 +115,7 @@ class RoomCubit extends Cubit<RoomState> {
   }
 
   Future<void> next({required bool accepted}) async {
+    possibleShowAd();
     if (accepted) {
       final acceptedRestauraunt = state.currentViewRestauraunt;
       final acceptedUserIds = await GetIt.I<IRoom>().acceptRestauraunt(
