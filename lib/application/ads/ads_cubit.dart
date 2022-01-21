@@ -61,7 +61,10 @@ class AdsCubit extends Cubit<AdsState> {
           onAdFailedToLoad: (LoadAdError error) {
             emit(state.copyWith(failedTimes: state.failedTimes + 1));
             if (state.failedTimes < 4) {
-              load();
+              print("Failed to load ad, tyring again: ${state.failedTimes}");
+              Future.delayed(const Duration(seconds: 2)).then((d) {
+                load();
+              });
             }
           },
         ));
