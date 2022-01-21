@@ -14,6 +14,7 @@ class RoomState with _$RoomState {
     @Default(false) bool closed,
     @Default(null) String? pageToken,
     @Default(false) bool showNeedsLocation,
+    @Default([]) List<Restauraunt> matches,
 
     /// have we loaded anything
     @Default(false) bool hasLoaded,

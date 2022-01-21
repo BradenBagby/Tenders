@@ -51,6 +51,9 @@ class RoomAuthCubit extends Cubit<RoomAuthState> {
     try {
       final info = await _roomService.join(member, id);
       final cubit = RoomCubit(room: info.item2, me: info.item1);
+      if (state.currentRoomCubit != null) {
+        await leaveRoom();
+      }
       emit(state.copyWith(currentRoomCubit: cubit));
       return true;
     } catch (er) {

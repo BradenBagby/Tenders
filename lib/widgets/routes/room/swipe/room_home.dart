@@ -10,6 +10,7 @@ import 'package:tenders/widgets/common/custom/spinner.dart';
 import 'package:tenders/widgets/common/displays/restauraunt_display.dart';
 import 'package:tenders/widgets/common/web_controls.dart';
 import 'package:tenders/widgets/routes/room/drawer/room_drawer.dart';
+import 'package:tenders/widgets/routes/room/swipe/controls.dart';
 import 'package:tenders/widgets/routes/room/swipe/draggable_card.dart';
 import 'package:tenders/widgets/routes/room/waiting_for_friends.dart';
 
@@ -98,7 +99,7 @@ class _RoomHomeState extends State<RoomHome> {
             DraggableCard(
               key: ValueKey(state.currentViewRestauraunt!.id),
               acceptOverlay: Container(
-                color: Colors.black,
+                color: Color(0xff000f04),
                 child: Center(
                   child: Icon(
                     Icons.check,
@@ -108,7 +109,7 @@ class _RoomHomeState extends State<RoomHome> {
                 ),
               ),
               denyOverlay: Container(
-                color: Colors.black,
+                color: Color(0xff0f0000),
                 child: Center(
                   child: Icon(
                     Icons.cancel,

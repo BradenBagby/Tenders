@@ -49,11 +49,16 @@ class RoomCubit extends Cubit<RoomState> {
     });
     matchStreamSubscription =
         GetIt.I<IRoom>().matchUpdates(room.id).listen((event) async {
+      final current = List<Restauraunt>.from(state.matches);
       for (final Restauraunt rest in event) {
-        await RootRouteController.showMatch(
-            RootRouteController.key.currentContext!,
-            restauraunt: rest);
+        if (current.where((element) => element.id == rest.id).isEmpty) {
+          current.add(rest);
+          await RootRouteController.showMatch(
+              RootRouteController.key.currentContext!,
+              restauraunt: rest);
+        }
       }
+      emit(state.copyWith(matches: current));
     });
 
     loadRestauraunts();

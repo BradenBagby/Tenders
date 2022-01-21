@@ -5,7 +5,8 @@ import 'package:transparent_image/transparent_image.dart';
 
 class URLImage extends StatelessWidget {
   final String url;
-  const URLImage(this.url);
+  final Widget? failedWidget;
+  const URLImage(this.url, {this.failedWidget});
 
   @override
   Widget build(BuildContext context) {
@@ -18,6 +19,11 @@ class URLImage extends StatelessWidget {
     } else {
       return CachedNetworkImage(
         imageUrl: url,
+        errorWidget: failedWidget != null
+            ? (context, t, d) {
+                return failedWidget!;
+              }
+            : null,
         fit: BoxFit.cover,
       );
     }

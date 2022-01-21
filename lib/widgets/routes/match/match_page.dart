@@ -1,6 +1,7 @@
 import 'dart:math' as math;
 import 'package:confetti/confetti.dart';
 import 'package:flutter/material.dart';
+import 'package:maps_launcher/maps_launcher.dart';
 import 'package:tenders/domain/restauraunt/restauraunt.dart';
 import 'package:tenders/widgets/common/displays/restauraunt_display.dart';
 
@@ -47,15 +48,12 @@ class _MatchPageState extends State<MatchPage> {
                         style: Theme.of(context).textTheme.headline4,
                       ),
                     ),
-                    Opacity(
-                      opacity: 0,
-                      child: IconButton(
-                        onPressed: () {
-                          Navigator.of(context).pop();
-                        },
-                        icon: Icon(Icons.close),
-                      ),
-                    )
+                    IconButton(
+                      onPressed: () {
+                        MapsLauncher.launchQuery(widget.restauraunt.address);
+                      },
+                      icon: Icon(Icons.drive_eta),
+                    ),
                   ],
                 ),
               ),

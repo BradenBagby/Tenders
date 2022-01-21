@@ -6,6 +6,7 @@ import 'package:tenders/application/room_auth/room_auth_cubit.dart';
 import 'package:tenders/core/utility/dynamic_links.dart';
 import 'package:tenders/core/utility/route_controllers.dart';
 import 'package:tenders/widgets/common/displays/member_count.dart';
+import 'package:tenders/widgets/common/displays/restaurant_row.dart';
 import 'package:tenders/widgets/routes/room/view_qr_code.dart';
 
 class RoomDrawer extends StatelessWidget {
@@ -25,7 +26,23 @@ class RoomDrawer extends StatelessWidget {
               SizedBox(
                 height: 8,
               ),
-              Expanded(child: SizedBox()),
+              Text(
+                "Matches:",
+                style: Theme.of(context)
+                    .textTheme
+                    .headline5!
+                    .copyWith(fontWeight: FontWeight.bold),
+              ),
+              Expanded(child: BlocBuilder<RoomCubit, RoomState>(
+                builder: (context, state) {
+                  return ListView.builder(
+                    itemBuilder: (context, index) {
+                      return RestaurantRow(state.matches[index]);
+                    },
+                    itemCount: state.matches.length,
+                  );
+                },
+              )),
               ElevatedButton(
                 onPressed: () =>
                     BlocProvider.of<RoomAuthCubit>(context).leaveRoom(),
