@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'dart:math' as math;
 
 import 'package:bloc/bloc.dart';
+import 'package:flutter/foundation.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:get_it/get_it.dart';
 import 'package:location/location.dart';
@@ -133,7 +134,7 @@ class RoomCubit extends Cubit<RoomState> {
       bool match = true;
       final activeMembers =
           state.members.where((element) => !element.disconnected).toList();
-      if (activeMembers.length > 1) {
+      if (activeMembers.length > 1 || kDebugMode) {
         // TODO: remove the or true
         for (final active in activeMembers) {
           if (!acceptedUserIds.contains(active.id)) {

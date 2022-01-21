@@ -13,8 +13,19 @@ _$_Restauraunt _$_$_RestaurauntFromJson(Map<String, dynamic> json) {
     address: json['address'] as String,
     rating: (json['rating'] as num).toDouble(),
     iconUrl: json['iconUrl'] as String,
+    latitude: (json['latitude'] as num).toDouble(),
+    longitude: (json['longitude'] as num).toDouble(),
     photos: (json['photos'] as List<dynamic>?)
             ?.map((e) => Photo.fromJson(e as Map<String, dynamic>))
+            .toList() ??
+        [],
+    opennow: json['opennow'] as bool? ?? false,
+    hoursText: (json['hoursText'] as List<dynamic>?)
+            ?.map((e) => e as String)
+            .toList() ??
+        [],
+    reviews: (json['reviews'] as List<dynamic>?)
+            ?.map((e) => Review.fromJson(e as Map<String, dynamic>))
             .toList() ??
         [],
   );
@@ -27,5 +38,10 @@ Map<String, dynamic> _$_$_RestaurauntToJson(_$_Restauraunt instance) =>
       'address': instance.address,
       'rating': instance.rating,
       'iconUrl': instance.iconUrl,
+      'latitude': instance.latitude,
+      'longitude': instance.longitude,
       'photos': instance.photos.map((e) => e.toJson()).toList(),
+      'opennow': instance.opennow,
+      'hoursText': instance.hoursText,
+      'reviews': instance.reviews.map((e) => e.toJson()).toList(),
     };

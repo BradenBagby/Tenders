@@ -26,14 +26,24 @@ class _$RestaurauntTearOff {
       required String address,
       required double rating,
       required String iconUrl,
-      List<Photo> photos = const []}) {
+      required double latitude,
+      required double longitude,
+      List<Photo> photos = const [],
+      bool opennow = false,
+      List<String> hoursText = const [],
+      List<Review> reviews = const []}) {
     return _Restauraunt(
       name: name,
       id: id,
       address: address,
       rating: rating,
       iconUrl: iconUrl,
+      latitude: latitude,
+      longitude: longitude,
       photos: photos,
+      opennow: opennow,
+      hoursText: hoursText,
+      reviews: reviews,
     );
   }
 
@@ -52,7 +62,12 @@ mixin _$Restauraunt {
   String get address => throw _privateConstructorUsedError;
   double get rating => throw _privateConstructorUsedError;
   String get iconUrl => throw _privateConstructorUsedError;
+  double get latitude => throw _privateConstructorUsedError;
+  double get longitude => throw _privateConstructorUsedError;
   List<Photo> get photos => throw _privateConstructorUsedError;
+  bool get opennow => throw _privateConstructorUsedError;
+  List<String> get hoursText => throw _privateConstructorUsedError;
+  List<Review> get reviews => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -71,7 +86,12 @@ abstract class $RestaurauntCopyWith<$Res> {
       String address,
       double rating,
       String iconUrl,
-      List<Photo> photos});
+      double latitude,
+      double longitude,
+      List<Photo> photos,
+      bool opennow,
+      List<String> hoursText,
+      List<Review> reviews});
 }
 
 /// @nodoc
@@ -89,7 +109,12 @@ class _$RestaurauntCopyWithImpl<$Res> implements $RestaurauntCopyWith<$Res> {
     Object? address = freezed,
     Object? rating = freezed,
     Object? iconUrl = freezed,
+    Object? latitude = freezed,
+    Object? longitude = freezed,
     Object? photos = freezed,
+    Object? opennow = freezed,
+    Object? hoursText = freezed,
+    Object? reviews = freezed,
   }) {
     return _then(_value.copyWith(
       name: name == freezed
@@ -112,10 +137,30 @@ class _$RestaurauntCopyWithImpl<$Res> implements $RestaurauntCopyWith<$Res> {
           ? _value.iconUrl
           : iconUrl // ignore: cast_nullable_to_non_nullable
               as String,
+      latitude: latitude == freezed
+          ? _value.latitude
+          : latitude // ignore: cast_nullable_to_non_nullable
+              as double,
+      longitude: longitude == freezed
+          ? _value.longitude
+          : longitude // ignore: cast_nullable_to_non_nullable
+              as double,
       photos: photos == freezed
           ? _value.photos
           : photos // ignore: cast_nullable_to_non_nullable
               as List<Photo>,
+      opennow: opennow == freezed
+          ? _value.opennow
+          : opennow // ignore: cast_nullable_to_non_nullable
+              as bool,
+      hoursText: hoursText == freezed
+          ? _value.hoursText
+          : hoursText // ignore: cast_nullable_to_non_nullable
+              as List<String>,
+      reviews: reviews == freezed
+          ? _value.reviews
+          : reviews // ignore: cast_nullable_to_non_nullable
+              as List<Review>,
     ));
   }
 }
@@ -133,7 +178,12 @@ abstract class _$RestaurauntCopyWith<$Res>
       String address,
       double rating,
       String iconUrl,
-      List<Photo> photos});
+      double latitude,
+      double longitude,
+      List<Photo> photos,
+      bool opennow,
+      List<String> hoursText,
+      List<Review> reviews});
 }
 
 /// @nodoc
@@ -153,7 +203,12 @@ class __$RestaurauntCopyWithImpl<$Res> extends _$RestaurauntCopyWithImpl<$Res>
     Object? address = freezed,
     Object? rating = freezed,
     Object? iconUrl = freezed,
+    Object? latitude = freezed,
+    Object? longitude = freezed,
     Object? photos = freezed,
+    Object? opennow = freezed,
+    Object? hoursText = freezed,
+    Object? reviews = freezed,
   }) {
     return _then(_Restauraunt(
       name: name == freezed
@@ -176,10 +231,30 @@ class __$RestaurauntCopyWithImpl<$Res> extends _$RestaurauntCopyWithImpl<$Res>
           ? _value.iconUrl
           : iconUrl // ignore: cast_nullable_to_non_nullable
               as String,
+      latitude: latitude == freezed
+          ? _value.latitude
+          : latitude // ignore: cast_nullable_to_non_nullable
+              as double,
+      longitude: longitude == freezed
+          ? _value.longitude
+          : longitude // ignore: cast_nullable_to_non_nullable
+              as double,
       photos: photos == freezed
           ? _value.photos
           : photos // ignore: cast_nullable_to_non_nullable
               as List<Photo>,
+      opennow: opennow == freezed
+          ? _value.opennow
+          : opennow // ignore: cast_nullable_to_non_nullable
+              as bool,
+      hoursText: hoursText == freezed
+          ? _value.hoursText
+          : hoursText // ignore: cast_nullable_to_non_nullable
+              as List<String>,
+      reviews: reviews == freezed
+          ? _value.reviews
+          : reviews // ignore: cast_nullable_to_non_nullable
+              as List<Review>,
     ));
   }
 }
@@ -194,7 +269,12 @@ class _$_Restauraunt extends _Restauraunt {
       required this.address,
       required this.rating,
       required this.iconUrl,
-      this.photos = const []})
+      required this.latitude,
+      required this.longitude,
+      this.photos = const [],
+      this.opennow = false,
+      this.hoursText = const [],
+      this.reviews = const []})
       : super._();
 
   factory _$_Restauraunt.fromJson(Map<String, dynamic> json) =>
@@ -210,13 +290,26 @@ class _$_Restauraunt extends _Restauraunt {
   final double rating;
   @override
   final String iconUrl;
+  @override
+  final double latitude;
+  @override
+  final double longitude;
   @JsonKey(defaultValue: const [])
   @override
   final List<Photo> photos;
+  @JsonKey(defaultValue: false)
+  @override
+  final bool opennow;
+  @JsonKey(defaultValue: const [])
+  @override
+  final List<String> hoursText;
+  @JsonKey(defaultValue: const [])
+  @override
+  final List<Review> reviews;
 
   @override
   String toString() {
-    return 'Restauraunt(name: $name, id: $id, address: $address, rating: $rating, iconUrl: $iconUrl, photos: $photos)';
+    return 'Restauraunt(name: $name, id: $id, address: $address, rating: $rating, iconUrl: $iconUrl, latitude: $latitude, longitude: $longitude, photos: $photos, opennow: $opennow, hoursText: $hoursText, reviews: $reviews)';
   }
 
   @override
@@ -235,8 +328,22 @@ class _$_Restauraunt extends _Restauraunt {
             (identical(other.iconUrl, iconUrl) ||
                 const DeepCollectionEquality()
                     .equals(other.iconUrl, iconUrl)) &&
+            (identical(other.latitude, latitude) ||
+                const DeepCollectionEquality()
+                    .equals(other.latitude, latitude)) &&
+            (identical(other.longitude, longitude) ||
+                const DeepCollectionEquality()
+                    .equals(other.longitude, longitude)) &&
             (identical(other.photos, photos) ||
-                const DeepCollectionEquality().equals(other.photos, photos)));
+                const DeepCollectionEquality().equals(other.photos, photos)) &&
+            (identical(other.opennow, opennow) ||
+                const DeepCollectionEquality()
+                    .equals(other.opennow, opennow)) &&
+            (identical(other.hoursText, hoursText) ||
+                const DeepCollectionEquality()
+                    .equals(other.hoursText, hoursText)) &&
+            (identical(other.reviews, reviews) ||
+                const DeepCollectionEquality().equals(other.reviews, reviews)));
   }
 
   @override
@@ -247,7 +354,12 @@ class _$_Restauraunt extends _Restauraunt {
       const DeepCollectionEquality().hash(address) ^
       const DeepCollectionEquality().hash(rating) ^
       const DeepCollectionEquality().hash(iconUrl) ^
-      const DeepCollectionEquality().hash(photos);
+      const DeepCollectionEquality().hash(latitude) ^
+      const DeepCollectionEquality().hash(longitude) ^
+      const DeepCollectionEquality().hash(photos) ^
+      const DeepCollectionEquality().hash(opennow) ^
+      const DeepCollectionEquality().hash(hoursText) ^
+      const DeepCollectionEquality().hash(reviews);
 
   @JsonKey(ignore: true)
   @override
@@ -267,7 +379,12 @@ abstract class _Restauraunt extends Restauraunt {
       required String address,
       required double rating,
       required String iconUrl,
-      List<Photo> photos}) = _$_Restauraunt;
+      required double latitude,
+      required double longitude,
+      List<Photo> photos,
+      bool opennow,
+      List<String> hoursText,
+      List<Review> reviews}) = _$_Restauraunt;
   _Restauraunt._() : super._();
 
   factory _Restauraunt.fromJson(Map<String, dynamic> json) =
@@ -284,7 +401,17 @@ abstract class _Restauraunt extends Restauraunt {
   @override
   String get iconUrl => throw _privateConstructorUsedError;
   @override
+  double get latitude => throw _privateConstructorUsedError;
+  @override
+  double get longitude => throw _privateConstructorUsedError;
+  @override
   List<Photo> get photos => throw _privateConstructorUsedError;
+  @override
+  bool get opennow => throw _privateConstructorUsedError;
+  @override
+  List<String> get hoursText => throw _privateConstructorUsedError;
+  @override
+  List<Review> get reviews => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$RestaurauntCopyWith<_Restauraunt> get copyWith =>
