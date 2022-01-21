@@ -8,7 +8,17 @@ class MemberCount extends StatelessWidget {
     return BlocBuilder<RoomCubit, RoomState>(builder: (context, state) {
       return Wrap(
         alignment: WrapAlignment.center,
-        children: [...state.members.map((e) => Icon(Icons.person)).toList()],
+        children: [
+          ...state.members
+              .map((e) => Icon(
+                    Icons.person,
+                    color: Theme.of(context)
+                        .iconTheme
+                        .color!
+                        .withAlpha(e.disconnected ? 100 : 255),
+                  ))
+              .toList()
+        ],
       );
     });
   }
