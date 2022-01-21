@@ -15,9 +15,11 @@ class GoogleRestauraunt implements IRestauraunt {
   static const NEARBY_URL = "place/nearbysearch/json";
 
   static final Dio dio = Dio(BaseOptions(
-    headers: kIsWeb
-        ? {"Access-Control-Allow-Origin": "https://maps.googleapis.com"}
-        : {},
+    receiveTimeout: 6000,
+    connectTimeout: 10000,
+    headers: {
+      "Access-Control-Allow-Origin": "https://maps.googleapis.com/maps/api/"
+    },
     baseUrl: "https://maps.googleapis.com/maps/api/",
   ));
 
@@ -27,26 +29,31 @@ class GoogleRestauraunt implements IRestauraunt {
     String? pageToken,
     required RoomSettings settings,
   }) async {
-    // TODO: catch errors
-    String url =
-        "place/nearbysearch/json?location=${GoogleRestaurauntURL.location(location)}&radius=${settings.radius}&type=${settings.type.toQueryString()}${settings.openNow ? '&opennow=true' : ''}&key=$API_KEY&rankby=prominence";
-    if (pageToken != null) {
-      url = "$url&pagetoken=$pageToken";
-    }
-    final uri = Uri.encodeFull(url);
-    final res = await dio.get(uri);
-    final data = Map<String, dynamic>.from(res.data as Map<dynamic, dynamic>);
-    final nextPageToken = data['next_page_token'] as String?;
-    if (data['status'] as String == "OK") {
-      final listData =
-          List<Map<String, dynamic>>.from(data['results'] as Iterable<dynamic>);
-      final restauraunts = listData
-          .map((e) => Restauraunt.fromGoogleJson(e))
-          .toList()
-        ..shuffle();
-      return Tuple2(restauraunts, nextPageToken);
-    } else {
-      // TODO
+    try {
+      // TODO: catch errors
+      String url =
+          "place/nearbysearch/json?location=${GoogleRestaurauntURL.location(location)}&radius=${settings.radius}&type=${settings.type.toQueryString()}${settings.openNow ? '&opennow=true' : ''}&key=$API_KEY&rankby=prominence";
+      if (pageToken != null) {
+        url = "$url&pagetoken=$pageToken";
+      }
+      final uri = Uri.encodeFull(url);
+      final res = await dio.get(uri);
+      final data = Map<String, dynamic>.from(res.data as Map<dynamic, dynamic>);
+      final nextPageToken = data['next_page_token'] as String?;
+      if (data['status'] as String == "OK") {
+        final listData = List<Map<String, dynamic>>.from(
+            data['results'] as Iterable<dynamic>);
+        final restauraunts = listData
+            .map((e) => Restauraunt.fromGoogleJson(e))
+            .toList()
+          ..shuffle();
+        return Tuple2(restauraunts, nextPageToken);
+      } else {
+        log("error loading restaurants bad status: $data");
+        return Tuple2(<Restauraunt>[], null);
+      }
+    } catch (er) {
+      log("error loading restaurants: $er");
       return Tuple2(<Restauraunt>[], null);
     }
   }
