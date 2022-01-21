@@ -50,4 +50,7 @@ const _$PlaceTypeEnumMap = {
   PlaceType.RESTAURAT: 'RESTAURANT',
   PlaceType.FOOD: 'FOOD',
   PlaceType.DRINKS: 'DRINKS',
+  PlaceType.BAKERY: 'BAKERY',
+  PlaceType.BAR: 'BAR',
+  PlaceType.CAFE: 'CAFE',
 };

@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tenders/application/room_auth/room_auth_cubit.dart';
 import 'package:tenders/domain/room_settings/room_settings.dart';
+import 'package:tenders/widgets/common/custom/dropdown.dart';
+import 'package:tenders/widgets/common/custom/input_controllers.dart';
 import 'package:tenders/widgets/common/displays/chicken.dart';
 import 'package:tenders/widgets/routes/scan/scan_page.dart';
 
@@ -21,6 +23,11 @@ class _WelcomePageState extends State<WelcomePage>
 
   bool goingIn = true;
 
+  bool moreOptions = false;
+  bool opennow = false;
+  PlaceType type = PlaceType.RESTAURAT;
+  late final InputController dropdownController;
+
   @override
   void initState() {
     super.initState();
@@ -28,6 +35,9 @@ class _WelcomePageState extends State<WelcomePage>
         vsync: this, duration: const Duration(milliseconds: ANIMATION_TIME));
     inAnimation =
         CurvedAnimation(parent: animationController, curve: Curves.easeOut);
+    dropdownController = InputController(
+      text: type.toUIString(),
+    );
 
     animationController.addListener(() {
       setState(() {});
@@ -121,36 +131,92 @@ class _WelcomePageState extends State<WelcomePage>
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            _goButton(context),
-            SizedBox(
-              height: 8,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text("Within ${radiusMiles.toStringAsFixed(1)} miles",
-                    style: Theme.of(context)
-                        .textTheme
-                        .overline!
-                        .copyWith(fontSize: 15))
-              ],
-            ),
-            Padding(
-              padding: const EdgeInsets.only(left: 32.0, right: 32),
-              child: Slider(
-                value: radiusMiles,
-                onChanged: (val) {
-                  setState(() {
-                    radiusMiles = val;
-                  });
-                },
-                min: 1,
-                max: 100,
+            Expanded(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  _goButton(context),
+                  SizedBox(
+                    height: 8,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text("Within ${radiusMiles.toStringAsFixed(1)} miles",
+                          style: Theme.of(context)
+                              .textTheme
+                              .overline!
+                              .copyWith(fontSize: 15))
+                    ],
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 32.0, right: 32),
+                    child: Slider(
+                      value: radiusMiles,
+                      onChanged: (val) {
+                        setState(() {
+                          radiusMiles = val;
+                        });
+                      },
+                      min: 1,
+                      max: 100,
+                    ),
+                  ),
+                ],
               ),
             ),
+            Expanded(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  moreOptions
+                      ? _options()
+                      : TextButton(
+                          onPressed: () {
+                            setState(() {
+                              moreOptions = true;
+                            });
+                          },
+                          child: Text(
+                            "More Options",
+                            style: Theme.of(context).textTheme.caption,
+                          ))
+                ],
+              ),
+            )
           ],
         ),
       ),
+    );
+  }
+
+  Widget _options() {
+    return Column(
+      children: [
+        SizedBox(
+          width: 200,
+          child: Dropdown(
+            options: {
+              for (var v in PlaceType.values) v.toUIString(): v.toUIString()
+            },
+            controller: dropdownController,
+          ),
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Checkbox(
+                value: opennow,
+                onChanged: (val) {
+                  setState(() {
+                    opennow = val ?? !opennow;
+                    ;
+                  });
+                }),
+            Text("Must be open now")
+          ],
+        ),
+      ],
     );
   }
 
@@ -163,8 +229,8 @@ class _WelcomePageState extends State<WelcomePage>
         BlocProvider.of<RoomAuthCubit>(context).createRoom(
             settings: RoomSettings(
                 radius: (radiusMiles * MILES_TO_METERS).toInt(),
-                type: PlaceType.RESTAURAT,
-                openNow: false));
+                type: PlaceTypeString.fromUIString(dropdownController.text),
+                openNow: opennow));
       }, // TODO: if fail show message
       child: Padding(
         padding: const EdgeInsets.all(8.0),

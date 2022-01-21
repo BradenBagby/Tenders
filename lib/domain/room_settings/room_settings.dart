@@ -10,9 +10,21 @@ enum PlaceType {
   FOOD,
   @JsonValue("DRINKS")
   DRINKS,
+  @JsonValue("BAKERY")
+  BAKERY,
+  @JsonValue("BAR")
+  BAR,
+  @JsonValue("CAFE")
+  CAFE,
 }
 
 extension PlaceTypeString on PlaceType {
+  static PlaceType fromUIString(String string) {
+    final res = PlaceType.values
+        .firstWhere((element) => element.toUIString() == string);
+    return res;
+  }
+
   String toQueryString() {
     switch (this) {
       case PlaceType.RESTAURAT:
@@ -21,6 +33,29 @@ extension PlaceTypeString on PlaceType {
         return "food";
       case PlaceType.DRINKS:
         return "drinks"; // TODO:
+      case PlaceType.BAKERY:
+        return "bakery";
+      case PlaceType.BAR:
+        return "bar";
+      case PlaceType.CAFE:
+        return "cafe";
+    }
+  }
+
+  String toUIString() {
+    switch (this) {
+      case PlaceType.RESTAURAT:
+        return "Restaurant";
+      case PlaceType.FOOD:
+        return "Food";
+      case PlaceType.DRINKS:
+        return "Drinks";
+      case PlaceType.BAKERY:
+        return "Bakery";
+      case PlaceType.BAR:
+        return "Bar";
+      case PlaceType.CAFE:
+        return "Cafe";
     }
   }
 }

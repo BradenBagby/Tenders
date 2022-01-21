@@ -6,6 +6,7 @@ import 'package:qr_flutter/qr_flutter.dart';
 import 'package:tenders/application/room_auth/room_auth_cubit.dart';
 import 'package:tenders/core/utility/dynamic_links.dart';
 import 'package:tenders/core/utility/route_controllers.dart';
+import 'package:tenders/widgets/common/custom/spinner.dart';
 
 class ViewQRCode extends StatelessWidget {
   final double size;
@@ -22,7 +23,7 @@ class ViewQRCode extends StatelessWidget {
           ? FutureBuilder<String>(
               future: DynamicLinks.createLink('room/${currentRoom.id}'),
               builder: (context, snapshot) {
-                if (!snapshot.hasData) return CircularProgressIndicator();
+                if (!snapshot.hasData) return Loader();
                 log("link: ${snapshot.data!}");
                 return Column(
                   mainAxisAlignment: MainAxisAlignment.center,

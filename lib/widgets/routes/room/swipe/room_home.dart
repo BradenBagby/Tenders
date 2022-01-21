@@ -6,6 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:tenders/application/room/cubit/room_cubit.dart';
 import 'package:tenders/application/room_auth/room_auth_cubit.dart';
+import 'package:tenders/widgets/common/custom/spinner.dart';
 import 'package:tenders/widgets/common/displays/restauraunt_display.dart';
 import 'package:tenders/widgets/common/web_controls.dart';
 import 'package:tenders/widgets/routes/room/drawer/room_drawer.dart';
@@ -78,7 +79,7 @@ class _RoomHomeState extends State<RoomHome> {
               child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              CircularProgressIndicator(),
+              Loader(),
               SizedBox(
                 height: 8,
               ),
