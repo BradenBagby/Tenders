@@ -8,6 +8,8 @@ import 'package:tenders/core/utility/dynamic_links.dart';
 import 'package:tenders/core/utility/route_controllers.dart';
 
 class ViewQRCode extends StatelessWidget {
+  final double size;
+  const ViewQRCode({this.size = 200.0});
   @override
   Widget build(BuildContext context) {
     final currentRoom = BlocProvider.of<RoomAuthCubit>(context)
@@ -29,7 +31,7 @@ class ViewQRCode extends StatelessWidget {
                       data: snapshot
                           .data!, // TODO: make this a dynamic link into the app so you can scan it and join without having the app
                       version: QrVersions.auto,
-                      size: 200.0,
+                      size: size,
                     ),
                   ],
                 );

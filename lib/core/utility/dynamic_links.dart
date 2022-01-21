@@ -75,12 +75,13 @@ class DynamicLinks {
     }
   }
 
-  static Future<String> createLink(String path) async {
-    if (cachedLinks.containsKey(path)) {
-      return cachedLinks[path]!;
+  static Future<String> createLink(String path,
+      {bool preferShort = false}) async {
+    if (cachedLinks.containsKey(path + preferShort.toString())) {
+      return cachedLinks[path + preferShort.toString()]!;
     }
     String link;
-    if (kIsWeb || true) {
+    if (kIsWeb || !preferShort) {
       link =
           '${'https://tenders.page.link'}/?link=${Uri.parse('https://tenders.page.link${path.isNotEmpty ? "/$path" : ""}')}&apn=${'com.bradenbagby.tenders'}&ibi=${'com.bradenbagby.tenders'}';
     } else {
@@ -116,7 +117,7 @@ class DynamicLinks {
       final Uri shortUrl = shortDynamicLink.shortUrl;
       link = shortUrl.toString();
     }
-    cachedLinks[path] = link;
+    cachedLinks[path + preferShort.toString()] = link;
     return link;
   }
 }
