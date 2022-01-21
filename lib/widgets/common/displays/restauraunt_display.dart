@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
 import 'package:tenders/domain/restauraunt/photo.dart';
 import 'package:tenders/domain/restauraunt/restauraunt.dart';
+import 'package:tenders/services/interfaces/i_restauraunt.dart';
 import 'package:tenders/widgets/common/displays/photo_slider.dart';
 import 'package:tenders/widgets/common/displays/url_image.dart';
 import 'package:transparent_image/transparent_image.dart';
@@ -23,11 +25,21 @@ class _RestaurauntDisplayState extends State<RestaurauntDisplay> {
   Size? titleSize;
   final scrollController = ScrollController();
 
+  /// restaurant with all info loaded in
+  Restauraunt? allInfo;
+
   @override
   void initState() {
     super.initState();
     scrollController.addListener(() {
       setState(() {});
+    });
+
+    // immediately get full restauraunt for display
+    GetIt.I<IRestauraunt>().getAllInfo(widget.restauraunt).then((value) {
+      setState(() {
+        allInfo = value;
+      });
     });
   }
 

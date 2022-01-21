@@ -25,15 +25,13 @@ class _$ReviewTearOff {
       required String profile_photo_url,
       required double rating,
       required String relative_time_description,
-      required String text,
-      required DateTime time}) {
+      required String text}) {
     return _Review(
       author_name: author_name,
       profile_photo_url: profile_photo_url,
       rating: rating,
       relative_time_description: relative_time_description,
       text: text,
-      time: time,
     );
   }
 
@@ -52,7 +50,6 @@ mixin _$Review {
   double get rating => throw _privateConstructorUsedError;
   String get relative_time_description => throw _privateConstructorUsedError;
   String get text => throw _privateConstructorUsedError;
-  DateTime get time => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -68,8 +65,7 @@ abstract class $ReviewCopyWith<$Res> {
       String profile_photo_url,
       double rating,
       String relative_time_description,
-      String text,
-      DateTime time});
+      String text});
 }
 
 /// @nodoc
@@ -87,7 +83,6 @@ class _$ReviewCopyWithImpl<$Res> implements $ReviewCopyWith<$Res> {
     Object? rating = freezed,
     Object? relative_time_description = freezed,
     Object? text = freezed,
-    Object? time = freezed,
   }) {
     return _then(_value.copyWith(
       author_name: author_name == freezed
@@ -110,10 +105,6 @@ class _$ReviewCopyWithImpl<$Res> implements $ReviewCopyWith<$Res> {
           ? _value.text
           : text // ignore: cast_nullable_to_non_nullable
               as String,
-      time: time == freezed
-          ? _value.time
-          : time // ignore: cast_nullable_to_non_nullable
-              as DateTime,
     ));
   }
 }
@@ -128,8 +119,7 @@ abstract class _$ReviewCopyWith<$Res> implements $ReviewCopyWith<$Res> {
       String profile_photo_url,
       double rating,
       String relative_time_description,
-      String text,
-      DateTime time});
+      String text});
 }
 
 /// @nodoc
@@ -148,7 +138,6 @@ class __$ReviewCopyWithImpl<$Res> extends _$ReviewCopyWithImpl<$Res>
     Object? rating = freezed,
     Object? relative_time_description = freezed,
     Object? text = freezed,
-    Object? time = freezed,
   }) {
     return _then(_Review(
       author_name: author_name == freezed
@@ -171,10 +160,6 @@ class __$ReviewCopyWithImpl<$Res> extends _$ReviewCopyWithImpl<$Res>
           ? _value.text
           : text // ignore: cast_nullable_to_non_nullable
               as String,
-      time: time == freezed
-          ? _value.time
-          : time // ignore: cast_nullable_to_non_nullable
-              as DateTime,
     ));
   }
 }
@@ -188,8 +173,7 @@ class _$_Review implements _Review {
       required this.profile_photo_url,
       required this.rating,
       required this.relative_time_description,
-      required this.text,
-      required this.time});
+      required this.text});
 
   factory _$_Review.fromJson(Map<String, dynamic> json) =>
       _$_$_ReviewFromJson(json);
@@ -204,12 +188,10 @@ class _$_Review implements _Review {
   final String relative_time_description;
   @override
   final String text;
-  @override
-  final DateTime time;
 
   @override
   String toString() {
-    return 'Review(author_name: $author_name, profile_photo_url: $profile_photo_url, rating: $rating, relative_time_description: $relative_time_description, text: $text, time: $time)';
+    return 'Review(author_name: $author_name, profile_photo_url: $profile_photo_url, rating: $rating, relative_time_description: $relative_time_description, text: $text)';
   }
 
   @override
@@ -230,9 +212,7 @@ class _$_Review implements _Review {
                     other.relative_time_description,
                     relative_time_description)) &&
             (identical(other.text, text) ||
-                const DeepCollectionEquality().equals(other.text, text)) &&
-            (identical(other.time, time) ||
-                const DeepCollectionEquality().equals(other.time, time)));
+                const DeepCollectionEquality().equals(other.text, text)));
   }
 
   @override
@@ -242,8 +222,7 @@ class _$_Review implements _Review {
       const DeepCollectionEquality().hash(profile_photo_url) ^
       const DeepCollectionEquality().hash(rating) ^
       const DeepCollectionEquality().hash(relative_time_description) ^
-      const DeepCollectionEquality().hash(text) ^
-      const DeepCollectionEquality().hash(time);
+      const DeepCollectionEquality().hash(text);
 
   @JsonKey(ignore: true)
   @override
@@ -262,8 +241,7 @@ abstract class _Review implements Review {
       required String profile_photo_url,
       required double rating,
       required String relative_time_description,
-      required String text,
-      required DateTime time}) = _$_Review;
+      required String text}) = _$_Review;
 
   factory _Review.fromJson(Map<String, dynamic> json) = _$_Review.fromJson;
 
@@ -277,8 +255,6 @@ abstract class _Review implements Review {
   String get relative_time_description => throw _privateConstructorUsedError;
   @override
   String get text => throw _privateConstructorUsedError;
-  @override
-  DateTime get time => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$ReviewCopyWith<_Review> get copyWith => throw _privateConstructorUsedError;

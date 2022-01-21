@@ -28,6 +28,11 @@ class _$RestaurauntTearOff {
       required String iconUrl,
       required double latitude,
       required double longitude,
+      String? website,
+      required String url,
+      required String formattedPhoneNumber,
+      int? priceLevel,
+      int totalRatings = 0,
       List<Photo> photos = const [],
       bool opennow = false,
       List<String> hoursText = const [],
@@ -40,6 +45,11 @@ class _$RestaurauntTearOff {
       iconUrl: iconUrl,
       latitude: latitude,
       longitude: longitude,
+      website: website,
+      url: url,
+      formattedPhoneNumber: formattedPhoneNumber,
+      priceLevel: priceLevel,
+      totalRatings: totalRatings,
       photos: photos,
       opennow: opennow,
       hoursText: hoursText,
@@ -64,6 +74,11 @@ mixin _$Restauraunt {
   String get iconUrl => throw _privateConstructorUsedError;
   double get latitude => throw _privateConstructorUsedError;
   double get longitude => throw _privateConstructorUsedError;
+  String? get website => throw _privateConstructorUsedError;
+  String get url => throw _privateConstructorUsedError;
+  String get formattedPhoneNumber => throw _privateConstructorUsedError;
+  int? get priceLevel => throw _privateConstructorUsedError;
+  int get totalRatings => throw _privateConstructorUsedError;
   List<Photo> get photos => throw _privateConstructorUsedError;
   bool get opennow => throw _privateConstructorUsedError;
   List<String> get hoursText => throw _privateConstructorUsedError;
@@ -88,6 +103,11 @@ abstract class $RestaurauntCopyWith<$Res> {
       String iconUrl,
       double latitude,
       double longitude,
+      String? website,
+      String url,
+      String formattedPhoneNumber,
+      int? priceLevel,
+      int totalRatings,
       List<Photo> photos,
       bool opennow,
       List<String> hoursText,
@@ -111,6 +131,11 @@ class _$RestaurauntCopyWithImpl<$Res> implements $RestaurauntCopyWith<$Res> {
     Object? iconUrl = freezed,
     Object? latitude = freezed,
     Object? longitude = freezed,
+    Object? website = freezed,
+    Object? url = freezed,
+    Object? formattedPhoneNumber = freezed,
+    Object? priceLevel = freezed,
+    Object? totalRatings = freezed,
     Object? photos = freezed,
     Object? opennow = freezed,
     Object? hoursText = freezed,
@@ -145,6 +170,26 @@ class _$RestaurauntCopyWithImpl<$Res> implements $RestaurauntCopyWith<$Res> {
           ? _value.longitude
           : longitude // ignore: cast_nullable_to_non_nullable
               as double,
+      website: website == freezed
+          ? _value.website
+          : website // ignore: cast_nullable_to_non_nullable
+              as String?,
+      url: url == freezed
+          ? _value.url
+          : url // ignore: cast_nullable_to_non_nullable
+              as String,
+      formattedPhoneNumber: formattedPhoneNumber == freezed
+          ? _value.formattedPhoneNumber
+          : formattedPhoneNumber // ignore: cast_nullable_to_non_nullable
+              as String,
+      priceLevel: priceLevel == freezed
+          ? _value.priceLevel
+          : priceLevel // ignore: cast_nullable_to_non_nullable
+              as int?,
+      totalRatings: totalRatings == freezed
+          ? _value.totalRatings
+          : totalRatings // ignore: cast_nullable_to_non_nullable
+              as int,
       photos: photos == freezed
           ? _value.photos
           : photos // ignore: cast_nullable_to_non_nullable
@@ -180,6 +225,11 @@ abstract class _$RestaurauntCopyWith<$Res>
       String iconUrl,
       double latitude,
       double longitude,
+      String? website,
+      String url,
+      String formattedPhoneNumber,
+      int? priceLevel,
+      int totalRatings,
       List<Photo> photos,
       bool opennow,
       List<String> hoursText,
@@ -205,6 +255,11 @@ class __$RestaurauntCopyWithImpl<$Res> extends _$RestaurauntCopyWithImpl<$Res>
     Object? iconUrl = freezed,
     Object? latitude = freezed,
     Object? longitude = freezed,
+    Object? website = freezed,
+    Object? url = freezed,
+    Object? formattedPhoneNumber = freezed,
+    Object? priceLevel = freezed,
+    Object? totalRatings = freezed,
     Object? photos = freezed,
     Object? opennow = freezed,
     Object? hoursText = freezed,
@@ -239,6 +294,26 @@ class __$RestaurauntCopyWithImpl<$Res> extends _$RestaurauntCopyWithImpl<$Res>
           ? _value.longitude
           : longitude // ignore: cast_nullable_to_non_nullable
               as double,
+      website: website == freezed
+          ? _value.website
+          : website // ignore: cast_nullable_to_non_nullable
+              as String?,
+      url: url == freezed
+          ? _value.url
+          : url // ignore: cast_nullable_to_non_nullable
+              as String,
+      formattedPhoneNumber: formattedPhoneNumber == freezed
+          ? _value.formattedPhoneNumber
+          : formattedPhoneNumber // ignore: cast_nullable_to_non_nullable
+              as String,
+      priceLevel: priceLevel == freezed
+          ? _value.priceLevel
+          : priceLevel // ignore: cast_nullable_to_non_nullable
+              as int?,
+      totalRatings: totalRatings == freezed
+          ? _value.totalRatings
+          : totalRatings // ignore: cast_nullable_to_non_nullable
+              as int,
       photos: photos == freezed
           ? _value.photos
           : photos // ignore: cast_nullable_to_non_nullable
@@ -271,6 +346,11 @@ class _$_Restauraunt extends _Restauraunt {
       required this.iconUrl,
       required this.latitude,
       required this.longitude,
+      this.website,
+      required this.url,
+      required this.formattedPhoneNumber,
+      this.priceLevel,
+      this.totalRatings = 0,
       this.photos = const [],
       this.opennow = false,
       this.hoursText = const [],
@@ -294,6 +374,17 @@ class _$_Restauraunt extends _Restauraunt {
   final double latitude;
   @override
   final double longitude;
+  @override
+  final String? website;
+  @override
+  final String url;
+  @override
+  final String formattedPhoneNumber;
+  @override
+  final int? priceLevel;
+  @JsonKey(defaultValue: 0)
+  @override
+  final int totalRatings;
   @JsonKey(defaultValue: const [])
   @override
   final List<Photo> photos;
@@ -309,7 +400,7 @@ class _$_Restauraunt extends _Restauraunt {
 
   @override
   String toString() {
-    return 'Restauraunt(name: $name, id: $id, address: $address, rating: $rating, iconUrl: $iconUrl, latitude: $latitude, longitude: $longitude, photos: $photos, opennow: $opennow, hoursText: $hoursText, reviews: $reviews)';
+    return 'Restauraunt(name: $name, id: $id, address: $address, rating: $rating, iconUrl: $iconUrl, latitude: $latitude, longitude: $longitude, website: $website, url: $url, formattedPhoneNumber: $formattedPhoneNumber, priceLevel: $priceLevel, totalRatings: $totalRatings, photos: $photos, opennow: $opennow, hoursText: $hoursText, reviews: $reviews)';
   }
 
   @override
@@ -334,6 +425,20 @@ class _$_Restauraunt extends _Restauraunt {
             (identical(other.longitude, longitude) ||
                 const DeepCollectionEquality()
                     .equals(other.longitude, longitude)) &&
+            (identical(other.website, website) ||
+                const DeepCollectionEquality()
+                    .equals(other.website, website)) &&
+            (identical(other.url, url) ||
+                const DeepCollectionEquality().equals(other.url, url)) &&
+            (identical(other.formattedPhoneNumber, formattedPhoneNumber) ||
+                const DeepCollectionEquality().equals(
+                    other.formattedPhoneNumber, formattedPhoneNumber)) &&
+            (identical(other.priceLevel, priceLevel) ||
+                const DeepCollectionEquality()
+                    .equals(other.priceLevel, priceLevel)) &&
+            (identical(other.totalRatings, totalRatings) ||
+                const DeepCollectionEquality()
+                    .equals(other.totalRatings, totalRatings)) &&
             (identical(other.photos, photos) ||
                 const DeepCollectionEquality().equals(other.photos, photos)) &&
             (identical(other.opennow, opennow) ||
@@ -356,6 +461,11 @@ class _$_Restauraunt extends _Restauraunt {
       const DeepCollectionEquality().hash(iconUrl) ^
       const DeepCollectionEquality().hash(latitude) ^
       const DeepCollectionEquality().hash(longitude) ^
+      const DeepCollectionEquality().hash(website) ^
+      const DeepCollectionEquality().hash(url) ^
+      const DeepCollectionEquality().hash(formattedPhoneNumber) ^
+      const DeepCollectionEquality().hash(priceLevel) ^
+      const DeepCollectionEquality().hash(totalRatings) ^
       const DeepCollectionEquality().hash(photos) ^
       const DeepCollectionEquality().hash(opennow) ^
       const DeepCollectionEquality().hash(hoursText) ^
@@ -381,6 +491,11 @@ abstract class _Restauraunt extends Restauraunt {
       required String iconUrl,
       required double latitude,
       required double longitude,
+      String? website,
+      required String url,
+      required String formattedPhoneNumber,
+      int? priceLevel,
+      int totalRatings,
       List<Photo> photos,
       bool opennow,
       List<String> hoursText,
@@ -404,6 +519,16 @@ abstract class _Restauraunt extends Restauraunt {
   double get latitude => throw _privateConstructorUsedError;
   @override
   double get longitude => throw _privateConstructorUsedError;
+  @override
+  String? get website => throw _privateConstructorUsedError;
+  @override
+  String get url => throw _privateConstructorUsedError;
+  @override
+  String get formattedPhoneNumber => throw _privateConstructorUsedError;
+  @override
+  int? get priceLevel => throw _privateConstructorUsedError;
+  @override
+  int get totalRatings => throw _privateConstructorUsedError;
   @override
   List<Photo> get photos => throw _privateConstructorUsedError;
   @override

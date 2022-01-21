@@ -273,7 +273,7 @@ class __$RoomStateCopyWithImpl<$Res> extends _$RoomStateCopyWithImpl<$Res>
 }
 
 /// @nodoc
-class _$_RoomState extends _RoomState {
+class _$_RoomState extends _RoomState with DiagnosticableTreeMixin {
   const _$_RoomState(
       {required this.room,
       required this.me,
@@ -321,8 +321,26 @@ class _$_RoomState extends _RoomState {
   final bool hasLoaded;
 
   @override
-  String toString() {
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
     return 'RoomState(room: $room, me: $me, members: $members, currentLocation: $currentLocation, restauraunts: $restauraunts, currentViewIndex: $currentViewIndex, closed: $closed, pageToken: $pageToken, showNeedsLocation: $showNeedsLocation, matches: $matches, hasLoaded: $hasLoaded)';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty('type', 'RoomState'))
+      ..add(DiagnosticsProperty('room', room))
+      ..add(DiagnosticsProperty('me', me))
+      ..add(DiagnosticsProperty('members', members))
+      ..add(DiagnosticsProperty('currentLocation', currentLocation))
+      ..add(DiagnosticsProperty('restauraunts', restauraunts))
+      ..add(DiagnosticsProperty('currentViewIndex', currentViewIndex))
+      ..add(DiagnosticsProperty('closed', closed))
+      ..add(DiagnosticsProperty('pageToken', pageToken))
+      ..add(DiagnosticsProperty('showNeedsLocation', showNeedsLocation))
+      ..add(DiagnosticsProperty('matches', matches))
+      ..add(DiagnosticsProperty('hasLoaded', hasLoaded));
   }
 
   @override

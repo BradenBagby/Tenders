@@ -13,7 +13,6 @@ _$_Review _$_$_ReviewFromJson(Map<String, dynamic> json) {
     rating: (json['rating'] as num).toDouble(),
     relative_time_description: json['relative_time_description'] as String,
     text: json['text'] as String,
-    time: DateTime.parse(json['time'] as String),
   );
 }
 
@@ -23,5 +22,4 @@ Map<String, dynamic> _$_$_ReviewToJson(_$_Review instance) => <String, dynamic>{
       'rating': instance.rating,
       'relative_time_description': instance.relative_time_description,
       'text': instance.text,
-      'time': instance.time.toIso8601String(),
     };

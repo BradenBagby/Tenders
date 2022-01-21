@@ -19,6 +19,11 @@ class Restauraunt with _$Restauraunt {
     required String iconUrl,
     required double latitude,
     required double longitude,
+    String? website,
+    required String url,
+    required String formattedPhoneNumber,
+    int? priceLevel,
+    @Default(0) int totalRatings,
     @Default([]) List<Photo> photos,
     @Default(false) bool opennow,
     @Default([]) List<String> hoursText,
@@ -45,12 +50,26 @@ class Restauraunt with _$Restauraunt {
         json.containsKey('opening_hours') ? toMap(json['opening_hours']) : {};
     final opennow = hoursInfo['open_now'] as bool? ?? false;
     final hoursText = hoursInfo.containsKey('weekday_text')
-        ? toList(hoursInfo['weekday_text']) as List<String>
+        ? List<String>.from(hoursInfo['weekday_text'])
         : <String>[];
+    final totalRatings = json['user_ratings_total'] as int? ?? 0;
+    final priceLevel = json['price_level'] as int?;
+    final reviews = json.containsKey('reviews')
+        ? toList(json['reviews']).map((e) => Review.fromJson(e)).toList()
+        : <Review>[];
+    final website = json['website'] as String?;
+    final url = json['url'] as String? ?? '';
+    final phone = json['formatted_phone_number'] as String? ?? '';
     return Restauraunt(
         name: name,
+        url: url,
         id: id,
+        website: website,
+        totalRatings: totalRatings,
+        reviews: reviews,
         address: address,
+        priceLevel: priceLevel,
+        formattedPhoneNumber: phone,
         photos: photos,
         rating: rating.toDouble(),
         latitude: latitude,

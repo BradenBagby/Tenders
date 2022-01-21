@@ -16,7 +16,6 @@ class Review with _$Review {
     required double rating,
     required String relative_time_description,
     required String text,
-    required DateTime time,
   }) = _Review;
   factory Review.fromJson(Map<String, dynamic> json) => _$ReviewFromJson(json);
 }

@@ -4,6 +4,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:location/location.dart';
 import 'package:tenders/core/utility/environment.dart';
+import 'package:tenders/core/utility/utility.dart';
 import 'package:tenders/domain/restauraunt/photo.dart';
 import 'package:tenders/domain/restauraunt/restauraunt.dart';
 import 'package:tenders/domain/room_settings/room_settings.dart';
@@ -63,6 +64,43 @@ class GoogleRestauraunt implements IRestauraunt {
     final url =
         'https://maps.googleapis.com/maps/api/place/photo?photoreference=${photo.photoReference}&sensor=false${maxHeight != null ? '&maxheight=$maxHeight' : ''}${maxWidth != null ? '&maxwidth=$maxWidth' : ''}&key=$API_KEY';
     return url;
+  }
+
+  @override
+  Future<Restauraunt> getAllInfo(Restauraunt restauraunt) async {
+    try {
+      // TODO: catch errors
+      List<String> fields = [
+        'name',
+        'place_id',
+        'vicinity',
+        'rating',
+        'icon',
+        'photos',
+        'geometry',
+        'opening_hours',
+        'price_level',
+        'reviews',
+        'website',
+        'url',
+        'formatted_phone_number'
+      ];
+      String url =
+          "place/details/json?place_id=${restauraunt.id}&fields=${fields.join(',')}&key=$API_KEY";
+      final uri = Uri.encodeFull(url);
+      final res = await dio.get(uri);
+      final data = Map<String, dynamic>.from(res.data as Map<dynamic, dynamic>);
+      if (data['status'] as String == "OK") {
+        final map = toMap(data['result']);
+        return Restauraunt.fromGoogleJson(map);
+      } else {
+        log("error loading restaurant bad status: $data");
+        return restauraunt;
+      }
+    } catch (er) {
+      log("error loading restaurant: $er");
+      return restauraunt;
+    }
   }
 }
 
