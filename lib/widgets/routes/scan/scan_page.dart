@@ -5,6 +5,7 @@ import 'package:qr_code_scanner/qr_code_scanner.dart';
 import 'package:tenders/application/room_auth/room_auth_cubit.dart';
 import 'package:tenders/core/utility/permissions.dart';
 import 'package:tenders/services/interfaces/i_room.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class ScanPage extends StatefulWidget {
   @override
@@ -74,8 +75,7 @@ class _ScanPageState extends State<ScanPage> {
     controller.scannedDataStream.listen((scanData) async {
       try {
         final code = scanData.code;
-        final success = await GetIt.I<RoomAuthCubit>().joinRoom(code!);
-        if (!success) throw Exception();
+        await launch(code!);
       } catch (er) {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
           content: Text(
