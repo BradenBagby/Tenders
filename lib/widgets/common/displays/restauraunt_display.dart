@@ -3,7 +3,9 @@ import 'package:get_it/get_it.dart';
 import 'package:tenders/domain/restauraunt/photo.dart';
 import 'package:tenders/domain/restauraunt/restauraunt.dart';
 import 'package:tenders/services/interfaces/i_restauraunt.dart';
+import 'package:tenders/widgets/common/custom/spinner.dart';
 import 'package:tenders/widgets/common/displays/photo_slider.dart';
+import 'package:tenders/widgets/common/displays/reviews.dart';
 import 'package:tenders/widgets/common/displays/url_image.dart';
 import 'package:transparent_image/transparent_image.dart';
 import 'package:tenders/widgets/common/custom/size_measure.dart';
@@ -127,7 +129,7 @@ class _RestaurauntDisplayState extends State<RestaurauntDisplay> {
               color: Colors.transparent,
               height: titleSize?.height ?? 0,
             ),
-            _expandedInfo()
+            _expandedInfo(),
           ],
         ),
       );
@@ -135,8 +137,22 @@ class _RestaurauntDisplayState extends State<RestaurauntDisplay> {
   }
 
   Widget _expandedInfo() {
+    if (allInfo == null) {
+      return Center(
+        child: Loader(),
+      );
+    }
     return Column(
-      children: [],
+      children: [
+        SizedBox(
+          height: 48,
+        ),
+        Reviews(allInfo!),
+        SizedBox(
+          height: 48,
+        ),
+        PhotoSlider(allInfo!.photos),
+      ],
     );
   }
 
