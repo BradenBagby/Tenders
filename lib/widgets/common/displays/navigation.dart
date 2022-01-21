@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
+import 'package:maps_launcher/maps_launcher.dart';
 import 'package:tenders/application/room/cubit/room_cubit.dart';
 import 'package:tenders/application/room_auth/room_auth_cubit.dart';
 import 'package:tenders/core/utility/utility.dart';
@@ -30,7 +31,9 @@ class Navigation extends StatelessWidget {
         Row(
           children: [
             ElevatedButton(
-              onPressed: () {},
+              onPressed: () {
+                MapsLauncher.launchQuery(restauraunt.address);
+              },
               child: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
@@ -39,9 +42,17 @@ class Navigation extends StatelessWidget {
                     width: 4,
                   ),
                   Text(
-                    "Directions${currentLocation == null ? '' : "${calculateDistance(restauraunt.latitude, restauraunt.longitude, currentLocation.latitude!, currentLocation.longitude!).toStringAsFixed(2)} miles"}",
+                    "Directions",
                     style: Theme.of(context).textTheme.button,
                   ),
+                  if (currentLocation != null)
+                    Text(
+                      " ${calculateDistance(restauraunt.latitude, restauraunt.longitude, currentLocation.latitude!, currentLocation.longitude!).toStringAsFixed(2)} miles",
+                      style: Theme.of(context)
+                          .textTheme
+                          .button!
+                          .copyWith(fontWeight: FontWeight.w300),
+                    )
                 ],
               ),
             ),

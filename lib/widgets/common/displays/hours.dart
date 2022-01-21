@@ -24,6 +24,16 @@ class Hours extends StatelessWidget {
         SizedBox(
           height: 4,
         ),
+        Text(
+          restauraunt.opennow ? "Open Now" : "Closed",
+          style: Theme.of(context)
+              .textTheme
+              .subtitle1!
+              .copyWith(fontWeight: FontWeight.bold),
+        ),
+        SizedBox(
+          height: 4,
+        ),
         ...restauraunt.hoursText.map((e) => Text(
               e,
               style: Theme.of(context).textTheme.bodyText1!.copyWith(

@@ -77,9 +77,12 @@ class _RestaurauntDisplayState extends State<RestaurauntDisplay> {
         ),
         if (widget.restauraunt.photos.isNotEmpty)
           Positioned.fill(
-            child: URLImage(widget.restauraunt.photos.first.url(
-                maxHeight: size.height.toInt() * 2,
-                maxWidth: size.width.toInt() * 2)),
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(20),
+              child: URLImage(widget.restauraunt.photos.first.url(
+                  maxHeight: size.height.toInt() * 2,
+                  maxWidth: size.width.toInt() * 2)),
+            ),
           ),
         Positioned.fill(
           child: SafeArea(
@@ -132,9 +135,12 @@ class _RestaurauntDisplayState extends State<RestaurauntDisplay> {
               color: Colors.transparent,
               height: titleSize?.height ?? 0,
             ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: _expandedInfo(),
+            SafeArea(
+              top: false,
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: _expandedInfo(),
+              ),
             ),
           ],
         ),
@@ -235,6 +241,11 @@ class _RestaurauntDisplayState extends State<RestaurauntDisplay> {
                                 size: 16,
                               ))
                           .toList(),
+                      Text(" (${widget.restauraunt.totalRatings.toString()})",
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodyText1!
+                              .copyWith(color: titleColor))
                     ],
                   ),
                 ],
