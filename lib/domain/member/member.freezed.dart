@@ -20,10 +20,14 @@ Member _$MemberFromJson(Map<String, dynamic> json) {
 class _$MemberTearOff {
   const _$MemberTearOff();
 
-  _Member call({required DateTime joinedAt, required String id}) {
+  _Member call(
+      {required DateTime joinedAt,
+      required String id,
+      bool disconnected = false}) {
     return _Member(
       joinedAt: joinedAt,
       id: id,
+      disconnected: disconnected,
     );
   }
 
@@ -39,6 +43,7 @@ const $Member = _$MemberTearOff();
 mixin _$Member {
   DateTime get joinedAt => throw _privateConstructorUsedError;
   String get id => throw _privateConstructorUsedError;
+  bool get disconnected => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -49,7 +54,7 @@ mixin _$Member {
 abstract class $MemberCopyWith<$Res> {
   factory $MemberCopyWith(Member value, $Res Function(Member) then) =
       _$MemberCopyWithImpl<$Res>;
-  $Res call({DateTime joinedAt, String id});
+  $Res call({DateTime joinedAt, String id, bool disconnected});
 }
 
 /// @nodoc
@@ -64,6 +69,7 @@ class _$MemberCopyWithImpl<$Res> implements $MemberCopyWith<$Res> {
   $Res call({
     Object? joinedAt = freezed,
     Object? id = freezed,
+    Object? disconnected = freezed,
   }) {
     return _then(_value.copyWith(
       joinedAt: joinedAt == freezed
@@ -74,6 +80,10 @@ class _$MemberCopyWithImpl<$Res> implements $MemberCopyWith<$Res> {
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as String,
+      disconnected: disconnected == freezed
+          ? _value.disconnected
+          : disconnected // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -83,7 +93,7 @@ abstract class _$MemberCopyWith<$Res> implements $MemberCopyWith<$Res> {
   factory _$MemberCopyWith(_Member value, $Res Function(_Member) then) =
       __$MemberCopyWithImpl<$Res>;
   @override
-  $Res call({DateTime joinedAt, String id});
+  $Res call({DateTime joinedAt, String id, bool disconnected});
 }
 
 /// @nodoc
@@ -99,6 +109,7 @@ class __$MemberCopyWithImpl<$Res> extends _$MemberCopyWithImpl<$Res>
   $Res call({
     Object? joinedAt = freezed,
     Object? id = freezed,
+    Object? disconnected = freezed,
   }) {
     return _then(_Member(
       joinedAt: joinedAt == freezed
@@ -109,6 +120,10 @@ class __$MemberCopyWithImpl<$Res> extends _$MemberCopyWithImpl<$Res>
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as String,
+      disconnected: disconnected == freezed
+          ? _value.disconnected
+          : disconnected // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -117,7 +132,8 @@ class __$MemberCopyWithImpl<$Res> extends _$MemberCopyWithImpl<$Res>
 
 /// @nodoc
 class _$_Member implements _Member {
-  _$_Member({required this.joinedAt, required this.id});
+  _$_Member(
+      {required this.joinedAt, required this.id, this.disconnected = false});
 
   factory _$_Member.fromJson(Map<String, dynamic> json) =>
       _$_$_MemberFromJson(json);
@@ -126,10 +142,13 @@ class _$_Member implements _Member {
   final DateTime joinedAt;
   @override
   final String id;
+  @JsonKey(defaultValue: false)
+  @override
+  final bool disconnected;
 
   @override
   String toString() {
-    return 'Member(joinedAt: $joinedAt, id: $id)';
+    return 'Member(joinedAt: $joinedAt, id: $id, disconnected: $disconnected)';
   }
 
   @override
@@ -140,14 +159,18 @@ class _$_Member implements _Member {
                 const DeepCollectionEquality()
                     .equals(other.joinedAt, joinedAt)) &&
             (identical(other.id, id) ||
-                const DeepCollectionEquality().equals(other.id, id)));
+                const DeepCollectionEquality().equals(other.id, id)) &&
+            (identical(other.disconnected, disconnected) ||
+                const DeepCollectionEquality()
+                    .equals(other.disconnected, disconnected)));
   }
 
   @override
   int get hashCode =>
       runtimeType.hashCode ^
       const DeepCollectionEquality().hash(joinedAt) ^
-      const DeepCollectionEquality().hash(id);
+      const DeepCollectionEquality().hash(id) ^
+      const DeepCollectionEquality().hash(disconnected);
 
   @JsonKey(ignore: true)
   @override
@@ -161,7 +184,10 @@ class _$_Member implements _Member {
 }
 
 abstract class _Member implements Member {
-  factory _Member({required DateTime joinedAt, required String id}) = _$_Member;
+  factory _Member(
+      {required DateTime joinedAt,
+      required String id,
+      bool disconnected}) = _$_Member;
 
   factory _Member.fromJson(Map<String, dynamic> json) = _$_Member.fromJson;
 
@@ -169,6 +195,8 @@ abstract class _Member implements Member {
   DateTime get joinedAt => throw _privateConstructorUsedError;
   @override
   String get id => throw _privateConstructorUsedError;
+  @override
+  bool get disconnected => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$MemberCopyWith<_Member> get copyWith => throw _privateConstructorUsedError;

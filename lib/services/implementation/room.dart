@@ -79,7 +79,7 @@ class FireRoom implements IRoom {
           .map((e) => Restauraunt.fromJson(e.doc.data()!)));
 
   @override
-  Future<int> acceptRestauraunt(Restauraunt restauraunt,
+  Future<List<String>> acceptRestauraunt(Restauraunt restauraunt,
       {required Room forRoom, required Member forMember}) async {
     final docRef = roomCollection
         .doc(forRoom.id)
@@ -94,12 +94,11 @@ class FireRoom implements IRoom {
         await docRef.update({"accepted": currentAccepted});
       }
 
-      return currentAccepted.length;
+      return currentAccepted;
     } else {
-      await docRef.set({
-        "accepted": [forMember.id]
-      });
-      return 1;
+      final accepted = [forMember.id];
+      await docRef.set({"accepted": accepted});
+      return accepted;
     }
   }
 
@@ -111,5 +110,19 @@ class FireRoom implements IRoom {
         .collection(MATCHES_COLLECTION)
         .doc(restauraunt.id)
         .set(json);
+  }
+
+  @override
+  Future<bool> leave(Member member, String roomId) async {
+    final roomDoc = roomCollection.doc(roomId);
+    try {
+      await roomDoc
+          .collection(MEMBERS_COLLECTION)
+          .doc(member.id)
+          .update({"disconnected": true});
+      return true;
+    } catch (er) {
+      return false; // room no longer existed anyways
+    }
   }
 }

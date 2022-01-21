@@ -47,10 +47,13 @@ class RoomAuthCubit extends Cubit<RoomAuthState> {
   }
 
   Future<bool> leaveRoom() async {
+    final currentRoom = state.currentRoomCubit?.state.room;
+    final currentUser = state.currentRoomCubit?.state.me;
     state.currentRoomCubit?.close();
     emit(state.copyWith(currentRoomCubit: null));
-    // so we arent going to delete our reference in firebase, we just stop giving swipes basically
-    // TODO: we can mark as inactive though
+    if (currentRoom != null && currentUser != null) {
+      await _roomService.leave(currentUser, currentRoom.id);
+    }
     return true;
   }
 }

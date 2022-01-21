@@ -98,11 +98,27 @@ class RoomCubit extends Cubit<RoomState> {
   Future<void> next({required bool accepted}) async {
     if (accepted) {
       final acceptedRestauraunt = state.currentViewRestauraunt;
-      final acceptedAmount = await GetIt.I<IRoom>().acceptRestauraunt(
+      final acceptedUserIds = await GetIt.I<IRoom>().acceptRestauraunt(
           acceptedRestauraunt!,
           forRoom: state.room,
           forMember: state.me);
-      if (acceptedAmount == state.members.length && state.members.length > 1) {
+
+      /// see if all active members have accepted this
+      /// if there is only one active member, don't count it as a match
+      bool match = true;
+      final activeMembers =
+          state.members.where((element) => !element.disconnected);
+      if (activeMembers.length > 1) {
+        for (final active in activeMembers) {
+          if (!acceptedUserIds.contains(active.id)) {
+            match = false;
+          }
+        }
+      } else {
+        match = false;
+      }
+
+      if (match) {
         // report as a match
         await GetIt.I<IRoom>()
             .reportMatch(acceptedRestauraunt, forRoom: state.room);

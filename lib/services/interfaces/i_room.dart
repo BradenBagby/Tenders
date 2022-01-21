@@ -11,7 +11,10 @@ abstract class IRoom {
   /// join a room by room id
   /// auto generates yourself a uniqueue id for using while in the room
   /// this returns [Member] [Room] encapsolated in a tuple
-  Future<Tuple2<Member, Room>> join(String id);
+  Future<Tuple2<Member, Room>> join(String roomId);
+
+  /// leave a room
+  Future<bool> leave(Member member, String roomId);
 
   /// listens to room updates, is null if this room has been deleted
   Stream<Room?> roomUpdates(String id);
@@ -25,8 +28,8 @@ abstract class IRoom {
 
   /// gets current doc on rest if someone else already accepted
   /// adds self's name to it
-  /// returns accepted count so bloc can check if theres name.length == roommembers.length then add to accepted collection
-  Future<int> acceptRestauraunt(Restauraunt restauraunt,
+  /// returns list of userId's that have accepted this
+  Future<List<String>> acceptRestauraunt(Restauraunt restauraunt,
       {required Room forRoom, required Member forMember});
 
   /// report this restauraunt as a match
