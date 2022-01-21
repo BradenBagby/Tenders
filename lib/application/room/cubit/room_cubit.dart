@@ -109,7 +109,7 @@ class RoomCubit extends Cubit<RoomState> {
       bool match = true;
       final activeMembers =
           state.members.where((element) => !element.disconnected).toList();
-      if (activeMembers.length > 1 || true) {
+      if (activeMembers.length > 1) {
         // TODO: remove the or true
         for (final active in activeMembers) {
           if (!acceptedUserIds.contains(active.id)) {
