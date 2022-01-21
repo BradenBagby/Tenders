@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 import 'package:tenders/application/room_auth/room_auth_cubit.dart';
+import 'package:tenders/core/utility/dynamic_links.dart';
 import 'package:tenders/core/utility/permissions.dart';
 import 'package:tenders/services/interfaces/i_room.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -15,6 +16,8 @@ class ScanPage extends StatefulWidget {
 class _ScanPageState extends State<ScanPage> {
   final GlobalKey qrKey = GlobalKey(debugLabel: 'QR');
   bool hasPermissions = false;
+
+  bool scanning = true;
 
   @override
   void initState() {
@@ -73,8 +76,23 @@ class _ScanPageState extends State<ScanPage> {
 
   void _onQRViewCreated(QRViewController controller, BuildContext context) {
     controller.scannedDataStream.listen((scanData) async {
+      if (!scanning) return;
+      Future.delayed(const Duration(seconds: 1)).then((value) {
+        if (mounted) scanning = true;
+      });
+      scanning = false;
       try {
         final code = scanData.code;
+        try {
+          final uri = Uri.parse(code!);
+          final query = uri.queryParameters;
+          final link = query['link'];
+          if (link!.isNotEmpty) {
+            DynamicLinks.handleLink(Uri.parse(link));
+
+            return;
+          }
+        } catch (er) {}
         await launch(code!);
       } catch (er) {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(

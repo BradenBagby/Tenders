@@ -23,7 +23,7 @@ class DynamicLinks {
   static Future<void> initDynamicLinks() async {
     if (kIsWeb) {
       final Uri uri = Uri.dataFromString(getHref()!);
-      _handleLink(uri);
+      handleLink(uri);
       return;
     }
 
@@ -32,24 +32,24 @@ class DynamicLinks {
     final Uri? deepLink = data?.link;
 
     if (deepLink != null) {
-      _handleLink(deepLink);
+      handleLink(deepLink);
     }
 
     FirebaseDynamicLinks.instance.onLink(
         onSuccess: (PendingDynamicLinkData? dynamicLink) async {
       final Uri? deepLink = dynamicLink?.link;
       if (deepLink != null) {
-        _handleLink(deepLink);
+        handleLink(deepLink);
       }
     }, onError: (OnLinkErrorException e) async {
       log("error in link $e");
     });
   }
 
-  static void _handleLink(Uri link) {
+  static void handleLink(Uri link) {
     log("handle link: $link");
     if (link.path.startsWith("/room")) {
-      final roomId = link.path.replaceAll('/room', '');
+      final roomId = link.path.replaceAll('/room/', '');
       GetIt.I<RoomAuthCubit>().joinRoom(roomId).then((value) {
         if (!value) {
           final context = RootRouteController.key.currentContext!;
@@ -80,7 +80,7 @@ class DynamicLinks {
       return cachedLinks[path]!;
     }
     String link;
-    if (kIsWeb) {
+    if (kIsWeb || true) {
       link =
           '${'https://tenders.page.link'}/?link=${Uri.parse('https://tenders.page.link${path.isNotEmpty ? "/$path" : ""}')}&apn=${'com.bradenbagby.tenders'}&ibi=${'com.bradenbagby.tenders'}';
     } else {

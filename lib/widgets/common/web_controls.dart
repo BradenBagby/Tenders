@@ -17,7 +17,7 @@ class _WebPageControlsState extends State<WebPageControls> {
   @override
   Widget build(BuildContext context) {
     // only on web
-    if (!kIsWeb) return widget.child;
+    if (!kIsWeb || true) return widget.child;
 
     return Stack(
       children: [
