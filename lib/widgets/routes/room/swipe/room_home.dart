@@ -45,19 +45,32 @@ class _RoomHomeState extends State<RoomHome> {
         }
 
         if (state.outOfRestauraunts) {
-          return Center(
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Text("No restaurants nearby. Try a different location"),
-                ElevatedButton(
-                  onPressed: () {
-                    GetIt.I<RoomAuthCubit>().leaveRoom();
-                  },
-                  child: Text("Leave"),
-                )
-              ],
-            ),
+          return Column(
+            children: [
+              Align(
+                alignment: Alignment.centerLeft,
+                child: SafeArea(
+                  child: IconButton(
+                      color: Theme.of(context).colorScheme.onBackground,
+                      onPressed: () {
+                        Scaffold.of(context).openDrawer();
+                      },
+                      icon: Icon(
+                        Icons.menu,
+                        color: Theme.of(context).colorScheme.onSurface,
+                      )),
+                ),
+              ),
+              Expanded(
+                child: SizedBox(),
+              ),
+              Center(
+                child: Text("No restaurants nearby"),
+              ),
+              Expanded(
+                child: SizedBox(),
+              ),
+            ],
           );
         }
         if (state.showNeedsLocation)
