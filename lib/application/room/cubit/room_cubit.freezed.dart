@@ -25,7 +25,8 @@ class _$RoomStateTearOff {
       int currentViewIndex = 0,
       bool closed = false,
       String? pageToken = null,
-      bool showNeedsLocation = false}) {
+      bool showNeedsLocation = false,
+      bool hasLoaded = false}) {
     return _RoomState(
       room: room,
       me: me,
@@ -36,6 +37,7 @@ class _$RoomStateTearOff {
       closed: closed,
       pageToken: pageToken,
       showNeedsLocation: showNeedsLocation,
+      hasLoaded: hasLoaded,
     );
   }
 }
@@ -56,6 +58,9 @@ mixin _$RoomState {
   String? get pageToken => throw _privateConstructorUsedError;
   bool get showNeedsLocation => throw _privateConstructorUsedError;
 
+  /// have we loaded anything
+  bool get hasLoaded => throw _privateConstructorUsedError;
+
   @JsonKey(ignore: true)
   $RoomStateCopyWith<RoomState> get copyWith =>
       throw _privateConstructorUsedError;
@@ -74,7 +79,8 @@ abstract class $RoomStateCopyWith<$Res> {
       int currentViewIndex,
       bool closed,
       String? pageToken,
-      bool showNeedsLocation});
+      bool showNeedsLocation,
+      bool hasLoaded});
 
   $RoomCopyWith<$Res> get room;
   $MemberCopyWith<$Res> get me;
@@ -99,6 +105,7 @@ class _$RoomStateCopyWithImpl<$Res> implements $RoomStateCopyWith<$Res> {
     Object? closed = freezed,
     Object? pageToken = freezed,
     Object? showNeedsLocation = freezed,
+    Object? hasLoaded = freezed,
   }) {
     return _then(_value.copyWith(
       room: room == freezed
@@ -137,6 +144,10 @@ class _$RoomStateCopyWithImpl<$Res> implements $RoomStateCopyWith<$Res> {
           ? _value.showNeedsLocation
           : showNeedsLocation // ignore: cast_nullable_to_non_nullable
               as bool,
+      hasLoaded: hasLoaded == freezed
+          ? _value.hasLoaded
+          : hasLoaded // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 
@@ -170,7 +181,8 @@ abstract class _$RoomStateCopyWith<$Res> implements $RoomStateCopyWith<$Res> {
       int currentViewIndex,
       bool closed,
       String? pageToken,
-      bool showNeedsLocation});
+      bool showNeedsLocation,
+      bool hasLoaded});
 
   @override
   $RoomCopyWith<$Res> get room;
@@ -198,6 +210,7 @@ class __$RoomStateCopyWithImpl<$Res> extends _$RoomStateCopyWithImpl<$Res>
     Object? closed = freezed,
     Object? pageToken = freezed,
     Object? showNeedsLocation = freezed,
+    Object? hasLoaded = freezed,
   }) {
     return _then(_RoomState(
       room: room == freezed
@@ -236,6 +249,10 @@ class __$RoomStateCopyWithImpl<$Res> extends _$RoomStateCopyWithImpl<$Res>
           ? _value.showNeedsLocation
           : showNeedsLocation // ignore: cast_nullable_to_non_nullable
               as bool,
+      hasLoaded: hasLoaded == freezed
+          ? _value.hasLoaded
+          : hasLoaded // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -251,7 +268,8 @@ class _$_RoomState extends _RoomState {
       this.currentViewIndex = 0,
       this.closed = false,
       this.pageToken = null,
-      this.showNeedsLocation = false})
+      this.showNeedsLocation = false,
+      this.hasLoaded = false})
       : super._();
 
   @override
@@ -277,10 +295,15 @@ class _$_RoomState extends _RoomState {
   @JsonKey(defaultValue: false)
   @override
   final bool showNeedsLocation;
+  @JsonKey(defaultValue: false)
+  @override
+
+  /// have we loaded anything
+  final bool hasLoaded;
 
   @override
   String toString() {
-    return 'RoomState(room: $room, me: $me, members: $members, currentLocation: $currentLocation, restauraunts: $restauraunts, currentViewIndex: $currentViewIndex, closed: $closed, pageToken: $pageToken, showNeedsLocation: $showNeedsLocation)';
+    return 'RoomState(room: $room, me: $me, members: $members, currentLocation: $currentLocation, restauraunts: $restauraunts, currentViewIndex: $currentViewIndex, closed: $closed, pageToken: $pageToken, showNeedsLocation: $showNeedsLocation, hasLoaded: $hasLoaded)';
   }
 
   @override
@@ -310,7 +333,10 @@ class _$_RoomState extends _RoomState {
                     .equals(other.pageToken, pageToken)) &&
             (identical(other.showNeedsLocation, showNeedsLocation) ||
                 const DeepCollectionEquality()
-                    .equals(other.showNeedsLocation, showNeedsLocation)));
+                    .equals(other.showNeedsLocation, showNeedsLocation)) &&
+            (identical(other.hasLoaded, hasLoaded) ||
+                const DeepCollectionEquality()
+                    .equals(other.hasLoaded, hasLoaded)));
   }
 
   @override
@@ -324,7 +350,8 @@ class _$_RoomState extends _RoomState {
       const DeepCollectionEquality().hash(currentViewIndex) ^
       const DeepCollectionEquality().hash(closed) ^
       const DeepCollectionEquality().hash(pageToken) ^
-      const DeepCollectionEquality().hash(showNeedsLocation);
+      const DeepCollectionEquality().hash(showNeedsLocation) ^
+      const DeepCollectionEquality().hash(hasLoaded);
 
   @JsonKey(ignore: true)
   @override
@@ -342,7 +369,8 @@ abstract class _RoomState extends RoomState {
       int currentViewIndex,
       bool closed,
       String? pageToken,
-      bool showNeedsLocation}) = _$_RoomState;
+      bool showNeedsLocation,
+      bool hasLoaded}) = _$_RoomState;
   const _RoomState._() : super._();
 
   @override
@@ -363,6 +391,10 @@ abstract class _RoomState extends RoomState {
   String? get pageToken => throw _privateConstructorUsedError;
   @override
   bool get showNeedsLocation => throw _privateConstructorUsedError;
+  @override
+
+  /// have we loaded anything
+  bool get hasLoaded => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$RoomStateCopyWith<_RoomState> get copyWith =>

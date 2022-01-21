@@ -64,6 +64,7 @@ class RoomCubit extends Cubit<RoomState> {
         settings: state.room.settings);
 
     emit(state.copyWith(
+        hasLoaded: true,
         pageToken: info.item2,
         restauraunts: List<Restauraunt>.from(state.restauraunts)
           ..addAll(info.item1)));

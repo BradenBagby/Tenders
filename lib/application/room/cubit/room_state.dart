@@ -14,6 +14,9 @@ class RoomState with _$RoomState {
     @Default(false) bool closed,
     @Default(null) String? pageToken,
     @Default(false) bool showNeedsLocation,
+
+    /// have we loaded anything
+    @Default(false) bool hasLoaded,
   }) = _RoomState;
 
   /// get current restauraunt to display
@@ -21,4 +24,6 @@ class RoomState with _$RoomState {
       restauraunts.length > currentViewIndex
           ? restauraunts[currentViewIndex]
           : null;
+
+  bool get outOfRestauraunts => hasLoaded && pageToken == null;
 }

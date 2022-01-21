@@ -28,12 +28,28 @@ class _RoomHomeState extends State<RoomHome> {
             body: BlocBuilder<RoomCubit, RoomState>(
               bloc: roomCubit,
               builder: (context, state) {
+                if (state.outOfRestauraunts) {
+                  return Center(
+                    child:
+                        Text("No restaurants nearby. Try a different location"),
+                  );
+                }
                 if (state.showNeedsLocation)
                   return Center(
                     child: Text("Enable location in settings to continue"),
                   );
                 if (state.currentViewRestauraunt == null) {
-                  return Center(child: CircularProgressIndicator());
+                  return Center(
+                      child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      CircularProgressIndicator(),
+                      SizedBox(
+                        height: 8,
+                      ),
+                      Text("Looking for nearby restaurants")
+                    ],
+                  ));
                 }
 
                 final next =
