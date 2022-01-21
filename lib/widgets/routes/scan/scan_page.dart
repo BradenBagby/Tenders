@@ -62,7 +62,8 @@ class _ScanPageState extends State<ScanPage> {
         if (!success) throw Exception();
       } catch (er) {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: Text("QR Code failed. Bad code"),
+          content: Text(
+              "Failed to join room. If this problem persists contact support"),
         ));
       }
     });

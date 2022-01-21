@@ -35,23 +35,15 @@ class FireRoom implements IRoom {
   }
 
   @override
-  Future<Tuple2<Member, Room>> join(String id) async {
+  Future<Tuple2<Member, Room>> join(Member member, String id) async {
     final roomDoc = roomCollection.doc(id);
     final roomData = await roomDoc.get();
     if (!roomData.exists) {
       // TODO: for now throw Exception("Room doesnt exist");
     }
-
     final roomObject = Room.fromJson(roomData.data() as Map<String, dynamic>);
-    final uuid = const Uuid().v4();
-    final myMember = Member(
-        joinedAt: DateTime.now().toUtc(),
-        id: uuid); // TODO: your id should be from firebase anonymous auth
-    roomDoc
-        .collection(MEMBERS_COLLECTION)
-        .doc(myMember.id)
-        .set(myMember.toJson());
-    return Tuple2(myMember, roomObject);
+    roomDoc.collection(MEMBERS_COLLECTION).doc(member.id).set(member.toJson());
+    return Tuple2(member, roomObject);
   }
 
   @override

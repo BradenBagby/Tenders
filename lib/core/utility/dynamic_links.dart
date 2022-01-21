@@ -3,6 +3,7 @@ import 'dart:developer';
 
 import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:tenders/application/room_auth/room_auth_cubit.dart';
@@ -49,7 +50,28 @@ class DynamicLinks {
     log("handle link: $link");
     if (link.path.startsWith("/room")) {
       final roomId = link.path.replaceAll('/room', '');
-      GetIt.I<RoomAuthCubit>().joinRoom(roomId);
+      GetIt.I<RoomAuthCubit>().joinRoom(roomId).then((value) {
+        if (!value) {
+          final context = RootRouteController.key.currentContext!;
+          showDialog(
+            context: context,
+            builder: (BuildContext context) {
+              return AlertDialog(
+                title: Text("Failed to join room"),
+                content: Text("If this problem persists, contact support."),
+                actions: <Widget>[
+                  ElevatedButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    child: Text("Okay"),
+                  )
+                ],
+              );
+            },
+          );
+        }
+      });
     }
   }
 

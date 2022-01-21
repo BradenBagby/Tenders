@@ -9,6 +9,7 @@ import 'package:tenders/core/utility/route_controllers.dart';
 import 'package:tenders/domain/member/member.dart';
 import 'package:tenders/domain/restauraunt/restauraunt.dart';
 import 'package:tenders/domain/room/room.dart';
+import 'package:tenders/services/interfaces/i_auth.dart';
 import 'package:tenders/services/interfaces/i_restauraunt.dart';
 import 'package:tenders/services/interfaces/i_room.dart';
 

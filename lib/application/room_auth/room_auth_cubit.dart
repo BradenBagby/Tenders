@@ -1,8 +1,10 @@
+import 'package:get_it/get_it.dart';
 import 'package:tenders/application/room/cubit/room_cubit.dart';
 import 'package:tenders/domain/member/member.dart';
 import 'package:tenders/domain/room/room.dart';
 import 'package:tenders/domain/room_settings/room_settings.dart';
 import 'package:tenders/services/implementation/room.dart';
+import 'package:tenders/services/interfaces/i_auth.dart';
 import 'package:tenders/services/interfaces/i_room.dart';
 import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
@@ -16,7 +18,11 @@ class RoomAuthCubit extends Cubit<RoomAuthState> {
   IRoom _roomService;
   RoomAuthCubit({required IRoom roomService})
       : _roomService = roomService,
-        super(const RoomAuthState()) {}
+        super(const RoomAuthState()) {
+    // imediately authenticate user anonymously
+    // firebase caches this as currentUser
+    GetIt.I<IAuth>().getUser();
+  }
 
   /// create a room, auto joins after
   Future<bool> createRoom({required RoomSettings settings}) async {
@@ -35,8 +41,15 @@ class RoomAuthCubit extends Cubit<RoomAuthState> {
 
   /// join a room by id
   Future<bool> joinRoom(String id) async {
+    Member member;
     try {
-      final info = await _roomService.join(id);
+      final user = await GetIt.I<IAuth>().getUser();
+      member = Member(joinedAt: DateTime.now(), id: user.uid);
+    } catch (er) {
+      return false;
+    }
+    try {
+      final info = await _roomService.join(member, id);
       final cubit = RoomCubit(room: info.item2, me: info.item1);
       emit(state.copyWith(currentRoomCubit: cubit));
       return true;

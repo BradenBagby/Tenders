@@ -11,7 +11,7 @@ abstract class IRoom {
   /// join a room by room id
   /// auto generates yourself a uniqueue id for using while in the room
   /// this returns [Member] [Room] encapsolated in a tuple
-  Future<Tuple2<Member, Room>> join(String roomId);
+  Future<Tuple2<Member, Room>> join(Member member, String roomId);
 
   /// leave a room
   Future<bool> leave(Member member, String roomId);
