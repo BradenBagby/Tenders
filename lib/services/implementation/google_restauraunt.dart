@@ -24,7 +24,7 @@ class GoogleRestauraunt implements IRestauraunt {
   }) async {
     // TODO: catch errors
     String url =
-        "place/nearbysearch/json?location=${GoogleRestaurauntURL.location(location)}&radius=${settings.radius}&type=${settings.type.toQueryString()}${settings.openNow ? '&opennow=true' : ''}&key=$API_KEY";
+        "place/nearbysearch/json?location=${GoogleRestaurauntURL.location(location)}&radius=${settings.radius}&type=${settings.type.toQueryString()}${settings.openNow ? '&opennow=true' : ''}&key=$API_KEY&rankby=prominence";
     if (pageToken != null) {
       url = "$url&pagetoken=$pageToken";
     }
@@ -35,8 +35,10 @@ class GoogleRestauraunt implements IRestauraunt {
     if (data['status'] as String == "OK") {
       final listData =
           List<Map<String, dynamic>>.from(data['results'] as Iterable<dynamic>);
-      final restauraunts =
-          listData.map((e) => Restauraunt.fromGoogleJson(e)).toList();
+      final restauraunts = listData
+          .map((e) => Restauraunt.fromGoogleJson(e))
+          .toList()
+        ..shuffle();
       return Tuple2(restauraunts, nextPageToken);
     } else {
       // TODO

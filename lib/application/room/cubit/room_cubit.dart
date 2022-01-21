@@ -29,7 +29,7 @@ class RoomCubit extends Cubit<RoomState> {
   RoomCubit({required Room room, required Member me})
       : _restaurauntService = GetIt.I<IRestauraunt>(),
         super(RoomState(room: room, me: me, members: [me], restauraunts: [])) {
-    showAdCounter = math.Random().nextInt(4) + 6;
+    showAdCounter = math.Random().nextInt(4) + 8;
 
     // listen to room updates and update state accordinly
     roomDataStreamSubscription =
@@ -64,7 +64,7 @@ class RoomCubit extends Cubit<RoomState> {
     if (showAdCounter < 1) {
       adsShown++;
       GetIt.I<AdsCubit>().show();
-      showAdCounter = math.Random().nextInt(4) + 6 + (adsShown * 2);
+      showAdCounter = math.Random().nextInt(4) + 8 + (adsShown * 2);
     }
     showAdCounter--;
   }
