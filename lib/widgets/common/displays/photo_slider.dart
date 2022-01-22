@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:tenders/core/utility/route_controllers.dart';
 import 'package:tenders/domain/restauraunt/photo.dart';
+import 'package:tenders/widgets/common/displays/photo_slider_pages.dart';
 import 'package:tenders/widgets/common/displays/url_image.dart';
 
 class PhotoSlider extends StatefulWidget {
@@ -36,8 +38,25 @@ class _PhotoSliderState extends State<PhotoSlider> {
             crossAxisCount: 2,
             children: [
               ...widget.photos.map(
-                (e) => URLImage(
-                  e.url(maxHeight: 250),
+                (e) => InkWell(
+                  onTap: () {
+                    /// open photo slider
+                    Navigator.of(context).push(FadePageRoute(Builder(
+                      builder: (context) {
+                        return PhotoSliderPages(
+                          widget.photos,
+                          startIndex: widget.photos.indexWhere((element) =>
+                              element.photoReference == e.photoReference),
+                        );
+                      },
+                    ), isOpaque: false));
+                  },
+                  child: URLImage(
+                    e.url(
+                      maxHeight: 500,
+                    ),
+                    heroTag: e.photoReference,
+                  ),
                 ),
               ),
             ],

@@ -72,3 +72,37 @@ class RootRouteController {
       Navigator.of(context)
           .pushNamed(RootRouteController.routeMatch, arguments: restauraunt);
 }
+
+class FadePageRoute<T> extends PageRoute<T> {
+  final Duration duration;
+  final bool isOpaque;
+  FadePageRoute(this.child,
+      {this.duration = const Duration(milliseconds: 300),
+      this.isOpaque = true});
+
+  @override
+  Color? get barrierColor => null;
+
+  final Widget child;
+
+  @override
+  bool get opaque => isOpaque;
+
+  @override
+  Widget buildPage(BuildContext context, Animation<double> animation,
+      Animation<double> secondaryAnimation) {
+    return FadeTransition(
+      opacity: animation,
+      child: child,
+    );
+  }
+
+  @override
+  bool get maintainState => false;
+
+  @override
+  Duration get transitionDuration => duration;
+
+  @override
+  String? get barrierLabel => null;
+}

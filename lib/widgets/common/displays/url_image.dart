@@ -6,10 +6,19 @@ import 'package:transparent_image/transparent_image.dart';
 class URLImage extends StatelessWidget {
   final String url;
   final Widget? failedWidget;
-  const URLImage(this.url, {this.failedWidget});
+  final String? heroTag;
+  const URLImage(this.url, {this.failedWidget, this.heroTag});
 
   @override
   Widget build(BuildContext context) {
+    if (heroTag != null) {
+      return Hero(tag: heroTag!, child: _build(context));
+    } else {
+      return _build(context);
+    }
+  }
+
+  Widget _build(BuildContext context) {
     if (kIsWeb) {
       return FadeInImage.memoryNetwork(
         placeholder: kTransparentImage,
