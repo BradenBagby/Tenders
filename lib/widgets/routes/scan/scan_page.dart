@@ -77,9 +77,7 @@ class _ScanPageState extends State<ScanPage> {
   void _onQRViewCreated(QRViewController controller, BuildContext context) {
     controller.scannedDataStream.listen((scanData) async {
       if (!scanning) return;
-      Future.delayed(const Duration(seconds: 1)).then((value) {
-        if (mounted) scanning = true;
-      });
+
       scanning = false;
       try {
         final code = scanData.code;
@@ -88,7 +86,7 @@ class _ScanPageState extends State<ScanPage> {
           final query = uri.queryParameters;
           final link = query['link'];
           if (link!.isNotEmpty) {
-            DynamicLinks.handleLink(Uri.parse(link));
+            await DynamicLinks.handleLink(Uri.parse(link));
 
             return;
           }
@@ -99,6 +97,10 @@ class _ScanPageState extends State<ScanPage> {
           content: Text(
               "Failed to join room. If this problem persists contact support"),
         ));
+      } finally {
+        Future.delayed(const Duration(seconds: 1)).then((value) {
+          if (mounted) scanning = true;
+        });
       }
     });
   }

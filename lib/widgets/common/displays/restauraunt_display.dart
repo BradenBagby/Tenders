@@ -210,10 +210,11 @@ class _RestaurauntDisplayState extends State<RestaurauntDisplay> {
             padding: EdgeInsets.all(8),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(
-                    20,
-                  ),
-                  topRight: Radius.circular(20)),
+                topLeft: Radius.circular(
+                  20,
+                ),
+                topRight: Radius.circular(20),
+              ),
               color: Colors.black
                   .withAlpha((100.0 * (1.0 - titlePercent)).toInt()),
             ),

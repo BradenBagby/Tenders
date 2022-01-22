@@ -46,14 +46,14 @@ class DynamicLinks {
     });
   }
 
-  static void handleLink(Uri link) {
+  static Future<void> handleLink(Uri link) async {
     log("handle link: $link");
     if (link.path.startsWith("/room")) {
       final roomId = link.path.replaceAll('/room/', '');
-      GetIt.I<RoomAuthCubit>().joinRoom(roomId).then((value) {
+      await GetIt.I<RoomAuthCubit>().joinRoom(roomId).then((value) {
         if (!value) {
           final context = RootRouteController.key.currentContext!;
-          showDialog(
+          return showDialog(
             context: context,
             builder: (BuildContext context) {
               return AlertDialog(
