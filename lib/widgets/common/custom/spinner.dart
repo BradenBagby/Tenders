@@ -41,10 +41,13 @@ class _LoaderState extends State<Loader> with SingleTickerProviderStateMixin {
   Widget build(BuildContext context) {
     return Transform.rotate(
       angle: angle,
-      child: Icon(
-        Icons.sync,
-        size: widget.size,
-        color: widget.color,
+      child: SizedBox(
+        width: widget.size ?? 24,
+        height: widget.size ?? 24,
+        child: Image.asset(
+          "assets/tender_loader.png",
+          fit: BoxFit.contain,
+        ),
       ),
     );
   }
