@@ -13,10 +13,12 @@ import 'package:tenders/widgets/common/displays/url_image.dart';
 import 'package:transparent_image/transparent_image.dart';
 import 'package:tenders/widgets/common/custom/size_measure.dart';
 import 'dart:math' as math;
+import 'dart:developer' as dev;
 
 class RestaurauntDisplay extends StatefulWidget {
   final Restauraunt restauraunt;
-  const RestaurauntDisplay(this.restauraunt);
+  final bool scrollingEnabled;
+  const RestaurauntDisplay(this.restauraunt, {this.scrollingEnabled = true});
 
   @override
   State<RestaurauntDisplay> createState() => _RestaurauntDisplayState();
@@ -37,7 +39,9 @@ class _RestaurauntDisplayState extends State<RestaurauntDisplay> {
   void initState() {
     super.initState();
     scrollController.addListener(() {
-      setState(() {});
+      if (scrollController.hasClients) {
+        setState(() {});
+      }
     });
 
     // immediately get full restauraunt for display
@@ -123,6 +127,9 @@ class _RestaurauntDisplayState extends State<RestaurauntDisplay> {
     } else {
       return SingleChildScrollView(
         controller: scrollController,
+        physics: widget.scrollingEnabled
+            ? BouncingScrollPhysics()
+            : NeverScrollableScrollPhysics(),
         child: Column(
           children: [
             Container(

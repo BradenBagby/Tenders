@@ -108,7 +108,11 @@ class _RoomHomeState extends State<RoomHome> {
 
         return Stack(
           children: [
-            if (next != null) RestaurauntDisplay(next),
+            if (next != null)
+              RestaurauntDisplay(
+                next,
+                scrollingEnabled: false,
+              ),
             DraggableCard(
               key: ValueKey(state.currentViewRestauraunt!.id),
               acceptOverlay: Container(
