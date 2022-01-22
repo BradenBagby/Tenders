@@ -152,8 +152,10 @@ class _InputState extends State<Input> {
             suffix: widget.suffixIcon,
             suffixIcon: _controller.loading ? const Loader() : null,
             contentPadding: widget.contentPadding,
-            fillColor:
-                widget.backgroundColor ?? Theme.of(context).colorScheme.surface,
+            fillColor: widget.backgroundColor ??
+                (Theme.of(context).brightness == Brightness.light
+                    ? Theme.of(context).colorScheme.surface
+                    : Colors.transparent),
             floatingLabelBehavior: widget.floatingLabelBehavior,
             filled: true,
             focusedErrorBorder: errorBorder,

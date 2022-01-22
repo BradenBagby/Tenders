@@ -5,6 +5,7 @@ import 'package:tenders/domain/room_settings/room_settings.dart';
 import 'package:tenders/widgets/common/custom/dropdown.dart';
 import 'package:tenders/widgets/common/custom/input_controllers.dart';
 import 'package:tenders/widgets/common/displays/chicken.dart';
+import 'package:tenders/widgets/root_widget.dart';
 import 'package:tenders/widgets/routes/scan/scan_page.dart';
 
 class WelcomePage extends StatefulWidget {
@@ -212,6 +213,8 @@ class _WelcomePageState extends State<WelcomePage>
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Checkbox(
+                //   checkColor: primaryColor,
+                activeColor: primaryColor,
                 value: opennow,
                 onChanged: (val) {
                   setState(() {

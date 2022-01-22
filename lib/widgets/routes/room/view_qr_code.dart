@@ -28,11 +28,21 @@ class ViewQRCode extends StatelessWidget {
                 return Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    QrImage(
-                      data: snapshot
-                          .data!, // TODO: make this a dynamic link into the app so you can scan it and join without having the app
-                      version: QrVersions.auto,
-                      size: size,
+                    Padding(
+                      padding: const EdgeInsets.only(bottom: 8.0, top: 8),
+                      child: QrImage(
+                        data: snapshot
+                            .data!, // TODO: make this a dynamic link into the app so you can scan it and join without having the app
+                        version: QrVersions.auto,
+                        size: size,
+                        backgroundColor:
+                            Theme.of(context).brightness == Brightness.light
+                                ? Colors.transparent
+                                : Theme.of(context)
+                                    .colorScheme
+                                    .onSurface
+                                    .withAlpha(200),
+                      ),
                     ),
                   ],
                 );

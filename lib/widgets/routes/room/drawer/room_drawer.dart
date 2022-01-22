@@ -13,42 +13,42 @@ class RoomDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Drawer(
-      child: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              ViewQRCode(),
-              MemberCount(),
-              Divider(),
-              SizedBox(
-                height: 8,
-              ),
-              Text(
-                "Matches:",
-                style: Theme.of(context)
-                    .textTheme
-                    .headline5!
-                    .copyWith(fontWeight: FontWeight.bold),
-              ),
-              Expanded(child: BlocBuilder<RoomCubit, RoomState>(
-                builder: (context, state) {
-                  return ListView.builder(
-                    itemBuilder: (context, index) {
-                      return RestaurantRow(state.matches[index]);
-                    },
-                    itemCount: state.matches.length,
-                  );
-                },
-              )),
-              ElevatedButton(
-                onPressed: () =>
-                    BlocProvider.of<RoomAuthCubit>(context).leaveRoom(),
-                child: Text("Leave"),
-              )
-            ],
+      child: Container(
+        color: Theme.of(context).colorScheme.surface,
+        child: SafeArea(
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                ViewQRCode(),
+                MemberCount(),
+                Divider(),
+                SizedBox(
+                  height: 8,
+                ),
+                Text(
+                  "Matches:",
+                  style: Theme.of(context).textTheme.headline4!,
+                ),
+                Expanded(child: BlocBuilder<RoomCubit, RoomState>(
+                  builder: (context, state) {
+                    return ListView.builder(
+                      itemBuilder: (context, index) {
+                        return RestaurantRow(state.matches[index]);
+                      },
+                      itemCount: state.matches.length,
+                    );
+                  },
+                )),
+                ElevatedButton(
+                  onPressed: () =>
+                      BlocProvider.of<RoomAuthCubit>(context).leaveRoom(),
+                  child: Text("Leave"),
+                )
+              ],
+            ),
           ),
         ),
       ),

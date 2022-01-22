@@ -15,33 +15,8 @@ class RootWidget extends StatelessWidget {
       ],
       child: MaterialApp(
         title: "Expense App",
-        theme: ThemeData(
-          elevatedButtonTheme: ElevatedButtonThemeData(
-            style: ButtonStyle(
-              shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(1800.0),
-                    side: BorderSide(color: Colors.black, width: 0.2)),
-              ),
-              foregroundColor: MaterialStateProperty.all(Colors.black),
-              elevation: MaterialStateProperty.resolveWith(
-                (states) {
-                  if (states.contains(MaterialState.focused) ||
-                      states.contains(MaterialState.pressed)) return 4;
-                  return 0;
-                },
-              ),
-              backgroundColor: MaterialStateProperty.resolveWith(
-                (states) {
-                  if (states.contains(MaterialState.focused) ||
-                      states.contains(MaterialState.pressed))
-                    return Colors.white;
-                  return Colors.white;
-                },
-              ),
-            ),
-          ),
-        ),
+        theme: _theme(Brightness.light),
+        darkTheme: _theme(Brightness.dark),
         debugShowCheckedModeBanner: false,
         navigatorKey: RootRouteController.key,
         initialRoute: RootRouteController.routeWelcome,
@@ -50,3 +25,62 @@ class RootWidget extends StatelessWidget {
     );
   }
 }
+
+ThemeData _theme(Brightness brightness) {
+  final start = ThemeData(
+    brightness: brightness,
+    scaffoldBackgroundColor:
+        brightness == Brightness.light ? null : Color(0xff121212),
+    sliderTheme: SliderThemeData(
+      thumbColor: primaryColor,
+      activeTrackColor: primaryColor,
+      inactiveTrackColor: secondaryColor.withAlpha(50),
+      overlayColor: secondaryColor.withAlpha(50),
+      thumbShape: RoundSliderThumbShape(enabledThumbRadius: 10),
+    ),
+    unselectedWidgetColor: secondaryColor,
+    elevatedButtonTheme: ElevatedButtonThemeData(
+      style: ButtonStyle(
+        shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+          RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(1800.0),
+              side: BorderSide(
+                  color: brightness == Brightness.light
+                      ? Colors.black
+                      : Colors.white,
+                  width: 0.2)),
+        ),
+        foregroundColor: brightness == Brightness.light
+            ? MaterialStateProperty.all(Colors.black)
+            : MaterialStateProperty.all(Colors.white),
+        elevation: MaterialStateProperty.resolveWith(
+          (states) {
+            if (states.contains(MaterialState.focused) ||
+                states.contains(MaterialState.pressed)) return 4;
+            return 0;
+          },
+        ),
+        backgroundColor: MaterialStateProperty.resolveWith(
+          (states) {
+            if (states.contains(MaterialState.focused) ||
+                states.contains(MaterialState.pressed))
+              return brightness == Brightness.light
+                  ? Colors.white
+                  : Colors.black.withAlpha(50);
+            return brightness == Brightness.light
+                ? Colors.white
+                : Colors.transparent;
+          },
+        ),
+      ),
+    ),
+  );
+
+  return start.copyWith(
+      colorScheme: start.colorScheme.copyWith(
+    surface: brightness == Brightness.light ? null : Color(0xff121212),
+  ));
+}
+
+final primaryColor = Color(0xffFF512F);
+final secondaryColor = Color(0xffF09819);
