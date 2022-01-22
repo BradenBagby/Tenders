@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:location/location.dart';
+import 'package:tenders/core/utility/constants.dart';
 import 'package:tenders/core/utility/environment.dart';
 import 'package:tenders/core/utility/utility.dart';
 import 'package:tenders/domain/restauraunt/photo.dart';
@@ -19,7 +20,8 @@ class GoogleRestauraunt implements IRestauraunt {
     receiveTimeout: 6000,
     connectTimeout: 10000,
     headers: {
-      "Access-Control-Allow-Origin": "https://maps.googleapis.com/maps/api/"
+      "Access-Control-Allow-Origin": "https://maps.googleapis.com/maps/api/",
+      "Access-Control-Request-Methods": "GET"
     },
     baseUrl: "https://maps.googleapis.com/maps/api/",
   ));
@@ -30,6 +32,9 @@ class GoogleRestauraunt implements IRestauraunt {
     String? pageToken,
     required RoomSettings settings,
   }) async {
+    if (Environment.marketing) {
+      return Tuple2(Constants.fakeRestauraunts, null);
+    }
     try {
       // TODO: catch errors
       String url =

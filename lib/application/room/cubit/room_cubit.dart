@@ -8,6 +8,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:get_it/get_it.dart';
 import 'package:location/location.dart';
 import 'package:tenders/application/ads/ads_cubit.dart';
+import 'package:tenders/core/utility/environment.dart';
 import 'package:tenders/core/utility/route_controllers.dart';
 import 'package:tenders/domain/member/member.dart';
 import 'package:tenders/domain/restauraunt/restauraunt.dart';
@@ -135,7 +136,7 @@ class RoomCubit extends Cubit<RoomState> {
       bool match = true;
       final activeMembers =
           state.members.where((element) => !element.disconnected).toList();
-      if (activeMembers.length > 1) {
+      if (activeMembers.length > 1 || Environment.marketing) {
         // TODO: remove the or true
         for (final active in activeMembers) {
           if (!acceptedUserIds.contains(active.id)) {

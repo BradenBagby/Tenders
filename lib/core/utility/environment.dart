@@ -18,4 +18,5 @@ class Environment {
   static String get placesApiKey => _environment["places_api_key"] as String;
   static String get iosAdUnit => _environment["ios_ad"] as String;
   static String get androidAdUnit => _environment["android_ad"] as String;
+  static bool get marketing => _environment["marketing"] as bool? ?? false;
 }

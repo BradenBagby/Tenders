@@ -1,5 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:get_it/get_it.dart';
+import 'package:tenders/core/utility/environment.dart';
 import 'package:tenders/services/interfaces/i_restauraunt.dart';
 
 part 'photo.freezed.dart';
@@ -10,7 +11,7 @@ class Photo with _$Photo {
   factory Photo({
     @Default(0) int height,
     @Default(0) int width,
-    required String photoReference,
+    @Default("") String photoReference,
   }) = _Photo;
 
   String url({int? maxWidth, int? maxHeight}) => GetIt.I<IRestauraunt>()
@@ -20,6 +21,9 @@ class Photo with _$Photo {
     final height = json['height'] as int? ?? 0;
     final width = json['width'] as int? ?? 0;
     final photoRefernece = json['photo_reference'] as String? ?? 'BAD';
+    if (Environment.marketing) {
+      return FakePhoto(fakeUrl: photoRefernece);
+    }
     return Photo(photoReference: photoRefernece, height: height, width: width);
   }
   const Photo._();
@@ -31,4 +35,18 @@ class Photo with _$Photo {
       'photo_reference': photoReference,
     };
   }
+}
+
+/// for marketing
+class FakePhoto extends Photo {
+  final String fakeUrl;
+  FakePhoto({required this.fakeUrl}) : super._();
+  @override
+  String url({int? maxWidth, int? maxHeight}) => fakeUrl;
+  @override
+  int get height => 0;
+  @override
+  int get width => 0;
+  @override
+  String get photoReference => fakeUrl;
 }

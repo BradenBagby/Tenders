@@ -16,7 +16,7 @@ final _privateConstructorUsedError = UnsupportedError(
 class _$PhotoTearOff {
   const _$PhotoTearOff();
 
-  _Photo call({int height = 0, int width = 0, required String photoReference}) {
+  _Photo call({int height = 0, int width = 0, String photoReference = ""}) {
     return _Photo(
       height: height,
       width: width,
@@ -120,7 +120,7 @@ class __$PhotoCopyWithImpl<$Res> extends _$PhotoCopyWithImpl<$Res>
 
 /// @nodoc
 class _$_Photo extends _Photo {
-  _$_Photo({this.height = 0, this.width = 0, required this.photoReference})
+  _$_Photo({this.height = 0, this.width = 0, this.photoReference = ""})
       : super._();
 
   @JsonKey(defaultValue: 0)
@@ -129,6 +129,7 @@ class _$_Photo extends _Photo {
   @JsonKey(defaultValue: 0)
   @override
   final int width;
+  @JsonKey(defaultValue: "")
   @override
   final String photoReference;
 
@@ -164,8 +165,7 @@ class _$_Photo extends _Photo {
 }
 
 abstract class _Photo extends Photo {
-  factory _Photo({int height, int width, required String photoReference}) =
-      _$_Photo;
+  factory _Photo({int height, int width, String photoReference}) = _$_Photo;
   _Photo._() : super._();
 
   @override
