@@ -37,6 +37,14 @@ class RoomAuthCubit extends Cubit<RoomAuthState> {
     return me;
   }
 
+  Future<bool> saveMember(Member member) async {
+    final success = await GetIt.I<IAuth>().saveMember(member);
+    if (success) {
+      emit(state.copyWith(me: member));
+    }
+    return success;
+  }
+
   /// create a room, auto joins after
   Future<bool> createRoom({required RoomSettings settings}) async {
     if (state.currentRoomCubit != null) {

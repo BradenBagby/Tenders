@@ -25,6 +25,10 @@ class _OnboardingCarouselState extends State<OnboardingCarousel> {
   void initState() {
     super.initState();
 
+    controller.addListener(() {
+      setState(() {});
+    });
+
     initPages();
   }
 
@@ -45,6 +49,10 @@ class _OnboardingCarouselState extends State<OnboardingCarousel> {
         next: _next,
       ));
     }
+
+    pages.add(SetupProfileOnboarding(
+      next: _next,
+    ));
 
     // CALLS:COMMENT
     /*
@@ -82,6 +90,7 @@ class _OnboardingCarouselState extends State<OnboardingCarousel> {
         ),
         Positioned.fill(
           child: Scaffold(
+            resizeToAvoidBottomInset: false,
             backgroundColor: Colors.transparent,
             appBar: AppBar(
               elevation: 0,

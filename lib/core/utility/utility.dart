@@ -1,5 +1,9 @@
 import 'dart:math' as math;
 
+import 'dart:ui';
+
+import 'package:flutter/material.dart';
+
 Map<String, dynamic> toMap(dynamic d) =>
     Map<String, dynamic>.from(d as Map<dynamic, dynamic>);
 
@@ -34,4 +38,15 @@ String formatPhone(String phone, {bool visual = false}) {
   } catch (er) {
     return phone;
   }
+}
+
+/// calcluates sizes needed for this text
+Size textSize(
+    {required String text, required TextStyle style, int maxLines = 1}) {
+  final TextPainter textPainter = TextPainter(
+      text: TextSpan(text: text, style: style),
+      maxLines: maxLines,
+      textDirection: TextDirection.ltr)
+    ..layout(minWidth: 0, maxWidth: double.infinity);
+  return textPainter.size;
 }

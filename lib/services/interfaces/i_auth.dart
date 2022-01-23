@@ -7,4 +7,5 @@ abstract class IAuth {
 
   /// gets member info on the current user
   Future<Member> getMember(String userId);
+  Future<bool> saveMember(Member member);
 }

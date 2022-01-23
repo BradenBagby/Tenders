@@ -48,4 +48,14 @@ class Auth implements IAuth {
       return Member(id: userId, name: name!, avatarUrl: avatar);
     }
   }
+
+  @override
+  Future<bool> saveMember(Member member) async {
+    try {
+      await memberCollection.doc(member.id).set(member.toJson());
+      return true;
+    } catch (er) {
+      return false;
+    }
+  }
 }
