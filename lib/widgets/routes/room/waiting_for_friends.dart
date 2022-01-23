@@ -1,4 +1,5 @@
 import 'dart:math' as math;
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_share/flutter_share.dart';
@@ -49,23 +50,58 @@ class WaitingForFriends extends StatelessWidget {
                 await Share.shareInvite(
                     link: link, message: 'Swipe with me to match my appetite');
               },
-              child: Column(
-                children: [
-                  Text(
-                    "Or send an invite",
-                    textAlign: TextAlign.center,
-                    style: Theme.of(context).textTheme.headline6,
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Icon(
-                      Icons.ios_share_sharp,
-                      size: 64,
+              child: ElevatedButton(
+                onPressed: () {},
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text(
+                      "Invite",
+                      style: Theme.of(context).textTheme.headline3,
                     ),
-                  ),
-                ],
+                    SizedBox(
+                      width: 8,
+                    ),
+                    Icon(
+                      Icons.ios_share_sharp,
+                      size: 40,
+                      color: Theme.of(context).textTheme.headline3!.color,
+                    )
+                  ],
+                ),
               ),
             ),
+            Expanded(child: SizedBox()),
+            BlocBuilder<RoomCubit, RoomState>(builder: (context, state) {
+              if (state.members.length <= 1 && !kDebugMode) {
+                return SizedBox();
+              }
+
+              return Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Column(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(16),
+                      child: ElevatedButton(
+                        child: Text(
+                          "Start Swiping",
+                          style: Theme.of(context).textTheme.headline3,
+                        ),
+                        onPressed: () {
+                          BlocProvider.of<RoomCubit>(context).startSwiping();
+                        },
+                      ),
+                    ),
+                    Text(
+                      "Even after clicking start, friends can still join! Find the QR code at any time by tapping the menu icon in the top left",
+                      style: Theme.of(context).textTheme.caption,
+                      textAlign: TextAlign.center,
+                    )
+                  ],
+                ),
+              );
+            })
           ],
         ),
       ),

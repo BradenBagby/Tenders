@@ -170,6 +170,13 @@ class RoomCubit extends Cubit<RoomState> {
     }
   }
 
+  Future<void> startSwiping() async {
+    final success = await GetIt.I<IRoom>().startSwiping(state.room.id);
+    if (success) {
+      emit(state.copyWith(room: state.room.copyWith(started: true)));
+    }
+  }
+
   @override
   Future<void> close() {
     roomDataStreamSubscription?.cancel();

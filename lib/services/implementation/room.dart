@@ -22,9 +22,13 @@ class FireRoom implements IRoom {
   Future<Room> create({required RoomSettings settings}) async {
     try {
       final uuid = const Uuid().v4(); // TODO: for now
-      final room =
-          Room(id: uuid, createdAt: DateTime.now().toUtc(), settings: settings);
+      final room = Room(
+          id: uuid,
+          createdAt: DateTime.now().toUtc(),
+          settings: settings,
+          started: false);
       final data = room.toJson();
+
       //data["settings"] = data["settings"].toJson();
       await roomCollection.doc(uuid).set(data);
       return room;
@@ -117,6 +121,16 @@ class FireRoom implements IRoom {
       return true;
     } catch (er) {
       return false; // room no longer existed anyways
+    }
+  }
+
+  @override
+  Future<bool> startSwiping(String roomId) async {
+    try {
+      await roomCollection.doc(roomId).update({"started": true});
+      return true;
+    } catch (er) {
+      return false;
     }
   }
 }

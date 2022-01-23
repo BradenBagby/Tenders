@@ -7,9 +7,11 @@ part 'room.g.dart';
 @freezed
 class Room with _$Room {
   @JsonSerializable(explicitToJson: true)
-  factory Room(
-      {required String id,
-      required DateTime createdAt,
-      required RoomSettings settings}) = _Room;
+  factory Room({
+    required String id,
+    required DateTime createdAt,
+    required RoomSettings settings,
+    @Default(false) bool started,
+  }) = _Room;
   factory Room.fromJson(Map<String, dynamic> json) => _$RoomFromJson(json);
 }

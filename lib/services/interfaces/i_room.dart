@@ -34,4 +34,6 @@ abstract class IRoom {
 
   /// report this restauraunt as a match
   Future<void> reportMatch(Restauraunt restauraunt, {required Room forRoom});
+
+  Future<bool> startSwiping(String roomId);
 }

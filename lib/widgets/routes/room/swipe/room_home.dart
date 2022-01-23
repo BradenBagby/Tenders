@@ -40,7 +40,7 @@ class _RoomHomeState extends State<RoomHome> {
     return BlocBuilder<RoomCubit, RoomState>(
       bloc: roomCubit,
       builder: (context, state) {
-        if (state.members.length == 1) {
+        if (!state.room.started) {
           return WaitingForFriends();
         }
 
