@@ -8,6 +8,7 @@ import 'package:tenders/application/room/cubit/room_cubit.dart';
 import 'package:tenders/application/room_auth/room_auth_cubit.dart';
 import 'package:tenders/core/utility/dynamic_links.dart';
 import 'package:tenders/core/utility/share.dart';
+import 'package:tenders/widgets/common/displays/member_count.dart';
 import 'package:tenders/widgets/routes/room/view_qr_code.dart';
 
 class WaitingForFriends extends StatelessWidget {
@@ -72,6 +73,10 @@ class WaitingForFriends extends StatelessWidget {
               ),
             ),
             Expanded(child: SizedBox()),
+            MemberCount(
+              showInviteButton: false,
+              size: 40,
+            ),
             BlocBuilder<RoomCubit, RoomState>(builder: (context, state) {
               if (state.members.length <= 1 && !kDebugMode) {
                 return SizedBox();
