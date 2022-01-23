@@ -61,7 +61,7 @@ class SetupProfileState extends State<SetupProfile> {
                     member: edited,
                     size: Size(200, 200),
                   ),
-                  if (edited?.avatarUrl == null)
+                  if (edited?.avatarUrl == null && false) // TODO:
                     Center(
                       child: Icon(
                         Icons.add_a_photo,
