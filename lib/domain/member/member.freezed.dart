@@ -23,11 +23,15 @@ class _$MemberTearOff {
   _Member call(
       {required DateTime joinedAt,
       required String id,
-      bool disconnected = false}) {
+      bool disconnected = false,
+      String name = "user",
+      String? avatarUrl}) {
     return _Member(
       joinedAt: joinedAt,
       id: id,
       disconnected: disconnected,
+      name: name,
+      avatarUrl: avatarUrl,
     );
   }
 
@@ -44,6 +48,8 @@ mixin _$Member {
   DateTime get joinedAt => throw _privateConstructorUsedError;
   String get id => throw _privateConstructorUsedError;
   bool get disconnected => throw _privateConstructorUsedError;
+  String get name => throw _privateConstructorUsedError;
+  String? get avatarUrl => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -54,7 +60,12 @@ mixin _$Member {
 abstract class $MemberCopyWith<$Res> {
   factory $MemberCopyWith(Member value, $Res Function(Member) then) =
       _$MemberCopyWithImpl<$Res>;
-  $Res call({DateTime joinedAt, String id, bool disconnected});
+  $Res call(
+      {DateTime joinedAt,
+      String id,
+      bool disconnected,
+      String name,
+      String? avatarUrl});
 }
 
 /// @nodoc
@@ -70,6 +81,8 @@ class _$MemberCopyWithImpl<$Res> implements $MemberCopyWith<$Res> {
     Object? joinedAt = freezed,
     Object? id = freezed,
     Object? disconnected = freezed,
+    Object? name = freezed,
+    Object? avatarUrl = freezed,
   }) {
     return _then(_value.copyWith(
       joinedAt: joinedAt == freezed
@@ -84,6 +97,14 @@ class _$MemberCopyWithImpl<$Res> implements $MemberCopyWith<$Res> {
           ? _value.disconnected
           : disconnected // ignore: cast_nullable_to_non_nullable
               as bool,
+      name: name == freezed
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String,
+      avatarUrl: avatarUrl == freezed
+          ? _value.avatarUrl
+          : avatarUrl // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -93,7 +114,12 @@ abstract class _$MemberCopyWith<$Res> implements $MemberCopyWith<$Res> {
   factory _$MemberCopyWith(_Member value, $Res Function(_Member) then) =
       __$MemberCopyWithImpl<$Res>;
   @override
-  $Res call({DateTime joinedAt, String id, bool disconnected});
+  $Res call(
+      {DateTime joinedAt,
+      String id,
+      bool disconnected,
+      String name,
+      String? avatarUrl});
 }
 
 /// @nodoc
@@ -110,6 +136,8 @@ class __$MemberCopyWithImpl<$Res> extends _$MemberCopyWithImpl<$Res>
     Object? joinedAt = freezed,
     Object? id = freezed,
     Object? disconnected = freezed,
+    Object? name = freezed,
+    Object? avatarUrl = freezed,
   }) {
     return _then(_Member(
       joinedAt: joinedAt == freezed
@@ -124,6 +152,14 @@ class __$MemberCopyWithImpl<$Res> extends _$MemberCopyWithImpl<$Res>
           ? _value.disconnected
           : disconnected // ignore: cast_nullable_to_non_nullable
               as bool,
+      name: name == freezed
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String,
+      avatarUrl: avatarUrl == freezed
+          ? _value.avatarUrl
+          : avatarUrl // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -133,7 +169,11 @@ class __$MemberCopyWithImpl<$Res> extends _$MemberCopyWithImpl<$Res>
 /// @nodoc
 class _$_Member implements _Member {
   _$_Member(
-      {required this.joinedAt, required this.id, this.disconnected = false});
+      {required this.joinedAt,
+      required this.id,
+      this.disconnected = false,
+      this.name = "user",
+      this.avatarUrl});
 
   factory _$_Member.fromJson(Map<String, dynamic> json) =>
       _$_$_MemberFromJson(json);
@@ -145,10 +185,15 @@ class _$_Member implements _Member {
   @JsonKey(defaultValue: false)
   @override
   final bool disconnected;
+  @JsonKey(defaultValue: "user")
+  @override
+  final String name;
+  @override
+  final String? avatarUrl;
 
   @override
   String toString() {
-    return 'Member(joinedAt: $joinedAt, id: $id, disconnected: $disconnected)';
+    return 'Member(joinedAt: $joinedAt, id: $id, disconnected: $disconnected, name: $name, avatarUrl: $avatarUrl)';
   }
 
   @override
@@ -162,7 +207,12 @@ class _$_Member implements _Member {
                 const DeepCollectionEquality().equals(other.id, id)) &&
             (identical(other.disconnected, disconnected) ||
                 const DeepCollectionEquality()
-                    .equals(other.disconnected, disconnected)));
+                    .equals(other.disconnected, disconnected)) &&
+            (identical(other.name, name) ||
+                const DeepCollectionEquality().equals(other.name, name)) &&
+            (identical(other.avatarUrl, avatarUrl) ||
+                const DeepCollectionEquality()
+                    .equals(other.avatarUrl, avatarUrl)));
   }
 
   @override
@@ -170,7 +220,9 @@ class _$_Member implements _Member {
       runtimeType.hashCode ^
       const DeepCollectionEquality().hash(joinedAt) ^
       const DeepCollectionEquality().hash(id) ^
-      const DeepCollectionEquality().hash(disconnected);
+      const DeepCollectionEquality().hash(disconnected) ^
+      const DeepCollectionEquality().hash(name) ^
+      const DeepCollectionEquality().hash(avatarUrl);
 
   @JsonKey(ignore: true)
   @override
@@ -187,7 +239,9 @@ abstract class _Member implements Member {
   factory _Member(
       {required DateTime joinedAt,
       required String id,
-      bool disconnected}) = _$_Member;
+      bool disconnected,
+      String name,
+      String? avatarUrl}) = _$_Member;
 
   factory _Member.fromJson(Map<String, dynamic> json) = _$_Member.fromJson;
 
@@ -197,6 +251,10 @@ abstract class _Member implements Member {
   String get id => throw _privateConstructorUsedError;
   @override
   bool get disconnected => throw _privateConstructorUsedError;
+  @override
+  String get name => throw _privateConstructorUsedError;
+  @override
+  String? get avatarUrl => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$MemberCopyWith<_Member> get copyWith => throw _privateConstructorUsedError;

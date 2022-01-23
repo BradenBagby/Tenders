@@ -20,11 +20,14 @@ class PageIndicator extends StatelessWidget {
                   width: size,
                   height: size,
                   decoration: BoxDecoration(
-                    color: Colors.white.withAlpha(i == currentPage ? 100 : 0),
+                    color: Theme.of(context)
+                        .colorScheme
+                        .onSurface
+                        .withAlpha(i == currentPage ? 100 : 0),
                     border: Border.all(
                         color: Theme.of(context)
                             .colorScheme
-                            .onPrimary
+                            .onSurface
                             .withAlpha(100),
                         width: 1),
                     borderRadius: BorderRadius.circular(100),

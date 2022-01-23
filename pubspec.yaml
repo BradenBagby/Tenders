@@ -48,6 +48,8 @@ dependencies:
   google_mobile_ads: ^1.0.1
   flutter_share: ^2.0.0
   maps_launcher: ^2.0.1
+  shared_preferences: ^2.0.12
+  app_settings: ^4.1.1
 
 
 targets:
