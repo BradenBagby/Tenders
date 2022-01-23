@@ -1,3 +1,4 @@
+import 'package:tenders/domain/accepted/accepted.dart';
 import 'package:tenders/domain/member/member.dart';
 import 'package:tenders/domain/restauraunt/restauraunt.dart';
 import 'package:tenders/domain/room/room.dart';
@@ -36,4 +37,6 @@ abstract class IRoom {
   Future<void> reportMatch(Restauraunt restauraunt, {required Room forRoom});
 
   Future<bool> startSwiping(String roomId);
+
+  Future<List<Accepted>> getAllAccepted(String roomId);
 }

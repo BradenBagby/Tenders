@@ -149,7 +149,7 @@ class _OnboardingCarouselState extends State<OnboardingCarousel> {
 
   void _close() {
     SharedPreferences.getInstance().then((prefs) {
-      //   prefs.setBool('didCarousel', true);
+      prefs.setBool('didCarousel', true);
       Navigator.of(context).pop();
     });
   }

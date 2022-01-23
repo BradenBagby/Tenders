@@ -4,14 +4,15 @@ import 'package:tenders/domain/restauraunt/restauraunt.dart';
 import 'package:tenders/widgets/common/displays/url_image.dart';
 
 class RestaurantRow extends StatelessWidget {
+  final bool perfectMatch;
   final Restauraunt restauraunt;
-  const RestaurantRow(this.restauraunt);
+  const RestaurantRow(this.restauraunt, {this.perfectMatch = true});
   @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
         RootRouteController.showMatch(RootRouteController.key.currentContext!,
-            restauraunt: restauraunt);
+            restauraunt: restauraunt, perfectMatch: perfectMatch);
       },
       child: Container(
         height: 75,

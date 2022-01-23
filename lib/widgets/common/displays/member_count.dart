@@ -28,9 +28,17 @@ class MemberCount extends StatelessWidget {
               ...state.members
                   .map((e) => Opacity(
                         opacity: e.disconnected ? 0.35 : 1,
-                        child: Avatar(
-                          size: Size(size ?? 24, size ?? 24),
-                          member: e,
+                        child: Padding(
+                          padding: EdgeInsets.only(
+                              right: state.members.length > 1 ? 8.0 : 0),
+                          child: Column(
+                            children: [
+                              Avatar(
+                                size: Size(size ?? 24, size ?? 24),
+                                member: e,
+                              ),
+                            ],
+                          ),
                         ),
                       ))
                   .toList(),

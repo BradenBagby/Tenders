@@ -10,6 +10,7 @@ import 'package:tenders/widgets/common/custom/spinner.dart';
 import 'package:tenders/widgets/common/displays/restauraunt_display.dart';
 import 'package:tenders/widgets/common/web_controls.dart';
 import 'package:tenders/widgets/routes/room/drawer/room_drawer.dart';
+import 'package:tenders/widgets/routes/room/summary.dart';
 import 'package:tenders/widgets/routes/room/swipe/controls.dart';
 import 'package:tenders/widgets/routes/room/swipe/draggable_card.dart';
 import 'package:tenders/widgets/routes/room/waiting_for_friends.dart';
@@ -45,33 +46,7 @@ class _RoomHomeState extends State<RoomHome> {
         }
 
         if (state.outOfRestauraunts) {
-          return Column(
-            children: [
-              Align(
-                alignment: Alignment.centerLeft,
-                child: SafeArea(
-                  child: IconButton(
-                      color: Theme.of(context).colorScheme.onBackground,
-                      onPressed: () {
-                        Scaffold.of(context).openDrawer();
-                      },
-                      icon: Icon(
-                        Icons.menu,
-                        color: Theme.of(context).colorScheme.onSurface,
-                      )),
-                ),
-              ),
-              Expanded(
-                child: SizedBox(),
-              ),
-              Center(
-                child: Text("No restaurants nearby"),
-              ),
-              Expanded(
-                child: SizedBox(),
-              ),
-            ],
-          );
+          return SummaryWidget();
         }
         if (state.showNeedsLocation)
           return Center(

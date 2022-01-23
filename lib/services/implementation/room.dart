@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:tenders/domain/accepted/accepted.dart';
 import 'package:tenders/domain/member/member.dart';
 import 'package:tenders/domain/restauraunt/restauraunt.dart';
 import 'package:tenders/domain/room/room.dart';
@@ -95,7 +96,8 @@ class FireRoom implements IRoom {
       return currentAccepted;
     } else {
       final accepted = [forMember.id];
-      await docRef.set({"accepted": accepted});
+      await docRef
+          .set({"accepted": accepted, "restaurant": restauraunt.toJson()});
       return accepted;
     }
   }
@@ -131,6 +133,27 @@ class FireRoom implements IRoom {
       return true;
     } catch (er) {
       return false;
+    }
+  }
+
+  @override
+  Future<List<Accepted>> getAllAccepted(String roomId) async {
+    try {
+      final info = await roomCollection
+          .doc(roomId)
+          .collection(ACCEPTED_COLLECTION)
+          .get();
+      final accepted = info.docs
+          .map(
+            (e) => Accepted.fromJson(
+              e.data(),
+            ),
+          )
+          .toList();
+      accepted.sort((a, b) => b.accepted.length.compareTo(a.accepted.length));
+      return accepted;
+    } catch (er) {
+      return [];
     }
   }
 }

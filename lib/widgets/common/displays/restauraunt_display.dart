@@ -46,9 +46,10 @@ class _RestaurauntDisplayState extends State<RestaurauntDisplay> {
 
     // immediately get full restauraunt for display
     GetIt.I<IRestauraunt>().getAllInfo(widget.restauraunt).then((value) {
-      setState(() {
-        allInfo = value;
-      });
+      if (mounted)
+        setState(() {
+          allInfo = value;
+        });
     });
   }
 

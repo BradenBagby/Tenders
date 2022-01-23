@@ -7,7 +7,8 @@ import 'package:tenders/widgets/common/displays/restauraunt_display.dart';
 
 class MatchPage extends StatefulWidget {
   final Restauraunt restauraunt;
-  const MatchPage(this.restauraunt);
+  final bool totalMatch;
+  const MatchPage(this.restauraunt, {this.totalMatch = true});
 
   @override
   State<MatchPage> createState() => _MatchPageState();
@@ -19,8 +20,14 @@ class _MatchPageState extends State<MatchPage> {
   @override
   void initState() {
     controller = ConfettiController(duration: const Duration(milliseconds: 10));
-    controller.play();
+    if (widget.totalMatch) controller.play();
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    controller.dispose();
+    super.dispose();
   }
 
   @override
@@ -43,7 +50,7 @@ class _MatchPageState extends State<MatchPage> {
                     ),
                     Expanded(
                       child: Text(
-                        "MATCH",
+                        "${widget.totalMatch ? 'PERFECT ' : ''}MATCH",
                         textAlign: TextAlign.center,
                         style: Theme.of(context).textTheme.headline4,
                       ),
@@ -73,7 +80,7 @@ class _MatchPageState extends State<MatchPage> {
               shouldLoop: false,
               emissionFrequency: 1,
               gravity: 0,
-              numberOfParticles: 50,
+              numberOfParticles: 12,
               blastDirection: math.pi / 2,
             ),
           )

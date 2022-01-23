@@ -22,7 +22,7 @@ class AdsCubit extends Cubit<AdsState> {
   }
 
   Future<void> show() async {
-    if (kIsWeb) return;
+    if (kIsWeb || !Environment.useAdsInDebug) return;
     if (state.ad == null) {
       if (state.failedTimes >= 4) return;
       await Future.delayed(const Duration(seconds: 1));
@@ -51,6 +51,7 @@ class AdsCubit extends Cubit<AdsState> {
   }
 
   Future<void> load() async {
+    if (kIsWeb || !Environment.useAdsInDebug) return;
     InterstitialAd.load(
         adUnitId: adId,
         request: AdRequest(),

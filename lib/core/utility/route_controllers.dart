@@ -56,8 +56,14 @@ class RootRouteController {
           fullscreenDialog: true,
         );
       case routeMatch:
+        final args = settings.arguments as Map<String, dynamic>;
+        final restaurant = args["restaurant"] as Restauraunt;
+        final perfectMatch = args["perfectMatch"] as bool;
         return MaterialPageRoute(
-            builder: (context) => MatchPage(settings.arguments as Restauraunt),
+            builder: (context) => MatchPage(
+                  restaurant,
+                  totalMatch: perfectMatch,
+                ),
             fullscreenDialog: true);
       default:
         throw UnimplementedError();
@@ -68,9 +74,9 @@ class RootRouteController {
       Navigator.of(context).pushNamed(RootRouteController.routeQRCode);
 
   static Future<void> showMatch(BuildContext context,
-          {required Restauraunt restauraunt}) =>
-      Navigator.of(context)
-          .pushNamed(RootRouteController.routeMatch, arguments: restauraunt);
+          {required Restauraunt restauraunt, bool perfectMatch = true}) =>
+      Navigator.of(context).pushNamed(RootRouteController.routeMatch,
+          arguments: {"restaurant": restauraunt, "perfectMatch": perfectMatch});
 }
 
 class FadePageRoute<T> extends PageRoute<T> {

@@ -29,8 +29,8 @@ class RoomDrawer extends StatelessWidget {
                   height: 8,
                 ),
                 Text(
-                  "Matches:",
-                  style: Theme.of(context).textTheme.headline4!,
+                  "Perfect Matches:",
+                  style: Theme.of(context).textTheme.subtitle1!,
                 ),
                 Expanded(child: BlocBuilder<RoomCubit, RoomState>(
                   builder: (context, state) {
