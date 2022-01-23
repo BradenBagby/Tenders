@@ -9,6 +9,8 @@ class Member with _$Member {
     required DateTime joinedAt,
     required String id,
     @Default(false) bool disconnected,
+    @Default("user") String name,
+    String? avatarUrl,
   }) = _Member;
   factory Member.fromJson(Map<String, dynamic> json) => _$MemberFromJson(json);
 }
