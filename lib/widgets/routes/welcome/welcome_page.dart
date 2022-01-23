@@ -5,9 +5,11 @@ import 'package:tenders/application/room_auth/room_auth_cubit.dart';
 import 'package:tenders/domain/room_settings/room_settings.dart';
 import 'package:tenders/widgets/common/custom/dropdown.dart';
 import 'package:tenders/widgets/common/custom/input_controllers.dart';
+import 'package:tenders/widgets/common/displays/avatar.dart';
 import 'package:tenders/widgets/common/displays/chicken.dart';
 import 'package:tenders/widgets/root_widget.dart';
 import 'package:tenders/widgets/routes/onboarding/onboarding_carousel.dart';
+import 'package:tenders/widgets/routes/profile/setup_profile.dart';
 import 'package:tenders/widgets/routes/scan/scan_page.dart';
 
 class WelcomePage extends StatefulWidget {
@@ -88,29 +90,11 @@ class _WelcomePageState extends State<WelcomePage>
         Align(
           alignment: Alignment.topRight,
           child: SafeArea(
-            child: IconButton(
-              padding: EdgeInsets.only(right: 16),
-              onPressed: () {
-                showDialog(
-                  context: context,
-                  builder: (BuildContext context) {
-                    return AlertDialog(
-                      title: Text("Help"),
-                      content: Text(
-                          "To join your friend, have them tap the menu icon in the top left while searching for tendies. Scan the QR code with your camera"),
-                      actions: <Widget>[
-                        ElevatedButton(
-                          onPressed: () {
-                            Navigator.pop(context);
-                          },
-                          child: Text("Okay"),
-                        )
-                      ],
-                    );
-                  },
-                );
-              },
-              icon: Icon(Icons.help_outline_outlined),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                _profileButton(),
+              ],
             ),
           ),
         ),
@@ -133,6 +117,66 @@ class _WelcomePageState extends State<WelcomePage>
         )
       ],
     ));
+  }
+
+  Widget _profileButton() {
+    return BlocBuilder<RoomAuthCubit, RoomAuthState>(
+      builder: (context, state) {
+        return InkWell(
+          onTap: () {
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                  builder: (_) => SetupProfile(
+                        embedded: false,
+                      ),
+                  fullscreenDialog: true),
+            );
+          },
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Avatar(
+                  member: state.me,
+                ),
+                SizedBox(
+                  width: 8,
+                ),
+                Text(state.me?.name ?? "")
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+  Widget _helpButton() {
+    return IconButton(
+      padding: EdgeInsets.only(right: 16),
+      onPressed: () {
+        showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              title: Text("Help"),
+              content: Text(
+                  "To join your friend, have them tap the menu icon in the top left while searching for tendies. Scan the QR code with your camera"),
+              actions: <Widget>[
+                ElevatedButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  child: Text("Okay"),
+                )
+              ],
+            );
+          },
+        );
+      },
+      icon: Icon(Icons.help_outline_outlined),
+    );
   }
 
   Widget _buttons() {
