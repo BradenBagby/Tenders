@@ -31,6 +31,15 @@ class RoomCubit extends Cubit<RoomState> {
   RoomCubit({required Room room, required Member me})
       : _restaurauntService = GetIt.I<IRestauraunt>(),
         super(RoomState(room: room, me: me, members: [me], restauraunts: [])) {
+    /// simulate memberj oinging
+    if (Environment.marketing) {
+      Future.delayed(const Duration(seconds: 3)).then((value) {
+        final current = List<Member>.from(state.members);
+        current.add(
+            Member(joinedAt: DateTime.now(), id: "asdf", disconnected: true));
+        emit(state.copyWith(members: current));
+      });
+    }
     showAdCounter = math.Random().nextInt(4) + 8;
 
     // listen to room updates and update state accordinly

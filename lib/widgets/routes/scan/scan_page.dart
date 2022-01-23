@@ -68,7 +68,8 @@ class _ScanPageState extends State<ScanPage> {
                   key: qrKey,
                   onQRViewCreated: (QRViewController controller) {
                     _onQRViewCreated(controller, context);
-                  }),
+                  },
+                ),
         );
       },
     );
