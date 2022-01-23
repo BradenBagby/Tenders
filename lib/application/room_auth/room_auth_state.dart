@@ -5,6 +5,9 @@ class RoomAuthState with _$RoomAuthState {
   const factory RoomAuthState({
     /// current room you are in (if any)
     @Default(null) RoomCubit? currentRoomCubit,
-    // TODO: here we can keep list of matches
+
+    /// my memer info
+    @Default(null) Member? me,
   }) = _RoomAuthState;
+  const RoomAuthState._();
 }

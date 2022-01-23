@@ -16,9 +16,10 @@ final _privateConstructorUsedError = UnsupportedError(
 class _$RoomAuthStateTearOff {
   const _$RoomAuthStateTearOff();
 
-  _RoomAuthState call({RoomCubit? currentRoomCubit = null}) {
+  _RoomAuthState call({RoomCubit? currentRoomCubit = null, Member? me = null}) {
     return _RoomAuthState(
       currentRoomCubit: currentRoomCubit,
+      me: me,
     );
   }
 }
@@ -31,6 +32,9 @@ mixin _$RoomAuthState {
   /// current room you are in (if any)
   RoomCubit? get currentRoomCubit => throw _privateConstructorUsedError;
 
+  /// my memer info
+  Member? get me => throw _privateConstructorUsedError;
+
   @JsonKey(ignore: true)
   $RoomAuthStateCopyWith<RoomAuthState> get copyWith =>
       throw _privateConstructorUsedError;
@@ -41,7 +45,9 @@ abstract class $RoomAuthStateCopyWith<$Res> {
   factory $RoomAuthStateCopyWith(
           RoomAuthState value, $Res Function(RoomAuthState) then) =
       _$RoomAuthStateCopyWithImpl<$Res>;
-  $Res call({RoomCubit? currentRoomCubit});
+  $Res call({RoomCubit? currentRoomCubit, Member? me});
+
+  $MemberCopyWith<$Res>? get me;
 }
 
 /// @nodoc
@@ -56,13 +62,29 @@ class _$RoomAuthStateCopyWithImpl<$Res>
   @override
   $Res call({
     Object? currentRoomCubit = freezed,
+    Object? me = freezed,
   }) {
     return _then(_value.copyWith(
       currentRoomCubit: currentRoomCubit == freezed
           ? _value.currentRoomCubit
           : currentRoomCubit // ignore: cast_nullable_to_non_nullable
               as RoomCubit?,
+      me: me == freezed
+          ? _value.me
+          : me // ignore: cast_nullable_to_non_nullable
+              as Member?,
     ));
+  }
+
+  @override
+  $MemberCopyWith<$Res>? get me {
+    if (_value.me == null) {
+      return null;
+    }
+
+    return $MemberCopyWith<$Res>(_value.me!, (value) {
+      return _then(_value.copyWith(me: value));
+    });
   }
 }
 
@@ -73,7 +95,10 @@ abstract class _$RoomAuthStateCopyWith<$Res>
           _RoomAuthState value, $Res Function(_RoomAuthState) then) =
       __$RoomAuthStateCopyWithImpl<$Res>;
   @override
-  $Res call({RoomCubit? currentRoomCubit});
+  $Res call({RoomCubit? currentRoomCubit, Member? me});
+
+  @override
+  $MemberCopyWith<$Res>? get me;
 }
 
 /// @nodoc
@@ -90,29 +115,40 @@ class __$RoomAuthStateCopyWithImpl<$Res>
   @override
   $Res call({
     Object? currentRoomCubit = freezed,
+    Object? me = freezed,
   }) {
     return _then(_RoomAuthState(
       currentRoomCubit: currentRoomCubit == freezed
           ? _value.currentRoomCubit
           : currentRoomCubit // ignore: cast_nullable_to_non_nullable
               as RoomCubit?,
+      me: me == freezed
+          ? _value.me
+          : me // ignore: cast_nullable_to_non_nullable
+              as Member?,
     ));
   }
 }
 
 /// @nodoc
-class _$_RoomAuthState implements _RoomAuthState {
-  const _$_RoomAuthState({this.currentRoomCubit = null});
+class _$_RoomAuthState extends _RoomAuthState {
+  const _$_RoomAuthState({this.currentRoomCubit = null, this.me = null})
+      : super._();
 
   @JsonKey(defaultValue: null)
   @override
 
   /// current room you are in (if any)
   final RoomCubit? currentRoomCubit;
+  @JsonKey(defaultValue: null)
+  @override
+
+  /// my memer info
+  final Member? me;
 
   @override
   String toString() {
-    return 'RoomAuthState(currentRoomCubit: $currentRoomCubit)';
+    return 'RoomAuthState(currentRoomCubit: $currentRoomCubit, me: $me)';
   }
 
   @override
@@ -121,13 +157,16 @@ class _$_RoomAuthState implements _RoomAuthState {
         (other is _RoomAuthState &&
             (identical(other.currentRoomCubit, currentRoomCubit) ||
                 const DeepCollectionEquality()
-                    .equals(other.currentRoomCubit, currentRoomCubit)));
+                    .equals(other.currentRoomCubit, currentRoomCubit)) &&
+            (identical(other.me, me) ||
+                const DeepCollectionEquality().equals(other.me, me)));
   }
 
   @override
   int get hashCode =>
       runtimeType.hashCode ^
-      const DeepCollectionEquality().hash(currentRoomCubit);
+      const DeepCollectionEquality().hash(currentRoomCubit) ^
+      const DeepCollectionEquality().hash(me);
 
   @JsonKey(ignore: true)
   @override
@@ -135,14 +174,19 @@ class _$_RoomAuthState implements _RoomAuthState {
       __$RoomAuthStateCopyWithImpl<_RoomAuthState>(this, _$identity);
 }
 
-abstract class _RoomAuthState implements RoomAuthState {
-  const factory _RoomAuthState({RoomCubit? currentRoomCubit}) =
+abstract class _RoomAuthState extends RoomAuthState {
+  const factory _RoomAuthState({RoomCubit? currentRoomCubit, Member? me}) =
       _$_RoomAuthState;
+  const _RoomAuthState._() : super._();
 
   @override
 
   /// current room you are in (if any)
   RoomCubit? get currentRoomCubit => throw _privateConstructorUsedError;
+  @override
+
+  /// my memer info
+  Member? get me => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$RoomAuthStateCopyWith<_RoomAuthState> get copyWith =>

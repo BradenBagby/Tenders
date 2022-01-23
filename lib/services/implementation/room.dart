@@ -42,7 +42,9 @@ class FireRoom implements IRoom {
       // TODO: for now throw Exception("Room doesnt exist");
     }
     final roomObject = Room.fromJson(roomData.data() as Map<String, dynamic>);
-    roomDoc.collection(MEMBERS_COLLECTION).doc(member.id).set(member.toJson());
+    final memberData = member.toJson();
+    memberData['joinedAt'] = FieldValue.serverTimestamp();
+    roomDoc.collection(MEMBERS_COLLECTION).doc(member.id).set(memberData);
     return Tuple2(member, roomObject);
   }
 

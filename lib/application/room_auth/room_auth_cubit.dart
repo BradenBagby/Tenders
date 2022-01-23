@@ -21,7 +21,20 @@ class RoomAuthCubit extends Cubit<RoomAuthState> {
         super(const RoomAuthState()) {
     // imediately authenticate user anonymously
     // firebase caches this as currentUser
-    GetIt.I<IAuth>().getUser();
+    GetIt.I<IAuth>().getUser().then((value) {
+      getMember();
+    });
+  }
+
+  /// loads my member info
+  Future<Member> getMember() async {
+    if (state.me != null) {
+      return state.me!;
+    }
+    final currentUser = await GetIt.I<IAuth>().getUser();
+    final me = await GetIt.I<IAuth>().getMember(currentUser.uid);
+    emit(state.copyWith(me: me));
+    return me;
   }
 
   /// create a room, auto joins after
@@ -43,8 +56,7 @@ class RoomAuthCubit extends Cubit<RoomAuthState> {
   Future<bool> joinRoom(String id) async {
     Member member;
     try {
-      final user = await GetIt.I<IAuth>().getUser();
-      member = Member(joinedAt: DateTime.now(), id: user.uid);
+      member = await getMember();
     } catch (er) {
       return false;
     }

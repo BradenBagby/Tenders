@@ -35,8 +35,7 @@ class RoomCubit extends Cubit<RoomState> {
     if (Environment.marketing) {
       Future.delayed(const Duration(seconds: 3)).then((value) {
         final current = List<Member>.from(state.members);
-        current.add(
-            Member(joinedAt: DateTime.now(), id: "asdf", disconnected: true));
+        current.add(Member(id: "asdf", disconnected: true, name: "John"));
         emit(state.copyWith(members: current));
       });
     }
