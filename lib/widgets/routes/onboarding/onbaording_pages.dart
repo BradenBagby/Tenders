@@ -185,7 +185,7 @@ class WelcomePermissions extends StatelessWidget {
   const WelcomePermissions({required this.next});
   @override
   Widget build(BuildContext context) {
-    final howToStyle = Theme.of(context).textTheme.subtitle1;
+    final howToStyle = Theme.of(context).textTheme.headline6;
     final size = MediaQuery.of(context).size;
     return SafeArea(
       child: Column(
@@ -214,34 +214,44 @@ class WelcomePermissions extends StatelessWidget {
           Padding(
             padding: EdgeInsets.only(
                 left: size.width * 0.1, right: size.width * 0.1),
-            child: Card(
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      "How To:",
-                      style: Theme.of(context).textTheme.headline4,
-                    ),
-                    Text(
-                      "1. Create a room",
-                      style: howToStyle,
-                    ),
-                    Text(
-                      "2. Invite friends",
-                      style: howToStyle,
-                    ),
-                    Text(
-                      "3. Swipe on nearby restaurants",
-                      style: howToStyle,
-                    ),
-                    Text(
-                      "4. Match and view results",
-                      style: howToStyle,
-                    ),
-                  ],
-                ),
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    "How To:",
+                    style: Theme.of(context).textTheme.headline4,
+                  ),
+                  SizedBox(
+                    height: 4,
+                  ),
+                  Text(
+                    "1. Create a room",
+                    style: howToStyle,
+                  ),
+                  SizedBox(
+                    height: 4,
+                  ),
+                  Text(
+                    "2. Invite friends",
+                    style: howToStyle,
+                  ),
+                  SizedBox(
+                    height: 4,
+                  ),
+                  Text(
+                    "3. Swipe on nearby restaurants",
+                    style: howToStyle,
+                  ),
+                  SizedBox(
+                    height: 4,
+                  ),
+                  Text(
+                    "4. Match and view results",
+                    style: howToStyle,
+                  ),
+                ],
               ),
             ),
           ),
