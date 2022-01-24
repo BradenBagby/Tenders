@@ -81,39 +81,43 @@ class _RoomHomeState extends State<RoomHome> {
             ? state.restauraunts[state.currentViewIndex + 1]
             : null;
 
-        return Stack(
-          children: [
-            if (next != null)
-              RestaurauntDisplay(next,
-                  scrollingEnabled: false, key: ValueKey(next.id)),
-            DraggableCard(
-              key: ValueKey(state.currentViewRestauraunt!.id),
-              acceptOverlay: Container(
-                color: Color(0xff000f04),
-                child: Center(
-                  child: Icon(
-                    Icons.check,
-                    color: Colors.green,
-                    size: 50,
+        return SwipeControls(
+          child: Stack(
+            children: [
+              if (next != null)
+                RestaurauntDisplay(next,
+                    scrollingEnabled: false, key: ValueKey(next.id)),
+              DraggableCard(
+                key: ValueKey(state.currentViewRestauraunt!.id),
+                acceptOverlay: Container(
+                  color: Color(0xff000f04),
+                  child: Center(
+                    child: Icon(
+                      Icons.check,
+                      color: Colors.green,
+                      size: 50,
+                    ),
                   ),
                 ),
-              ),
-              denyOverlay: Container(
-                color: Color(0xff0f0000),
-                child: Center(
-                  child: Icon(
-                    Icons.cancel,
-                    color: Colors.red,
-                    size: 50,
+                denyOverlay: Container(
+                  color: Color(0xff0f0000),
+                  child: Center(
+                    child: Icon(
+                      Icons.cancel,
+                      color: Colors.red,
+                      size: 50,
+                    ),
                   ),
                 ),
+                onAccept: () =>
+                    _next(true, BlocProvider.of<RoomCubit>(context)),
+                onReject: () =>
+                    _next(false, BlocProvider.of<RoomCubit>(context)),
+                child: RestaurauntDisplay(state.currentViewRestauraunt!,
+                    key: ValueKey(state.currentViewRestauraunt!.id)),
               ),
-              onAccept: () => _next(true, BlocProvider.of<RoomCubit>(context)),
-              onReject: () => _next(false, BlocProvider.of<RoomCubit>(context)),
-              child: RestaurauntDisplay(state.currentViewRestauraunt!,
-                  key: ValueKey(state.currentViewRestauraunt!.id)),
-            ),
-          ],
+            ],
+          ),
         );
       },
     );

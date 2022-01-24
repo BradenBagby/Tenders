@@ -7,6 +7,7 @@ import 'package:flutter/foundation.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:get_it/get_it.dart';
 import 'package:location/location.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tenders/application/ads/ads_cubit.dart';
 import 'package:tenders/core/utility/environment.dart';
 import 'package:tenders/core/utility/route_controllers.dart';
@@ -132,6 +133,14 @@ class RoomCubit extends Cubit<RoomState> {
 
   Future<void> next({required bool accepted}) async {
     possibleShowAd();
+
+    // really ugly and bad way of doing things, but hide helper controls once user has successfully swiped 7 times
+    if (state.currentViewIndex == 7) {
+      SharedPreferences.getInstance().then((value) {
+        value.setBool("hideControls", true);
+      });
+    }
+
     if (accepted) {
       final acceptedRestauraunt = state.currentViewRestauraunt;
       final acceptedUserIds = await GetIt.I<IRoom>().acceptRestauraunt(
