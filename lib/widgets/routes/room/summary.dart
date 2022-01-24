@@ -12,6 +12,8 @@ import 'package:tenders/widgets/common/displays/restaurant_row.dart';
 import 'package:tuple/tuple.dart';
 
 class SummaryWidget extends StatefulWidget {
+  final bool standalone;
+  const SummaryWidget({this.standalone = false});
   @override
   State<SummaryWidget> createState() => _SummaryState();
 }
@@ -56,10 +58,14 @@ class _SummaryState extends State<SummaryWidget> {
               leading: IconButton(
                   color: Theme.of(context).colorScheme.onBackground,
                   onPressed: () {
-                    Scaffold.of(context).openDrawer();
+                    if (widget.standalone) {
+                      Navigator.of(context).pop();
+                    } else {
+                      Scaffold.of(context).openDrawer();
+                    }
                   },
                   icon: Icon(
-                    Icons.menu,
+                    widget.standalone ? Icons.close : Icons.menu,
                     color: Theme.of(context).colorScheme.onSurface,
                   )),
               elevation: 0,
