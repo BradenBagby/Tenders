@@ -18,12 +18,16 @@ class NoAvatar extends StatelessWidget {
   static const PossibleColors = [
     Color(0xffFF512F),
     Color(0xffF09819),
-    Colors.white,
     Color(0xff9F2B00),
-    Colors.black,
-    Colors.yellow,
+    Colors.amber,
     Colors.orange,
     Colors.red,
+    Colors.blue,
+    Colors.tealAccent,
+    Colors.purple,
+    Colors.green,
+    Colors.white,
+    Colors.black,
   ];
   @override
   Widget build(BuildContext context) {
