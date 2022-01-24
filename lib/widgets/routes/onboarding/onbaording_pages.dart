@@ -28,6 +28,7 @@ class _LocationPermissionsState extends State<LocationPermissions> {
   bool needsSettings = false;
   @override
   Widget build(BuildContext context) {
+    final height = MediaQuery.of(context).size.height;
     return SafeArea(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -53,11 +54,11 @@ class _LocationPermissionsState extends State<LocationPermissions> {
             ),
           ),
           Expanded(
-            flex: 2,
+            flex: height < 700 ? 1 : 2,
             child: Center(
               child: Icon(
                 Icons.location_pin,
-                size: 120,
+                size: height < 700 ? 80 : 120,
               ),
             ),
           ),
@@ -185,8 +186,15 @@ class WelcomePermissions extends StatelessWidget {
   const WelcomePermissions({required this.next});
   @override
   Widget build(BuildContext context) {
-    final howToStyle = Theme.of(context).textTheme.headline6;
     final size = MediaQuery.of(context).size;
+    final height = size.height;
+    TextStyle howToStyle = Theme.of(context).textTheme.headline6!;
+    TextStyle howToHeader = Theme.of(context).textTheme.headline4!;
+    if (height < 700) {
+      howToStyle = howToStyle.copyWith(fontSize: howToStyle.fontSize! * 0.8);
+      howToHeader = howToHeader.copyWith(fontSize: howToHeader.fontSize! * 0.8);
+    }
+
     return SafeArea(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -203,8 +211,8 @@ class WelcomePermissions extends StatelessWidget {
             child: ClipRRect(
               borderRadius: BorderRadius.circular(20),
               child: SizedBox(
-                  width: 150,
-                  height: 150,
+                  width: height < 700 ? 100 : 150,
+                  height: height < 700 ? 100 : 150,
                   child: Image.asset("assets/appIcon.jpg")),
             ),
           ),
@@ -221,7 +229,7 @@ class WelcomePermissions extends StatelessWidget {
                 children: [
                   Text(
                     "How To:",
-                    style: Theme.of(context).textTheme.headline4,
+                    style: howToHeader,
                   ),
                   SizedBox(
                     height: 4,

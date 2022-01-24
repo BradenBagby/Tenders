@@ -34,11 +34,12 @@ class NoAvatar extends StatelessWidget {
             child: Image.asset(
                 "assets/${large ? 'justTender.png' : 'tender_loader.png'}"),
           ),
-          if (initials != null)
+          if (initials != null && false)
             Center(
               child: Text(
                 initials!,
-                style: TextStyle(fontSize: size * 0.5, color: color),
+                style: TextStyle(
+                    fontSize: size * 0.5, color: Colors.white.withAlpha(100)),
               ),
             )
         ],

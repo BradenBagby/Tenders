@@ -72,19 +72,30 @@ class SetupProfileState extends State<SetupProfile> {
                 ],
               ),
             ),
-            ResizeInput(
+            TextField(
+              style: Theme.of(context).textTheme.headline4,
+              textAlign: TextAlign.center,
               controller: controller,
               keyboardType: TextInputType.name,
-              textInputAction: TextInputAction.go,
               onSubmitted: (val) {
                 if (!widget.embedded) {
                   _save();
                 }
                 widget.onGo?.call();
               },
-              hint: "Name",
-              style: Theme.of(context).textTheme.headline4,
               textCapitalization: TextCapitalization.words,
+              textInputAction: TextInputAction.go,
+              decoration: InputDecoration(
+                border: InputBorder.none,
+                hintStyle: Theme.of(context).textTheme.headline4!.copyWith(
+                    color: Theme.of(context)
+                        .textTheme
+                        .headline4!
+                        .color!
+                        .withAlpha(155),
+                    fontWeight: FontWeight.w300),
+                hintText: "Name",
+              ),
             ),
             if (!widget.embedded) ...[
               Expanded(
@@ -126,26 +137,31 @@ class SetupProfileState extends State<SetupProfile> {
       );
     }
 
-    return Scaffold(
-      resizeToAvoidBottomInset: false,
-      backgroundColor: widget.embedded ? Colors.transparent : null,
-      appBar: widget.embedded
-          ? null
-          : AppBar(
-              backgroundColor: Colors.transparent,
-              elevation: 0,
-              actions: [if (loading) Loader()],
-              leading: IconButton(
-                icon: Icon(
-                  Icons.close,
-                  color: Theme.of(context).colorScheme.onSurface,
+    return GestureDetector(
+      onTap: () {
+        FocusScope.of(context).unfocus();
+      },
+      child: Scaffold(
+        resizeToAvoidBottomInset: false,
+        backgroundColor: widget.embedded ? Colors.transparent : null,
+        appBar: widget.embedded
+            ? null
+            : AppBar(
+                backgroundColor: Colors.transparent,
+                elevation: 0,
+                actions: [if (loading) Loader()],
+                leading: IconButton(
+                  icon: Icon(
+                    Icons.close,
+                    color: Theme.of(context).colorScheme.onSurface,
+                  ),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
                 ),
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
               ),
-            ),
-      body: body,
+        body: body,
+      ),
     );
   }
 
