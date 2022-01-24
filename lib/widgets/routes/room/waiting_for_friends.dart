@@ -16,6 +16,10 @@ class WaitingForFriends extends StatelessWidget {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     final width = math.min(size.width, size.height);
+    TextStyle buttonText = Theme.of(context).textTheme.headline3!;
+    if (size.height < 700) {
+      buttonText = buttonText.copyWith(fontSize: buttonText.fontSize! * 0.7);
+    }
     return Scaffold(
       body: SafeArea(
         child: Column(
@@ -37,7 +41,7 @@ class WaitingForFriends extends StatelessWidget {
               style: Theme.of(context).textTheme.headline4,
             ),
             ViewQRCode(
-              size: width * 0.8,
+              size: size.height < 700 ? (width * 0.6) : (width * 0.8),
             ),
             SizedBox(
               height: 8,
@@ -58,14 +62,14 @@ class WaitingForFriends extends StatelessWidget {
                   children: [
                     Text(
                       "Invite",
-                      style: Theme.of(context).textTheme.headline3,
+                      style: buttonText,
                     ),
                     SizedBox(
                       width: 8,
                     ),
                     Icon(
                       Icons.ios_share_sharp,
-                      size: 40,
+                      size: size.height < 700 ? 30 : 40,
                       color: Theme.of(context).textTheme.headline3!.color,
                     )
                   ],
@@ -91,7 +95,7 @@ class WaitingForFriends extends StatelessWidget {
                       child: ElevatedButton(
                         child: Text(
                           "Start Swiping",
-                          style: Theme.of(context).textTheme.headline3,
+                          style: buttonText,
                         ),
                         onPressed: () {
                           BlocProvider.of<RoomCubit>(context).startSwiping();
@@ -100,7 +104,10 @@ class WaitingForFriends extends StatelessWidget {
                     ),
                     Text(
                       "Even after clicking start, friends can still join! Find the QR code at any time by tapping the menu icon in the top left",
-                      style: Theme.of(context).textTheme.caption,
+                      style: Theme.of(context).textTheme.caption!.copyWith(
+                          fontSize:
+                              Theme.of(context).textTheme.caption!.fontSize! *
+                                  (size.height < 700 ? 0.7 : 1)),
                       textAlign: TextAlign.center,
                     )
                   ],

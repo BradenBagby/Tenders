@@ -85,6 +85,7 @@ class SetupProfileState extends State<SetupProfile> {
                     Avatar(
                       member: edited,
                       size: Size(200, 200),
+                      showInitial: false,
                     ),
                     if (showTap)
                       Positioned(

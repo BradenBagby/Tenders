@@ -7,8 +7,12 @@ class NoAvatar extends StatelessWidget {
   final bool large;
   final Member? member;
   final double size;
+  final showInitial;
   const NoAvatar(
-      {this.large = false, required this.member, required this.size});
+      {this.large = false,
+      required this.member,
+      required this.size,
+      this.showInitial = true});
 
   static const PossibleColors = [
     Color(0xffFF512F),
@@ -22,8 +26,9 @@ class NoAvatar extends StatelessWidget {
   ];
   @override
   Widget build(BuildContext context) {
+    final color = member == null ? PossibleColors.first : Color(member!.color);
     return Container(
-      color: member == null ? PossibleColors.first : Color(member!.color),
+      color: color,
       padding: EdgeInsets.all(2),
       child: Stack(
         children: [
@@ -31,6 +36,12 @@ class NoAvatar extends StatelessWidget {
             child: Image.asset(
                 "assets/${large ? 'justTender.png' : 'tender_loader.png'}"),
           ),
+          Center(
+            child: Text(
+              member?.name.characters.first ?? '',
+              style: TextStyle(fontSize: size / 2, color: color),
+            ),
+          )
         ],
       ),
     );

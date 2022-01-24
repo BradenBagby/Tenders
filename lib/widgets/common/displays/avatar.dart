@@ -7,7 +7,9 @@ import 'package:collection/collection.dart';
 class Avatar extends StatelessWidget {
   final Member? member;
   final Size size;
-  const Avatar({this.member, this.size = const Size(32, 32)});
+  final showInitial;
+  const Avatar(
+      {this.member, this.size = const Size(32, 32), this.showInitial = true});
 
   @override
   Widget build(BuildContext context) {
@@ -19,10 +21,15 @@ class Avatar extends StatelessWidget {
             ? NoAvatar(
                 member: member,
                 size: size.width,
+                showInitial: false,
               )
             : URLImage(
                 member!.avatarUrl!,
-                failedWidget: NoAvatar(member: member!, size: size.width),
+                failedWidget: NoAvatar(
+                  member: member!,
+                  size: size.width,
+                  showInitial: false,
+                ),
               ),
       ),
     );
