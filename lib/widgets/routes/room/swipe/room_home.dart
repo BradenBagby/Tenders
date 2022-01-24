@@ -84,10 +84,8 @@ class _RoomHomeState extends State<RoomHome> {
         return Stack(
           children: [
             if (next != null)
-              RestaurauntDisplay(
-                next,
-                scrollingEnabled: false,
-              ),
+              RestaurauntDisplay(next,
+                  scrollingEnabled: false, key: ValueKey(next.id)),
             DraggableCard(
               key: ValueKey(state.currentViewRestauraunt!.id),
               acceptOverlay: Container(
@@ -112,7 +110,8 @@ class _RoomHomeState extends State<RoomHome> {
               ),
               onAccept: () => _next(true, BlocProvider.of<RoomCubit>(context)),
               onReject: () => _next(false, BlocProvider.of<RoomCubit>(context)),
-              child: RestaurauntDisplay(state.currentViewRestauraunt!),
+              child: RestaurauntDisplay(state.currentViewRestauraunt!,
+                  key: ValueKey(state.currentViewRestauraunt!.id)),
             ),
           ],
         );

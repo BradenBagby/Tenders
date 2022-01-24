@@ -18,7 +18,9 @@ import 'dart:developer' as dev;
 class RestaurauntDisplay extends StatefulWidget {
   final Restauraunt restauraunt;
   final bool scrollingEnabled;
-  const RestaurauntDisplay(this.restauraunt, {this.scrollingEnabled = true});
+  const RestaurauntDisplay(this.restauraunt,
+      {this.scrollingEnabled = true, Key? key})
+      : super(key: key);
 
   @override
   State<RestaurauntDisplay> createState() => _RestaurauntDisplayState();
