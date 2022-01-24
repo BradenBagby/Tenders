@@ -58,7 +58,7 @@ class RoomDrawer extends StatelessWidget {
                                       .state
                                       .currentRoomCubit!,
                                   child: SummaryWidget(
-                                    embedded: true,
+                                    standalone: true,
                                   ),
                                 ),
                               ),

@@ -10,26 +10,36 @@ class MessageBox extends StatelessWidget {
   final double messageTailHeight;
   final EdgeInsets padding;
   final bool flipped;
-  const MessageBox({
-    this.message = "",
-    this.elevation = 1,
-    this.padding = const EdgeInsets.all(8),
-    this.color,
-    this.messageTailHeight = 8,
-    this.flipped = false,
-  });
+  final bool flippedY;
+  final TextStyle? style;
+  const MessageBox(
+      {this.message = "",
+      this.elevation = 1,
+      this.padding = const EdgeInsets.all(8),
+      this.color,
+      this.messageTailHeight = 8,
+      this.flipped = false,
+      this.flippedY = false,
+      this.style});
 
   @override
   Widget build(BuildContext context) {
     Widget child = Text(
       message,
       maxLines: 10,
+      style: style,
     );
 
     if (flipped) {
       child = Transform(
           alignment: Alignment.center,
           transform: Matrix4.rotationY(math.pi),
+          child: child);
+    }
+    if (flippedY) {
+      child = Transform(
+          alignment: Alignment.center,
+          transform: Matrix4.rotationZ(math.pi),
           child: child);
     }
 
@@ -54,6 +64,12 @@ class MessageBox extends StatelessWidget {
       parent = Transform(
           alignment: Alignment.center,
           transform: Matrix4.rotationY(math.pi),
+          child: parent);
+    }
+    if (flippedY) {
+      parent = Transform(
+          alignment: Alignment.center,
+          transform: Matrix4.rotationZ(math.pi),
           child: parent);
     }
 

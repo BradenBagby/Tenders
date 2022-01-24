@@ -1,9 +1,14 @@
 import 'dart:math' as math;
 import 'package:confetti/confetti.dart';
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
 import 'package:maps_launcher/maps_launcher.dart';
+import 'package:tenders/application/room_auth/room_auth_cubit.dart';
 import 'package:tenders/domain/restauraunt/restauraunt.dart';
+import 'package:tenders/widgets/common/custom/message_box.dart';
 import 'package:tenders/widgets/common/displays/restauraunt_display.dart';
+import 'package:tenders/widgets/root_widget.dart';
+import 'package:collection/collection.dart';
 
 class MatchPage extends StatefulWidget {
   final Restauraunt restauraunt;
@@ -83,7 +88,24 @@ class _MatchPageState extends State<MatchPage> {
               numberOfParticles: 12,
               blastDirection: math.pi / 2,
             ),
-          )
+          ),
+          if (GetIt.I<RoomAuthCubit>() // only show on first match. doesnt emit a match until after this screen is closed
+                  .state
+                  .currentRoomCubit
+                  ?.state
+                  .matches
+                  .isEmpty ??
+              false)
+            Positioned(
+                top: 32,
+                left: 18,
+                child: MessageBox(
+                  flipped: false,
+                  flippedY: true,
+                  color: primaryColor,
+                  message: "Close to continue swiping",
+                  style: TextStyle(color: Colors.white),
+                ))
         ],
       ),
     ));

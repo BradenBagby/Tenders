@@ -20,7 +20,7 @@ class MemberCount extends StatelessWidget {
                 'room/${BlocProvider.of<RoomCubit>(context).state.room.id}',
                 preferShort: true);
             await Share.shareInvite(
-                link: link, message: 'Swipe with me to match my appetite');
+                link: link, message: 'Swipe with me to decide where to eat!');
           },
           child: Wrap(
             alignment: WrapAlignment.center,

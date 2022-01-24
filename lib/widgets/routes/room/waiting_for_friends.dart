@@ -53,10 +53,19 @@ class WaitingForFriends extends StatelessWidget {
                     'room/${BlocProvider.of<RoomCubit>(context).state.room.id}',
                     preferShort: true);
                 await Share.shareInvite(
-                    link: link, message: 'Swipe with me to match my appetite');
+                    link: link,
+                    message: 'Swipe with me to decide where to eat!');
               },
               child: ElevatedButton(
-                onPressed: () {},
+                onPressed: () async {
+                  // get short link and share
+                  final link = await DynamicLinks.createLink(
+                      'room/${BlocProvider.of<RoomCubit>(context).state.room.id}',
+                      preferShort: true);
+                  await Share.shareInvite(
+                      link: link,
+                      message: 'Swipe with me to decide where to eat!');
+                },
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
