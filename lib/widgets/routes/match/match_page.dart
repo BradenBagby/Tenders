@@ -1,5 +1,6 @@
 import 'dart:math' as math;
 import 'package:confetti/confetti.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:maps_launcher/maps_launcher.dart';
@@ -24,14 +25,17 @@ class _MatchPageState extends State<MatchPage> {
 
   @override
   void initState() {
-    controller = ConfettiController(duration: const Duration(milliseconds: 10));
-    if (widget.totalMatch) controller.play();
+    if (!kDebugMode) {
+      controller =
+          ConfettiController(duration: const Duration(milliseconds: 10));
+      if (widget.totalMatch) controller.play();
+    }
     super.initState();
   }
 
   @override
   void dispose() {
-    controller.dispose();
+    if (!kDebugMode) controller.dispose();
     super.dispose();
   }
 
@@ -77,18 +81,19 @@ class _MatchPageState extends State<MatchPage> {
               ),
             ],
           ),
-          Align(
-            alignment: Alignment.topCenter,
-            child: ConfettiWidget(
-              confettiController: controller,
-              blastDirectionality: BlastDirectionality.directional,
-              shouldLoop: false,
-              emissionFrequency: 1,
-              gravity: 0,
-              numberOfParticles: 12,
-              blastDirection: math.pi / 2,
+          if (!kDebugMode)
+            Align(
+              alignment: Alignment.topCenter,
+              child: ConfettiWidget(
+                confettiController: controller,
+                blastDirectionality: BlastDirectionality.directional,
+                shouldLoop: false,
+                emissionFrequency: 1,
+                gravity: 0,
+                numberOfParticles: 12,
+                blastDirection: math.pi / 2,
+              ),
             ),
-          ),
           if (GetIt.I<RoomAuthCubit>() // only show on first match. doesnt emit a match until after this screen is closed
                   .state
                   .currentRoomCubit
