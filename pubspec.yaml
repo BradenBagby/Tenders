@@ -52,7 +52,8 @@ dependencies:
   app_settings: ^4.1.1
   device_info_plus: ^3.2.1
   collection: ^1.15.0
-
+  flutter_cache_manager: ^3.3.0
+  
 targets:
   $default:
     builders:

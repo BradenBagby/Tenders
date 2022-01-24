@@ -86,9 +86,8 @@ class _RestaurauntDisplayState extends State<RestaurauntDisplay> {
           Positioned.fill(
             child: ClipRRect(
               borderRadius: BorderRadius.circular(20),
-              child: URLImage(widget.restauraunt.photos.first.url(
-                  maxHeight: size.height.toInt() * 2,
-                  maxWidth: size.width.toInt() * 2)),
+              child: URLImage(widget.restauraunt.photos.first
+                  .url(maxHeight: 1200, maxWidth: 800)),
             ),
           ),
         Positioned.fill(

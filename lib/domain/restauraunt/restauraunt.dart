@@ -4,6 +4,7 @@ import 'package:tenders/core/utility/utility.dart';
 import 'package:tenders/domain/restauraunt/photo.dart';
 import 'package:tenders/domain/restauraunt/review.dart';
 import 'package:tuple/tuple.dart';
+import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 
 part 'restauraunt.freezed.dart';
 part 'restauraunt.g.dart';
@@ -61,6 +62,12 @@ class Restauraunt with _$Restauraunt {
     final website = json['website'] as String?;
     final url = json['url'] as String? ?? '';
     final phone = json['formatted_phone_number'] as String? ?? '';
+
+    // precache first image
+    if (photos.isNotEmpty) {
+      DefaultCacheManager()
+          .downloadFile(photos.first.url(maxHeight: 1200, maxWidth: 800));
+    }
     return Restauraunt(
         name: name,
         url: url,

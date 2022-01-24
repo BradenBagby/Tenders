@@ -7,6 +7,7 @@ import 'package:tenders/services/interfaces/i_auth.dart';
 import 'package:tenders/services/interfaces/i_restauraunt.dart';
 import 'package:tenders/services/interfaces/i_room.dart';
 import 'package:get_it/get_it.dart';
+import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 
 class Injection {
   const Injection._();
