@@ -45,17 +45,17 @@ extension PlaceTypeString on PlaceType {
   String toUIString() {
     switch (this) {
       case PlaceType.RESTAURAT:
-        return "Restaurant";
+        return "Restaurants";
       case PlaceType.FOOD:
         return "Food";
       case PlaceType.DRINKS:
         return "Drinks";
       case PlaceType.BAKERY:
-        return "Bakery";
+        return "Bakeries";
       case PlaceType.BAR:
-        return "Bar";
+        return "Bars";
       case PlaceType.CAFE:
-        return "Cafe";
+        return "Cafés";
     }
   }
 }

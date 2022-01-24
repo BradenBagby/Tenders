@@ -64,7 +64,7 @@ class RoomDrawer extends StatelessWidget {
                               ),
                           fullscreenDialog: true),
                     ),
-                    child: Text("View All Swipes"),
+                    child: Text("View Room Stats"),
                   ),
                 SizedBox(
                   height: 8,

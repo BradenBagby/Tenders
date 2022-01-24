@@ -193,29 +193,6 @@ class _WelcomePageState extends State<WelcomePage>
                   SizedBox(
                     height: 8,
                   ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text("Within ${radiusMiles.toStringAsFixed(1)} miles",
-                          style: Theme.of(context)
-                              .textTheme
-                              .overline!
-                              .copyWith(fontSize: 15))
-                    ],
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 32.0, right: 32),
-                    child: Slider(
-                      value: radiusMiles,
-                      onChanged: (val) {
-                        setState(() {
-                          radiusMiles = val;
-                        });
-                      },
-                      min: 1,
-                      max: 100,
-                    ),
-                  ),
                 ],
               ),
             ),
@@ -232,7 +209,7 @@ class _WelcomePageState extends State<WelcomePage>
                             });
                           },
                           child: Text(
-                            "More Options",
+                            "Room Settings",
                             style: Theme.of(context).textTheme.caption,
                           ))
                 ],
@@ -254,6 +231,32 @@ class _WelcomePageState extends State<WelcomePage>
               for (var v in PlaceType.values) v.toUIString(): v.toUIString()
             },
             controller: dropdownController,
+          ),
+        ),
+        SizedBox(
+          height: 8,
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text("Within ${radiusMiles.toStringAsFixed(1)} miles",
+                style: Theme.of(context)
+                    .textTheme
+                    .overline!
+                    .copyWith(fontSize: 15))
+          ],
+        ),
+        Padding(
+          padding: const EdgeInsets.only(left: 32.0, right: 32),
+          child: Slider(
+            value: radiusMiles,
+            onChanged: (val) {
+              setState(() {
+                radiusMiles = val;
+              });
+            },
+            min: 1,
+            max: 100,
           ),
         ),
         Row(
@@ -291,7 +294,7 @@ class _WelcomePageState extends State<WelcomePage>
       child: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Text(
-          "Find Tendies",
+          "Create Room",
           style: Theme.of(context).textTheme.headline6!.copyWith(fontSize: 40),
         ),
       ),
