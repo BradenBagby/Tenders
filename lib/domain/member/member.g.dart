@@ -12,6 +12,7 @@ _$_Member _$_$_MemberFromJson(Map<String, dynamic> json) {
     disconnected: json['disconnected'] as bool? ?? false,
     name: json['name'] as String? ?? 'user',
     avatarUrl: json['avatarUrl'] as String?,
+    color: json['color'] as int? ?? 4294922543,
   );
 }
 
@@ -20,4 +21,5 @@ Map<String, dynamic> _$_$_MemberToJson(_$_Member instance) => <String, dynamic>{
       'disconnected': instance.disconnected,
       'name': instance.name,
       'avatarUrl': instance.avatarUrl,
+      'color': instance.color,
     };

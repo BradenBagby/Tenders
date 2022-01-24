@@ -17,16 +17,12 @@ class Avatar extends StatelessWidget {
         height: size.height,
         child: member?.avatarUrl == null
             ? NoAvatar(
-                id: member?.id ?? "",
-                initials: member?.name.characters.firstOrNull,
+                member: member,
                 size: size.width,
               )
             : URLImage(
                 member!.avatarUrl!,
-                failedWidget: NoAvatar(
-                    id: member!.id,
-                    initials: member?.name.characters.firstOrNull,
-                    size: size.width),
+                failedWidget: NoAvatar(member: member!, size: size.width),
               ),
       ),
     );

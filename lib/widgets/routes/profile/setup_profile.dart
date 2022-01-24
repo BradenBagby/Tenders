@@ -5,11 +5,13 @@ import 'package:tenders/domain/member/member.dart';
 import 'package:tenders/services/interfaces/i_auth.dart';
 import 'package:tenders/widgets/common/custom/input.dart';
 import 'package:tenders/widgets/common/custom/input_controllers.dart';
+import 'package:tenders/widgets/common/custom/message_box.dart';
 import 'package:tenders/widgets/common/custom/resize_input.dart';
 import 'package:tenders/widgets/common/custom/spinner.dart';
 import 'package:tenders/widgets/common/displays/avatar.dart';
 import 'package:tenders/widgets/common/displays/no_avatar.dart';
 import 'package:tenders/widgets/common/displays/url_image.dart';
+import 'dart:math' as math;
 
 class SetupProfile extends StatefulWidget {
   final embedded;
@@ -26,16 +28,24 @@ class SetupProfileState extends State<SetupProfile> {
   Member? edited;
   late final InputController controller;
   bool loading = false;
+  bool showTap = true;
+  late int color;
 
   @override
   void initState() {
     super.initState();
     controller = InputController(text: widget.preloaded?.name ?? "");
+    color = widget.preloaded?.color ??
+        NoAvatar
+            .PossibleColors[
+                math.Random().nextInt(NoAvatar.PossibleColors.length)]
+            .value;
     if (widget.preloaded == null) {
       GetIt.I<RoomAuthCubit>().getMember().then((value) {
         if (controller.text.isEmpty) {
           controller.text = value.name;
         }
+        color = value.color;
         setState(() {
           edited = value;
         });
@@ -52,24 +62,42 @@ class SetupProfileState extends State<SetupProfile> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            SizedBox(
-              width: 200,
-              height: 200,
-              child: Stack(
-                children: [
-                  Avatar(
-                    member: edited,
-                    size: Size(200, 200),
-                  ),
-                  if (edited?.avatarUrl == null && false) // TODO:
-                    Center(
-                      child: Icon(
-                        Icons.add_a_photo,
-                        size: 50,
-                        color: Colors.black.withAlpha(78),
-                      ),
-                    )
-                ],
+            InkWell(
+              onTap: () {
+                /// ugly but fast rn
+                final current = Color(color);
+                final currentIndex = NoAvatar.PossibleColors.indexOf(current);
+                int next = currentIndex + 1;
+                if (next >= NoAvatar.PossibleColors.length) {
+                  next = 0;
+                }
+                setState(() {
+                  color = NoAvatar.PossibleColors[next].value;
+                  edited = edited?.copyWith(color: color);
+                  showTap = false;
+                });
+              },
+              child: SizedBox(
+                width: 200,
+                height: 200,
+                child: Stack(
+                  children: [
+                    Avatar(
+                      member: edited,
+                      size: Size(200, 200),
+                    ),
+                    if (showTap)
+                      Positioned(
+                        child: MessageBox(
+                          color: Theme.of(context)
+                              .colorScheme
+                              .surface
+                              .withAlpha(200),
+                          message: "Tap to change!",
+                        ),
+                      )
+                  ],
+                ),
               ),
             ),
             TextField(

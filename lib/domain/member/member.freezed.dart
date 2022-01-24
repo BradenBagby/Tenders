@@ -24,12 +24,14 @@ class _$MemberTearOff {
       {required String id,
       bool disconnected = false,
       String name = "user",
-      String? avatarUrl}) {
+      String? avatarUrl,
+      int color = 0xffFF512F}) {
     return _Member(
       id: id,
       disconnected: disconnected,
       name: name,
       avatarUrl: avatarUrl,
+      color: color,
     );
   }
 
@@ -47,6 +49,7 @@ mixin _$Member {
   bool get disconnected => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
   String? get avatarUrl => throw _privateConstructorUsedError;
+  int get color => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -57,7 +60,12 @@ mixin _$Member {
 abstract class $MemberCopyWith<$Res> {
   factory $MemberCopyWith(Member value, $Res Function(Member) then) =
       _$MemberCopyWithImpl<$Res>;
-  $Res call({String id, bool disconnected, String name, String? avatarUrl});
+  $Res call(
+      {String id,
+      bool disconnected,
+      String name,
+      String? avatarUrl,
+      int color});
 }
 
 /// @nodoc
@@ -74,6 +82,7 @@ class _$MemberCopyWithImpl<$Res> implements $MemberCopyWith<$Res> {
     Object? disconnected = freezed,
     Object? name = freezed,
     Object? avatarUrl = freezed,
+    Object? color = freezed,
   }) {
     return _then(_value.copyWith(
       id: id == freezed
@@ -92,6 +101,10 @@ class _$MemberCopyWithImpl<$Res> implements $MemberCopyWith<$Res> {
           ? _value.avatarUrl
           : avatarUrl // ignore: cast_nullable_to_non_nullable
               as String?,
+      color: color == freezed
+          ? _value.color
+          : color // ignore: cast_nullable_to_non_nullable
+              as int,
     ));
   }
 }
@@ -101,7 +114,12 @@ abstract class _$MemberCopyWith<$Res> implements $MemberCopyWith<$Res> {
   factory _$MemberCopyWith(_Member value, $Res Function(_Member) then) =
       __$MemberCopyWithImpl<$Res>;
   @override
-  $Res call({String id, bool disconnected, String name, String? avatarUrl});
+  $Res call(
+      {String id,
+      bool disconnected,
+      String name,
+      String? avatarUrl,
+      int color});
 }
 
 /// @nodoc
@@ -119,6 +137,7 @@ class __$MemberCopyWithImpl<$Res> extends _$MemberCopyWithImpl<$Res>
     Object? disconnected = freezed,
     Object? name = freezed,
     Object? avatarUrl = freezed,
+    Object? color = freezed,
   }) {
     return _then(_Member(
       id: id == freezed
@@ -137,6 +156,10 @@ class __$MemberCopyWithImpl<$Res> extends _$MemberCopyWithImpl<$Res>
           ? _value.avatarUrl
           : avatarUrl // ignore: cast_nullable_to_non_nullable
               as String?,
+      color: color == freezed
+          ? _value.color
+          : color // ignore: cast_nullable_to_non_nullable
+              as int,
     ));
   }
 }
@@ -149,7 +172,8 @@ class _$_Member implements _Member {
       {required this.id,
       this.disconnected = false,
       this.name = "user",
-      this.avatarUrl});
+      this.avatarUrl,
+      this.color = 0xffFF512F});
 
   factory _$_Member.fromJson(Map<String, dynamic> json) =>
       _$_$_MemberFromJson(json);
@@ -164,10 +188,13 @@ class _$_Member implements _Member {
   final String name;
   @override
   final String? avatarUrl;
+  @JsonKey(defaultValue: 0xffFF512F)
+  @override
+  final int color;
 
   @override
   String toString() {
-    return 'Member(id: $id, disconnected: $disconnected, name: $name, avatarUrl: $avatarUrl)';
+    return 'Member(id: $id, disconnected: $disconnected, name: $name, avatarUrl: $avatarUrl, color: $color)';
   }
 
   @override
@@ -183,7 +210,9 @@ class _$_Member implements _Member {
                 const DeepCollectionEquality().equals(other.name, name)) &&
             (identical(other.avatarUrl, avatarUrl) ||
                 const DeepCollectionEquality()
-                    .equals(other.avatarUrl, avatarUrl)));
+                    .equals(other.avatarUrl, avatarUrl)) &&
+            (identical(other.color, color) ||
+                const DeepCollectionEquality().equals(other.color, color)));
   }
 
   @override
@@ -192,7 +221,8 @@ class _$_Member implements _Member {
       const DeepCollectionEquality().hash(id) ^
       const DeepCollectionEquality().hash(disconnected) ^
       const DeepCollectionEquality().hash(name) ^
-      const DeepCollectionEquality().hash(avatarUrl);
+      const DeepCollectionEquality().hash(avatarUrl) ^
+      const DeepCollectionEquality().hash(color);
 
   @JsonKey(ignore: true)
   @override
@@ -210,7 +240,8 @@ abstract class _Member implements Member {
       {required String id,
       bool disconnected,
       String name,
-      String? avatarUrl}) = _$_Member;
+      String? avatarUrl,
+      int color}) = _$_Member;
 
   factory _Member.fromJson(Map<String, dynamic> json) = _$_Member.fromJson;
 
@@ -222,6 +253,8 @@ abstract class _Member implements Member {
   String get name => throw _privateConstructorUsedError;
   @override
   String? get avatarUrl => throw _privateConstructorUsedError;
+  @override
+  int get color => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$MemberCopyWith<_Member> get copyWith => throw _privateConstructorUsedError;

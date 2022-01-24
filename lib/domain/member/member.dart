@@ -10,6 +10,7 @@ class Member with _$Member {
     @Default(false) bool disconnected,
     @Default("user") String name,
     String? avatarUrl,
+    @Default(0xffFF512F) int color,
   }) = _Member;
   factory Member.fromJson(Map<String, dynamic> json) => _$MemberFromJson(json);
 }
