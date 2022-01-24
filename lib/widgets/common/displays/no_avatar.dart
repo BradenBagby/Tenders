@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'dart:math' as math;
+import 'package:collection/collection.dart';
 
 import 'package:tenders/domain/member/member.dart';
 
@@ -38,7 +39,7 @@ class NoAvatar extends StatelessWidget {
           ),
           Center(
             child: Text(
-              member?.name.characters.first ?? '',
+              member?.name.characters.firstOrNull ?? '',
               style: TextStyle(fontSize: size / 2, color: color),
             ),
           )

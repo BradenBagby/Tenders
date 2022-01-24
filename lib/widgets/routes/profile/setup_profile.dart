@@ -106,6 +106,11 @@ class SetupProfileState extends State<SetupProfile> {
               textAlign: TextAlign.center,
               controller: controller,
               keyboardType: TextInputType.name,
+              onChanged: (val) {
+                setState(() {
+                  edited = edited?.copyWith(name: val);
+                });
+              },
               onSubmitted: (val) {
                 if (!widget.embedded) {
                   _save();
