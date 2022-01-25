@@ -1,12 +1,15 @@
 import 'package:app_settings/app_settings.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:geocoding/geocoding.dart';
+import 'package:location/location.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tenders/application/room_auth/room_auth_cubit.dart';
 import 'package:tenders/core/utility/location.dart';
 import 'package:tenders/domain/room_settings/room_settings.dart';
 import 'package:tenders/widgets/common/custom/dropdown.dart';
 import 'package:tenders/widgets/common/custom/input_controllers.dart';
+import 'package:tenders/widgets/common/custom/spinner.dart';
 import 'package:tenders/widgets/common/displays/avatar.dart';
 import 'package:tenders/widgets/common/displays/chicken.dart';
 import 'package:tenders/widgets/root_widget.dart';
@@ -36,10 +39,27 @@ class _WelcomePageState extends State<WelcomePage>
   PlaceType type = PlaceType.RESTAURAT;
   bool loading = false;
   late final InputController dropdownController;
+  LocationData? location;
+  String? locationString;
+
+  Future<String?> _getLocationString() async {
+    List<Placemark> placemarks = await placemarkFromCoordinates(
+        location!.latitude!, location!.longitude!);
+    return placemarks.isNotEmpty ? placemarks.first.locality : null;
+  }
 
   @override
   void initState() {
     super.initState();
+
+    /// get location right away
+    TenderLocation.loadLocation().then((value) async {
+      if (value != null) {
+        location ??= value;
+        locationString = await _getLocationString();
+        setState(() {});
+      }
+    });
 
     animationController = AnimationController(
         vsync: this, duration: const Duration(milliseconds: ANIMATION_TIME));
@@ -95,9 +115,16 @@ class _WelcomePageState extends State<WelcomePage>
           alignment: Alignment.topRight,
           child: SafeArea(
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 _profileButton(),
+                Opacity(
+                  opacity: loading ? 1 : 0,
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Loader(),
+                  ),
+                )
               ],
             ),
           ),
@@ -147,7 +174,9 @@ class _WelcomePageState extends State<WelcomePage>
                 SizedBox(
                   width: 8,
                 ),
-                Text(state.me?.name ?? "")
+                Text(
+                  state.me?.name ?? "",
+                )
               ],
             ),
           ),
@@ -195,7 +224,14 @@ class _WelcomePageState extends State<WelcomePage>
                 children: [
                   _goButton(context),
                   SizedBox(
-                    height: 8,
+                    height: 4,
+                  ),
+                  Text(
+                    locationString == null ? "" : "in ${locationString!}",
+                    style: Theme.of(context).textTheme.caption,
+                  ),
+                  SizedBox(
+                    height: 4,
                   ),
                 ],
               ),
@@ -212,10 +248,19 @@ class _WelcomePageState extends State<WelcomePage>
                               moreOptions = true;
                             });
                           },
-                          child: Text(
-                            "Room Settings",
-                            style: Theme.of(context).textTheme.caption,
-                          ))
+                          child: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Icon(Icons.settings,
+                                  color: primaryColor, size: 16),
+                              Text(
+                                "Room Settings",
+                                style: TextStyle(
+                                    color: primaryColor, fontSize: 12),
+                              ),
+                            ],
+                          ),
+                        )
                 ],
               ),
             )
@@ -299,10 +344,10 @@ class _WelcomePageState extends State<WelcomePage>
         });
         goingIn = false;
         animationController.reverse();
-        final location = await TenderLocation.loadLocation();
+        location ??= await TenderLocation.loadLocation();
         if (location == null ||
-            location.latitude == null ||
-            location.longitude == null) {
+            location!.latitude == null ||
+            location!.longitude == null) {
           await showDialog(
             context: context,
             builder: (BuildContext context) {
@@ -325,15 +370,19 @@ class _WelcomePageState extends State<WelcomePage>
           return;
         }
 
+        if (locationString == null) {
+          locationString = await _getLocationString();
+        }
+
         final success =
             await BlocProvider.of<RoomAuthCubit>(context).createRoom(
           settings: RoomSettings(
-            radius: (radiusMiles * MILES_TO_METERS).toInt(),
-            type: PlaceTypeString.fromUIString(dropdownController.text),
-            openNow: opennow,
-            latitude: location.latitude!,
-            longitude: location.longitude!,
-          ),
+              radius: (radiusMiles * MILES_TO_METERS).toInt(),
+              type: PlaceTypeString.fromUIString(dropdownController.text),
+              openNow: opennow,
+              latitude: location!.latitude!,
+              longitude: location!.longitude!,
+              locationString: locationString),
         );
         if (!success) {
           await showDialog(

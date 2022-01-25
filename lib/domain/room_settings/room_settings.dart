@@ -68,6 +68,7 @@ class RoomSettings with _$RoomSettings {
     required bool openNow,
     required double latitude,
     required double longitude,
+    @Default(null) String? locationString,
   }) = _Room;
   factory RoomSettings.fromJson(Map<String, dynamic> json) =>
       _$RoomSettingsFromJson(json);

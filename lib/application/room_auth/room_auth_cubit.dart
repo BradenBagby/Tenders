@@ -86,7 +86,7 @@ class RoomAuthCubit extends Cubit<RoomAuthState> {
           return AlertDialog(
             title: Text("Bad Version"),
             content: Text(
-                "Tell your friend to update his/her app. They have an old version so you can't join!"),
+                "Tell your friend to update their app. They have an old version so you can't join!"),
             actions: <Widget>[
               ElevatedButton(
                 onPressed: () {

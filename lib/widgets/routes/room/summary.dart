@@ -82,30 +82,39 @@ class _SummaryState extends State<SummaryWidget> {
               children: [
                 BlocBuilder<RoomCubit, RoomState>(builder: (context, state) {
                   return Column(
-                    children: state.members
-                        .map((e) => Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Row(
-                                children: [
-                                  Avatar(member: e),
-                                  SizedBox(
-                                    width: 6,
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        if (state.room.settings.locationString != null)
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child:
+                                Text("${state.room.settings.locationString!}:"),
+                          ),
+                        ...state.members
+                            .map((e) => Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Row(
+                                    children: [
+                                      Avatar(member: e),
+                                      SizedBox(
+                                        width: 6,
+                                      ),
+                                      Text(e.name),
+                                      SizedBox(
+                                        width: 6,
+                                      ),
+                                      if (accepted != null)
+                                        Text(
+                                          "- ${accepted!.where((element) => element.accepted.contains(e.id)).length} Swipes Right",
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .caption,
+                                        )
+                                    ],
                                   ),
-                                  Text(e.name),
-                                  SizedBox(
-                                    width: 6,
-                                  ),
-                                  if (accepted != null)
-                                    Text(
-                                      "- ${accepted!.where((element) => element.accepted.contains(e.id)).length} Swipes Right",
-                                      style:
-                                          Theme.of(context).textTheme.caption,
-                                    )
-                                ],
-                              ),
-                            ))
-                        .toList(),
-                  );
+                                ))
+                            .toList(),
+                      ]);
                 }),
                 Container(
                   height: 1,

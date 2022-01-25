@@ -13,6 +13,7 @@ _$_Room _$_$_RoomFromJson(Map<String, dynamic> json) {
     openNow: json['openNow'] as bool,
     latitude: (json['latitude'] as num).toDouble(),
     longitude: (json['longitude'] as num).toDouble(),
+    locationString: json['locationString'] as String?,
   );
 }
 
@@ -22,6 +23,7 @@ Map<String, dynamic> _$_$_RoomToJson(_$_Room instance) => <String, dynamic>{
       'openNow': instance.openNow,
       'latitude': instance.latitude,
       'longitude': instance.longitude,
+      'locationString': instance.locationString,
     };
 
 K _$enumDecode<K, V>(

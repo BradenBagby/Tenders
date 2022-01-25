@@ -25,16 +25,12 @@ class _$RoomTearOff {
       required DateTime createdAt,
       required RoomSettings settings,
       bool started = false,
-      required double latitude,
-      required double longitude,
       String? version = null}) {
     return _Room(
       id: id,
       createdAt: createdAt,
       settings: settings,
       started: started,
-      latitude: latitude,
-      longitude: longitude,
       version: version,
     );
   }
@@ -53,9 +49,6 @@ mixin _$Room {
   DateTime get createdAt => throw _privateConstructorUsedError;
   RoomSettings get settings => throw _privateConstructorUsedError;
   bool get started => throw _privateConstructorUsedError;
-  double get latitude => throw _privateConstructorUsedError;
-  double get longitude =>
-      throw _privateConstructorUsedError; //required String locationString,
   String? get version => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -72,8 +65,6 @@ abstract class $RoomCopyWith<$Res> {
       DateTime createdAt,
       RoomSettings settings,
       bool started,
-      double latitude,
-      double longitude,
       String? version});
 
   $RoomSettingsCopyWith<$Res> get settings;
@@ -93,8 +84,6 @@ class _$RoomCopyWithImpl<$Res> implements $RoomCopyWith<$Res> {
     Object? createdAt = freezed,
     Object? settings = freezed,
     Object? started = freezed,
-    Object? latitude = freezed,
-    Object? longitude = freezed,
     Object? version = freezed,
   }) {
     return _then(_value.copyWith(
@@ -114,14 +103,6 @@ class _$RoomCopyWithImpl<$Res> implements $RoomCopyWith<$Res> {
           ? _value.started
           : started // ignore: cast_nullable_to_non_nullable
               as bool,
-      latitude: latitude == freezed
-          ? _value.latitude
-          : latitude // ignore: cast_nullable_to_non_nullable
-              as double,
-      longitude: longitude == freezed
-          ? _value.longitude
-          : longitude // ignore: cast_nullable_to_non_nullable
-              as double,
       version: version == freezed
           ? _value.version
           : version // ignore: cast_nullable_to_non_nullable
@@ -147,8 +128,6 @@ abstract class _$RoomCopyWith<$Res> implements $RoomCopyWith<$Res> {
       DateTime createdAt,
       RoomSettings settings,
       bool started,
-      double latitude,
-      double longitude,
       String? version});
 
   @override
@@ -170,8 +149,6 @@ class __$RoomCopyWithImpl<$Res> extends _$RoomCopyWithImpl<$Res>
     Object? createdAt = freezed,
     Object? settings = freezed,
     Object? started = freezed,
-    Object? latitude = freezed,
-    Object? longitude = freezed,
     Object? version = freezed,
   }) {
     return _then(_Room(
@@ -191,14 +168,6 @@ class __$RoomCopyWithImpl<$Res> extends _$RoomCopyWithImpl<$Res>
           ? _value.started
           : started // ignore: cast_nullable_to_non_nullable
               as bool,
-      latitude: latitude == freezed
-          ? _value.latitude
-          : latitude // ignore: cast_nullable_to_non_nullable
-              as double,
-      longitude: longitude == freezed
-          ? _value.longitude
-          : longitude // ignore: cast_nullable_to_non_nullable
-              as double,
       version: version == freezed
           ? _value.version
           : version // ignore: cast_nullable_to_non_nullable
@@ -216,8 +185,6 @@ class _$_Room implements _Room {
       required this.createdAt,
       required this.settings,
       this.started = false,
-      required this.latitude,
-      required this.longitude,
       this.version = null});
 
   factory _$_Room.fromJson(Map<String, dynamic> json) =>
@@ -232,17 +199,13 @@ class _$_Room implements _Room {
   @JsonKey(defaultValue: false)
   @override
   final bool started;
-  @override
-  final double latitude;
-  @override
-  final double longitude;
   @JsonKey(defaultValue: null)
-  @override //required String locationString,
+  @override
   final String? version;
 
   @override
   String toString() {
-    return 'Room(id: $id, createdAt: $createdAt, settings: $settings, started: $started, latitude: $latitude, longitude: $longitude, version: $version)';
+    return 'Room(id: $id, createdAt: $createdAt, settings: $settings, started: $started, version: $version)';
   }
 
   @override
@@ -260,12 +223,6 @@ class _$_Room implements _Room {
             (identical(other.started, started) ||
                 const DeepCollectionEquality()
                     .equals(other.started, started)) &&
-            (identical(other.latitude, latitude) ||
-                const DeepCollectionEquality()
-                    .equals(other.latitude, latitude)) &&
-            (identical(other.longitude, longitude) ||
-                const DeepCollectionEquality()
-                    .equals(other.longitude, longitude)) &&
             (identical(other.version, version) ||
                 const DeepCollectionEquality().equals(other.version, version)));
   }
@@ -277,8 +234,6 @@ class _$_Room implements _Room {
       const DeepCollectionEquality().hash(createdAt) ^
       const DeepCollectionEquality().hash(settings) ^
       const DeepCollectionEquality().hash(started) ^
-      const DeepCollectionEquality().hash(latitude) ^
-      const DeepCollectionEquality().hash(longitude) ^
       const DeepCollectionEquality().hash(version);
 
   @JsonKey(ignore: true)
@@ -298,8 +253,6 @@ abstract class _Room implements Room {
       required DateTime createdAt,
       required RoomSettings settings,
       bool started,
-      required double latitude,
-      required double longitude,
       String? version}) = _$_Room;
 
   factory _Room.fromJson(Map<String, dynamic> json) = _$_Room.fromJson;
@@ -313,10 +266,6 @@ abstract class _Room implements Room {
   @override
   bool get started => throw _privateConstructorUsedError;
   @override
-  double get latitude => throw _privateConstructorUsedError;
-  @override
-  double get longitude => throw _privateConstructorUsedError;
-  @override //required String locationString,
   String? get version => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)

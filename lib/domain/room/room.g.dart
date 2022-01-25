@@ -12,8 +12,6 @@ _$_Room _$_$_RoomFromJson(Map<String, dynamic> json) {
     createdAt: DateTime.parse(json['createdAt'] as String),
     settings: RoomSettings.fromJson(json['settings'] as Map<String, dynamic>),
     started: json['started'] as bool? ?? false,
-    latitude: (json['latitude'] as num).toDouble(),
-    longitude: (json['longitude'] as num).toDouble(),
     version: json['version'] as String?,
   );
 }
@@ -23,7 +21,5 @@ Map<String, dynamic> _$_$_RoomToJson(_$_Room instance) => <String, dynamic>{
       'createdAt': instance.createdAt.toIso8601String(),
       'settings': instance.settings.toJson(),
       'started': instance.started,
-      'latitude': instance.latitude,
-      'longitude': instance.longitude,
       'version': instance.version,
     };

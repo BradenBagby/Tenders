@@ -100,7 +100,8 @@ class WaitingForFriends extends StatelessWidget {
                 child: Column(
                   children: [
                     Padding(
-                      padding: const EdgeInsets.all(16),
+                      padding:
+                          const EdgeInsets.only(left: 16, right: 16, top: 16),
                       child: ElevatedButton(
                         child: Text(
                           "Start Swiping",
@@ -110,6 +111,17 @@ class WaitingForFriends extends StatelessWidget {
                           BlocProvider.of<RoomCubit>(context).startSwiping();
                         },
                       ),
+                    ),
+                    SizedBox(
+                      height: 4,
+                    ),
+                    if (state.room.settings.locationString != null)
+                      Text(
+                        "in ${state.room.settings.locationString}",
+                        style: Theme.of(context).textTheme.caption,
+                      ),
+                    SizedBox(
+                      height: 4,
                     ),
                     Text(
                       "Even after clicking start, friends can still join! Find the QR code at any time by tapping the menu icon in the top left",

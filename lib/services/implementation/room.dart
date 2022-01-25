@@ -37,8 +37,6 @@ class FireRoom implements IRoom {
           createdAt: DateTime.now().toUtc(),
           settings: settings,
           started: false,
-          latitude: settings.latitude,
-          longitude: settings.longitude,
           version: version);
       final data = room.toJson();
 

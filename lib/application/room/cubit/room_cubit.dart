@@ -87,8 +87,10 @@ class RoomCubit extends Cubit<RoomState> {
   }
 
   Future<bool> loadRestauraunts() async {
-    final location = LocationData.fromMap(
-        {'latitude': state.room.latitude, 'longitude': state.room.longitude});
+    final location = LocationData.fromMap({
+      'latitude': state.room.settings.latitude,
+      'longitude': state.room.settings.longitude
+    });
     emit(state.copyWith(currentLocation: location));
     if (location == null) {
       emit(state.copyWith(showNeedsLocation: true));
