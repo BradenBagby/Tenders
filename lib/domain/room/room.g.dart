@@ -14,6 +14,7 @@ _$_Room _$_$_RoomFromJson(Map<String, dynamic> json) {
     started: json['started'] as bool? ?? false,
     latitude: (json['latitude'] as num).toDouble(),
     longitude: (json['longitude'] as num).toDouble(),
+    version: json['version'] as String?,
   );
 }
 
@@ -24,4 +25,5 @@ Map<String, dynamic> _$_$_RoomToJson(_$_Room instance) => <String, dynamic>{
       'started': instance.started,
       'latitude': instance.latitude,
       'longitude': instance.longitude,
+      'version': instance.version,
     };

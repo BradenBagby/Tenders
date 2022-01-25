@@ -50,3 +50,17 @@ Size textSize(
     ..layout(minWidth: 0, maxWidth: double.infinity);
   return textPainter.size;
 }
+
+bool isVersionNumberGreaterOrEqual(String a, String b) {
+  final one = a.split('.');
+  final two = b.split('.');
+
+  for (var i = 0; i < one.length; i++) {
+    final oneInt = int.parse(one[i]);
+    if (i >= two.length) return true;
+    final twoInt = int.parse(two[i]);
+    if (twoInt == oneInt) continue;
+    return oneInt > twoInt;
+  }
+  return two.length <= one.length;
+}

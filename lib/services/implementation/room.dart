@@ -1,6 +1,10 @@
 import 'dart:async';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/foundation.dart';
+import 'package:package_info_plus/package_info_plus.dart';
+import 'package:tenders/core/utility/environment.dart';
+import 'package:tenders/core/utility/utility.dart';
 import 'package:tenders/domain/accepted/accepted.dart';
 import 'package:tenders/domain/member/member.dart';
 import 'package:tenders/domain/restauraunt/restauraunt.dart';
@@ -10,9 +14,11 @@ import 'package:tenders/services/interfaces/i_room.dart';
 import 'package:tuple/tuple.dart';
 import 'package:uuid/uuid.dart';
 
+class BadVersionException extends Error {}
+
 class FireRoom implements IRoom {
   // collection definitions
-  static const ROOM_COLLECTION = 'rooms';
+  static get ROOM_COLLECTION => kDebugMode ? 'roomsDebug' : 'rooms';
   static const MEMBERS_COLLECTION = 'members';
   static const ACCEPTED_COLLECTION = 'accepted';
   static const MATCHES_COLLECTION = 'matches';
@@ -22,6 +28,9 @@ class FireRoom implements IRoom {
   @override
   Future<Room> create({required RoomSettings settings}) async {
     try {
+      PackageInfo packageInfo = await PackageInfo.fromPlatform();
+      String version = packageInfo.version;
+
       final uuid = const Uuid().v4(); // TODO: for now
       final room = Room(
           id: uuid,
@@ -29,7 +38,8 @@ class FireRoom implements IRoom {
           settings: settings,
           started: false,
           latitude: settings.latitude,
-          longitude: settings.longitude);
+          longitude: settings.longitude,
+          version: version);
       final data = room.toJson();
 
       //data["settings"] = data["settings"].toJson();
@@ -45,10 +55,17 @@ class FireRoom implements IRoom {
   Future<Tuple2<Member, Room>> join(Member member, String id) async {
     final roomDoc = roomCollection.doc(id);
     final roomData = await roomDoc.get();
+
     if (!roomData.exists) {
-      // TODO: for now throw Exception("Room doesnt exist");
+      throw Exception("Room doesnt exist");
     }
     final roomObject = Room.fromJson(roomData.data() as Map<String, dynamic>);
+
+    if (!isVersionNumberGreaterOrEqual(
+        roomObject.version ?? '0.0.0', Environment.minimumRequiredVersion)) {
+      throw BadVersionException();
+    }
+
     final memberData = member.toJson();
     memberData['joinedAt'] = FieldValue.serverTimestamp();
     roomDoc.collection(MEMBERS_COLLECTION).doc(member.id).set(memberData);

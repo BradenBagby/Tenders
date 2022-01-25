@@ -14,6 +14,8 @@ class Room with _$Room {
     @Default(false) bool started,
     required double latitude,
     required double longitude,
+    //required String locationString,
+    @Default(null) String? version,
   }) = _Room;
   factory Room.fromJson(Map<String, dynamic> json) => _$RoomFromJson(json);
 }

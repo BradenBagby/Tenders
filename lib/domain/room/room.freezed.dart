@@ -26,7 +26,8 @@ class _$RoomTearOff {
       required RoomSettings settings,
       bool started = false,
       required double latitude,
-      required double longitude}) {
+      required double longitude,
+      String? version = null}) {
     return _Room(
       id: id,
       createdAt: createdAt,
@@ -34,6 +35,7 @@ class _$RoomTearOff {
       started: started,
       latitude: latitude,
       longitude: longitude,
+      version: version,
     );
   }
 
@@ -52,7 +54,9 @@ mixin _$Room {
   RoomSettings get settings => throw _privateConstructorUsedError;
   bool get started => throw _privateConstructorUsedError;
   double get latitude => throw _privateConstructorUsedError;
-  double get longitude => throw _privateConstructorUsedError;
+  double get longitude =>
+      throw _privateConstructorUsedError; //required String locationString,
+  String? get version => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -69,7 +73,8 @@ abstract class $RoomCopyWith<$Res> {
       RoomSettings settings,
       bool started,
       double latitude,
-      double longitude});
+      double longitude,
+      String? version});
 
   $RoomSettingsCopyWith<$Res> get settings;
 }
@@ -90,6 +95,7 @@ class _$RoomCopyWithImpl<$Res> implements $RoomCopyWith<$Res> {
     Object? started = freezed,
     Object? latitude = freezed,
     Object? longitude = freezed,
+    Object? version = freezed,
   }) {
     return _then(_value.copyWith(
       id: id == freezed
@@ -116,6 +122,10 @@ class _$RoomCopyWithImpl<$Res> implements $RoomCopyWith<$Res> {
           ? _value.longitude
           : longitude // ignore: cast_nullable_to_non_nullable
               as double,
+      version: version == freezed
+          ? _value.version
+          : version // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 
@@ -138,7 +148,8 @@ abstract class _$RoomCopyWith<$Res> implements $RoomCopyWith<$Res> {
       RoomSettings settings,
       bool started,
       double latitude,
-      double longitude});
+      double longitude,
+      String? version});
 
   @override
   $RoomSettingsCopyWith<$Res> get settings;
@@ -161,6 +172,7 @@ class __$RoomCopyWithImpl<$Res> extends _$RoomCopyWithImpl<$Res>
     Object? started = freezed,
     Object? latitude = freezed,
     Object? longitude = freezed,
+    Object? version = freezed,
   }) {
     return _then(_Room(
       id: id == freezed
@@ -187,6 +199,10 @@ class __$RoomCopyWithImpl<$Res> extends _$RoomCopyWithImpl<$Res>
           ? _value.longitude
           : longitude // ignore: cast_nullable_to_non_nullable
               as double,
+      version: version == freezed
+          ? _value.version
+          : version // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -201,7 +217,8 @@ class _$_Room implements _Room {
       required this.settings,
       this.started = false,
       required this.latitude,
-      required this.longitude});
+      required this.longitude,
+      this.version = null});
 
   factory _$_Room.fromJson(Map<String, dynamic> json) =>
       _$_$_RoomFromJson(json);
@@ -219,10 +236,13 @@ class _$_Room implements _Room {
   final double latitude;
   @override
   final double longitude;
+  @JsonKey(defaultValue: null)
+  @override //required String locationString,
+  final String? version;
 
   @override
   String toString() {
-    return 'Room(id: $id, createdAt: $createdAt, settings: $settings, started: $started, latitude: $latitude, longitude: $longitude)';
+    return 'Room(id: $id, createdAt: $createdAt, settings: $settings, started: $started, latitude: $latitude, longitude: $longitude, version: $version)';
   }
 
   @override
@@ -245,7 +265,9 @@ class _$_Room implements _Room {
                     .equals(other.latitude, latitude)) &&
             (identical(other.longitude, longitude) ||
                 const DeepCollectionEquality()
-                    .equals(other.longitude, longitude)));
+                    .equals(other.longitude, longitude)) &&
+            (identical(other.version, version) ||
+                const DeepCollectionEquality().equals(other.version, version)));
   }
 
   @override
@@ -256,7 +278,8 @@ class _$_Room implements _Room {
       const DeepCollectionEquality().hash(settings) ^
       const DeepCollectionEquality().hash(started) ^
       const DeepCollectionEquality().hash(latitude) ^
-      const DeepCollectionEquality().hash(longitude);
+      const DeepCollectionEquality().hash(longitude) ^
+      const DeepCollectionEquality().hash(version);
 
   @JsonKey(ignore: true)
   @override
@@ -276,7 +299,8 @@ abstract class _Room implements Room {
       required RoomSettings settings,
       bool started,
       required double latitude,
-      required double longitude}) = _$_Room;
+      required double longitude,
+      String? version}) = _$_Room;
 
   factory _Room.fromJson(Map<String, dynamic> json) = _$_Room.fromJson;
 
@@ -292,6 +316,8 @@ abstract class _Room implements Room {
   double get latitude => throw _privateConstructorUsedError;
   @override
   double get longitude => throw _privateConstructorUsedError;
+  @override //required String locationString,
+  String? get version => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$RoomCopyWith<_Room> get copyWith => throw _privateConstructorUsedError;

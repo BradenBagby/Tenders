@@ -13,6 +13,7 @@ import 'package:tenders/widgets/root_widget.dart';
 import 'package:tenders/widgets/routes/onboarding/onboarding_carousel.dart';
 import 'package:tenders/widgets/routes/profile/setup_profile.dart';
 import 'package:tenders/widgets/routes/scan/scan_page.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 
 class WelcomePage extends StatefulWidget {
   @override
@@ -33,6 +34,7 @@ class _WelcomePageState extends State<WelcomePage>
   bool moreOptions = false;
   bool opennow = false;
   PlaceType type = PlaceType.RESTAURAT;
+  bool loading = false;
   late final InputController dropdownController;
 
   @override
@@ -281,14 +283,27 @@ class _WelcomePageState extends State<WelcomePage>
     );
   }
 
+  void _failed() {
+    setState(() {
+      loading = false;
+    });
+    goingIn = true;
+    animationController.forward();
+  }
+
   Widget _goButton(BuildContext context) {
     return ElevatedButton(
       onPressed: () async {
+        setState(() {
+          loading = true;
+        });
+        goingIn = false;
+        animationController.reverse();
         final location = await TenderLocation.loadLocation();
         if (location == null ||
             location.latitude == null ||
             location.longitude == null) {
-          return showDialog(
+          await showDialog(
             context: context,
             builder: (BuildContext context) {
               return AlertDialog(
@@ -306,18 +321,40 @@ class _WelcomePageState extends State<WelcomePage>
               );
             },
           );
+          _failed();
+          return;
         }
-        goingIn = false;
-        animationController.reverse();
 
-        await Future.delayed(const Duration(milliseconds: ANIMATION_TIME));
-        BlocProvider.of<RoomAuthCubit>(context).createRoom(
-            settings: RoomSettings(
-                radius: (radiusMiles * MILES_TO_METERS).toInt(),
-                type: PlaceTypeString.fromUIString(dropdownController.text),
-                openNow: opennow,
-                latitude: location.latitude!,
-                longitude: location.longitude!));
+        final success =
+            await BlocProvider.of<RoomAuthCubit>(context).createRoom(
+          settings: RoomSettings(
+            radius: (radiusMiles * MILES_TO_METERS).toInt(),
+            type: PlaceTypeString.fromUIString(dropdownController.text),
+            openNow: opennow,
+            latitude: location.latitude!,
+            longitude: location.longitude!,
+          ),
+        );
+        if (!success) {
+          await showDialog(
+            context: context,
+            builder: (BuildContext context) {
+              return AlertDialog(
+                title: Text("Failed to create room"),
+                content: Text(
+                    "Try again later or contact support if this continues"),
+                actions: <Widget>[
+                  ElevatedButton(
+                    onPressed: () {},
+                    child: Text("Ok :("),
+                  ),
+                ],
+              );
+            },
+          );
+          _failed();
+          return;
+        }
       }, // TODO: if fail show message
       child: Padding(
         padding: const EdgeInsets.all(8.0),

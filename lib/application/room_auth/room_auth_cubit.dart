@@ -1,5 +1,8 @@
+import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 import 'package:tenders/application/room/cubit/room_cubit.dart';
+import 'package:tenders/core/utility/route_controllers.dart';
 import 'package:tenders/domain/member/member.dart';
 import 'package:tenders/domain/room/room.dart';
 import 'package:tenders/domain/room_settings/room_settings.dart';
@@ -76,6 +79,26 @@ class RoomAuthCubit extends Cubit<RoomAuthState> {
       }
       emit(state.copyWith(currentRoomCubit: cubit));
       return true;
+    } on BadVersionException catch (er) {
+      await showDialog(
+        context: RootRouteController.key.currentContext!,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text("Bad Version"),
+            content: Text(
+                "Tell your friend to update his/her app. They have an old version so you can't join!"),
+            actions: <Widget>[
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: Text("I will tell them"),
+              ),
+            ],
+          );
+        },
+      );
+      return false;
     } catch (er) {
       // TODO:
       return false;
