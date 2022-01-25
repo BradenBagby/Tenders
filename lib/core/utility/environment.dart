@@ -21,6 +21,8 @@ class Environment {
   static bool get marketing => _environment["marketing"] as bool? ?? false;
   static bool get useAdsInDebug =>
       _environment["useAdsInDebug"] as bool? ?? false;
+  static bool get autoMatchDebug =>
+      _environment["autoMatchDebug"] as bool? ?? false;
   static String get minimumRequiredVersion =>
       _environment["minimumRequiredVersion"] as String? ?? '0.0.0';
 }
