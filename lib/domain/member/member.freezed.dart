@@ -25,7 +25,7 @@ class _$MemberTearOff {
       bool disconnected = false,
       String name = "user",
       String? avatarUrl,
-      int color = 0xffFF512F}) {
+      int color = 4294922543}) {
     return _Member(
       id: id,
       disconnected: disconnected,
@@ -173,7 +173,7 @@ class _$_Member implements _Member {
       this.disconnected = false,
       this.name = "user",
       this.avatarUrl,
-      this.color = 0xffFF512F});
+      this.color = 4294922543});
 
   factory _$_Member.fromJson(Map<String, dynamic> json) =>
       _$_$_MemberFromJson(json);
@@ -188,7 +188,7 @@ class _$_Member implements _Member {
   final String name;
   @override
   final String? avatarUrl;
-  @JsonKey(defaultValue: 0xffFF512F)
+  @JsonKey(defaultValue: 4294922543)
   @override
   final int color;
 

@@ -10,6 +10,7 @@ import 'package:location/location.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tenders/application/ads/ads_cubit.dart';
 import 'package:tenders/core/utility/environment.dart';
+import 'package:tenders/core/utility/location.dart';
 import 'package:tenders/core/utility/route_controllers.dart';
 import 'package:tenders/domain/member/member.dart';
 import 'package:tenders/domain/restauraunt/restauraunt.dart';
@@ -40,7 +41,7 @@ class RoomCubit extends Cubit<RoomState> {
         emit(state.copyWith(members: current));
       });
     }
-    showAdCounter = math.Random().nextInt(4) + 8;
+    showAdCounter = math.Random().nextInt(4) + 20;
 
     // listen to room updates and update state accordinly
     roomDataStreamSubscription =
@@ -80,13 +81,14 @@ class RoomCubit extends Cubit<RoomState> {
     if (showAdCounter < 1) {
       adsShown++;
       GetIt.I<AdsCubit>().show();
-      showAdCounter = math.Random().nextInt(4) + 8 + (adsShown * 2);
+      showAdCounter = math.Random().nextInt(4) + 20 + (adsShown * 5);
     }
     showAdCounter--;
   }
 
   Future<bool> loadRestauraunts() async {
-    final location = state.currentLocation ?? await _loadLocation();
+    final location = LocationData.fromMap(
+        {'latitude': state.room.latitude, 'longitude': state.room.longitude});
     emit(state.copyWith(currentLocation: location));
     if (location == null) {
       emit(state.copyWith(showNeedsLocation: true));
@@ -104,31 +106,6 @@ class RoomCubit extends Cubit<RoomState> {
           ..addAll(info.item1)));
 
     return true; // TODO: TODO: TODO:
-  }
-
-  Future<LocationData?> _loadLocation() async {
-    Location location = new Location();
-
-    bool _serviceEnabled;
-    PermissionStatus _permissionGranted;
-
-    _serviceEnabled = await location.serviceEnabled();
-    if (!_serviceEnabled) {
-      _serviceEnabled = await location.requestService();
-      if (!_serviceEnabled) {
-        return null;
-      }
-    }
-
-    _permissionGranted = await location.hasPermission();
-    if (_permissionGranted == PermissionStatus.denied) {
-      _permissionGranted = await location.requestPermission();
-      if (_permissionGranted != PermissionStatus.granted) {
-        return null;
-      }
-    }
-
-    return await location.getLocation();
   }
 
   Future<void> next({required bool accepted}) async {

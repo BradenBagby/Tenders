@@ -12,6 +12,8 @@ class Room with _$Room {
     required DateTime createdAt,
     required RoomSettings settings,
     @Default(false) bool started,
+    required double latitude,
+    required double longitude,
   }) = _Room;
   factory Room.fromJson(Map<String, dynamic> json) => _$RoomFromJson(json);
 }

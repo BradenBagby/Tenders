@@ -27,7 +27,9 @@ class FireRoom implements IRoom {
           id: uuid,
           createdAt: DateTime.now().toUtc(),
           settings: settings,
-          started: false);
+          started: false,
+          latitude: settings.latitude,
+          longitude: settings.longitude);
       final data = room.toJson();
 
       //data["settings"] = data["settings"].toJson();

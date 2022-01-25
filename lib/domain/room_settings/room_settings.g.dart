@@ -11,6 +11,8 @@ _$_Room _$_$_RoomFromJson(Map<String, dynamic> json) {
     radius: json['radius'] as int,
     type: _$enumDecode(_$PlaceTypeEnumMap, json['type']),
     openNow: json['openNow'] as bool,
+    latitude: (json['latitude'] as num).toDouble(),
+    longitude: (json['longitude'] as num).toDouble(),
   );
 }
 
@@ -18,6 +20,8 @@ Map<String, dynamic> _$_$_RoomToJson(_$_Room instance) => <String, dynamic>{
       'radius': instance.radius,
       'type': _$PlaceTypeEnumMap[instance.type],
       'openNow': instance.openNow,
+      'latitude': instance.latitude,
+      'longitude': instance.longitude,
     };
 
 K _$enumDecode<K, V>(

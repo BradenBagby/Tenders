@@ -21,11 +21,17 @@ class _$RoomSettingsTearOff {
   const _$RoomSettingsTearOff();
 
   _Room call(
-      {required int radius, required PlaceType type, required bool openNow}) {
+      {required int radius,
+      required PlaceType type,
+      required bool openNow,
+      required double latitude,
+      required double longitude}) {
     return _Room(
       radius: radius,
       type: type,
       openNow: openNow,
+      latitude: latitude,
+      longitude: longitude,
     );
   }
 
@@ -42,6 +48,8 @@ mixin _$RoomSettings {
   int get radius => throw _privateConstructorUsedError;
   PlaceType get type => throw _privateConstructorUsedError;
   bool get openNow => throw _privateConstructorUsedError;
+  double get latitude => throw _privateConstructorUsedError;
+  double get longitude => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -54,7 +62,12 @@ abstract class $RoomSettingsCopyWith<$Res> {
   factory $RoomSettingsCopyWith(
           RoomSettings value, $Res Function(RoomSettings) then) =
       _$RoomSettingsCopyWithImpl<$Res>;
-  $Res call({int radius, PlaceType type, bool openNow});
+  $Res call(
+      {int radius,
+      PlaceType type,
+      bool openNow,
+      double latitude,
+      double longitude});
 }
 
 /// @nodoc
@@ -70,6 +83,8 @@ class _$RoomSettingsCopyWithImpl<$Res> implements $RoomSettingsCopyWith<$Res> {
     Object? radius = freezed,
     Object? type = freezed,
     Object? openNow = freezed,
+    Object? latitude = freezed,
+    Object? longitude = freezed,
   }) {
     return _then(_value.copyWith(
       radius: radius == freezed
@@ -84,6 +99,14 @@ class _$RoomSettingsCopyWithImpl<$Res> implements $RoomSettingsCopyWith<$Res> {
           ? _value.openNow
           : openNow // ignore: cast_nullable_to_non_nullable
               as bool,
+      latitude: latitude == freezed
+          ? _value.latitude
+          : latitude // ignore: cast_nullable_to_non_nullable
+              as double,
+      longitude: longitude == freezed
+          ? _value.longitude
+          : longitude // ignore: cast_nullable_to_non_nullable
+              as double,
     ));
   }
 }
@@ -93,7 +116,12 @@ abstract class _$RoomCopyWith<$Res> implements $RoomSettingsCopyWith<$Res> {
   factory _$RoomCopyWith(_Room value, $Res Function(_Room) then) =
       __$RoomCopyWithImpl<$Res>;
   @override
-  $Res call({int radius, PlaceType type, bool openNow});
+  $Res call(
+      {int radius,
+      PlaceType type,
+      bool openNow,
+      double latitude,
+      double longitude});
 }
 
 /// @nodoc
@@ -110,6 +138,8 @@ class __$RoomCopyWithImpl<$Res> extends _$RoomSettingsCopyWithImpl<$Res>
     Object? radius = freezed,
     Object? type = freezed,
     Object? openNow = freezed,
+    Object? latitude = freezed,
+    Object? longitude = freezed,
   }) {
     return _then(_Room(
       radius: radius == freezed
@@ -124,6 +154,14 @@ class __$RoomCopyWithImpl<$Res> extends _$RoomSettingsCopyWithImpl<$Res>
           ? _value.openNow
           : openNow // ignore: cast_nullable_to_non_nullable
               as bool,
+      latitude: latitude == freezed
+          ? _value.latitude
+          : latitude // ignore: cast_nullable_to_non_nullable
+              as double,
+      longitude: longitude == freezed
+          ? _value.longitude
+          : longitude // ignore: cast_nullable_to_non_nullable
+              as double,
     ));
   }
 }
@@ -132,7 +170,12 @@ class __$RoomCopyWithImpl<$Res> extends _$RoomSettingsCopyWithImpl<$Res>
 
 /// @nodoc
 class _$_Room implements _Room {
-  _$_Room({required this.radius, required this.type, required this.openNow});
+  _$_Room(
+      {required this.radius,
+      required this.type,
+      required this.openNow,
+      required this.latitude,
+      required this.longitude});
 
   factory _$_Room.fromJson(Map<String, dynamic> json) =>
       _$_$_RoomFromJson(json);
@@ -143,10 +186,14 @@ class _$_Room implements _Room {
   final PlaceType type;
   @override
   final bool openNow;
+  @override
+  final double latitude;
+  @override
+  final double longitude;
 
   @override
   String toString() {
-    return 'RoomSettings(radius: $radius, type: $type, openNow: $openNow)';
+    return 'RoomSettings(radius: $radius, type: $type, openNow: $openNow, latitude: $latitude, longitude: $longitude)';
   }
 
   @override
@@ -158,7 +205,14 @@ class _$_Room implements _Room {
             (identical(other.type, type) ||
                 const DeepCollectionEquality().equals(other.type, type)) &&
             (identical(other.openNow, openNow) ||
-                const DeepCollectionEquality().equals(other.openNow, openNow)));
+                const DeepCollectionEquality()
+                    .equals(other.openNow, openNow)) &&
+            (identical(other.latitude, latitude) ||
+                const DeepCollectionEquality()
+                    .equals(other.latitude, latitude)) &&
+            (identical(other.longitude, longitude) ||
+                const DeepCollectionEquality()
+                    .equals(other.longitude, longitude)));
   }
 
   @override
@@ -166,7 +220,9 @@ class _$_Room implements _Room {
       runtimeType.hashCode ^
       const DeepCollectionEquality().hash(radius) ^
       const DeepCollectionEquality().hash(type) ^
-      const DeepCollectionEquality().hash(openNow);
+      const DeepCollectionEquality().hash(openNow) ^
+      const DeepCollectionEquality().hash(latitude) ^
+      const DeepCollectionEquality().hash(longitude);
 
   @JsonKey(ignore: true)
   @override
@@ -183,7 +239,9 @@ abstract class _Room implements RoomSettings {
   factory _Room(
       {required int radius,
       required PlaceType type,
-      required bool openNow}) = _$_Room;
+      required bool openNow,
+      required double latitude,
+      required double longitude}) = _$_Room;
 
   factory _Room.fromJson(Map<String, dynamic> json) = _$_Room.fromJson;
 
@@ -193,6 +251,10 @@ abstract class _Room implements RoomSettings {
   PlaceType get type => throw _privateConstructorUsedError;
   @override
   bool get openNow => throw _privateConstructorUsedError;
+  @override
+  double get latitude => throw _privateConstructorUsedError;
+  @override
+  double get longitude => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$RoomCopyWith<_Room> get copyWith => throw _privateConstructorUsedError;

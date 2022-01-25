@@ -1,7 +1,9 @@
+import 'package:app_settings/app_settings.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tenders/application/room_auth/room_auth_cubit.dart';
+import 'package:tenders/core/utility/location.dart';
 import 'package:tenders/domain/room_settings/room_settings.dart';
 import 'package:tenders/widgets/common/custom/dropdown.dart';
 import 'package:tenders/widgets/common/custom/input_controllers.dart';
@@ -282,14 +284,40 @@ class _WelcomePageState extends State<WelcomePage>
   Widget _goButton(BuildContext context) {
     return ElevatedButton(
       onPressed: () async {
+        final location = await TenderLocation.loadLocation();
+        if (location == null ||
+            location.latitude == null ||
+            location.longitude == null) {
+          return showDialog(
+            context: context,
+            builder: (BuildContext context) {
+              return AlertDialog(
+                title: Text("Share Location"),
+                content: Text(
+                    "To see nearby restaurants, Tenders needs location permissions in your phone's settings"),
+                actions: <Widget>[
+                  ElevatedButton(
+                    onPressed: () {
+                      AppSettings.openLocationSettings();
+                    },
+                    child: Text("Open Settings"),
+                  ),
+                ],
+              );
+            },
+          );
+        }
         goingIn = false;
         animationController.reverse();
+
         await Future.delayed(const Duration(milliseconds: ANIMATION_TIME));
         BlocProvider.of<RoomAuthCubit>(context).createRoom(
             settings: RoomSettings(
                 radius: (radiusMiles * MILES_TO_METERS).toInt(),
                 type: PlaceTypeString.fromUIString(dropdownController.text),
-                openNow: opennow));
+                openNow: opennow,
+                latitude: location.latitude!,
+                longitude: location.longitude!));
       }, // TODO: if fail show message
       child: Padding(
         padding: const EdgeInsets.all(8.0),

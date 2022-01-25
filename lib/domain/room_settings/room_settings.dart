@@ -62,10 +62,13 @@ extension PlaceTypeString on PlaceType {
 
 @freezed
 class RoomSettings with _$RoomSettings {
-  factory RoomSettings(
-      {required int radius,
-      required PlaceType type,
-      required bool openNow}) = _Room;
+  factory RoomSettings({
+    required int radius,
+    required PlaceType type,
+    required bool openNow,
+    required double latitude,
+    required double longitude,
+  }) = _Room;
   factory RoomSettings.fromJson(Map<String, dynamic> json) =>
       _$RoomSettingsFromJson(json);
 }
