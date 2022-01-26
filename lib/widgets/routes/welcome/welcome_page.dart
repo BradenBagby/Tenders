@@ -25,7 +25,7 @@ class WelcomePage extends StatefulWidget {
 
 class _WelcomePageState extends State<WelcomePage>
     with SingleTickerProviderStateMixin {
-  double radiusMiles = 30.0;
+  double radiusMiles = 10.0;
   static const double MILES_TO_METERS = 1609;
   static const int ANIMATION_TIME = 300;
 
@@ -305,7 +305,7 @@ class _WelcomePageState extends State<WelcomePage>
               });
             },
             min: 1,
-            max: 100,
+            max: 50,
           ),
         ),
         Row(
