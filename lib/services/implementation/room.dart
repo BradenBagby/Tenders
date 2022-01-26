@@ -18,7 +18,8 @@ class BadVersionException extends Error {}
 
 class FireRoom implements IRoom {
   // collection definitions
-  static get ROOM_COLLECTION => kDebugMode ? 'roomsDebug' : 'rooms';
+  static get ROOM_COLLECTION =>
+      (Environment.testRoomsInDebug && kDebugMode) ? 'roomsDebug' : 'rooms';
   static const MEMBERS_COLLECTION = 'members';
   static const ACCEPTED_COLLECTION = 'accepted';
   static const MATCHES_COLLECTION = 'matches';

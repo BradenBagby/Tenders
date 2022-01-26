@@ -21,6 +21,8 @@ class Environment {
   static String get androidAdUnit => _environment["android_ad"] as String;
   static bool get marketing =>
       (_environment["marketing"] as bool? ?? false) && kDebugMode;
+  static bool get testRoomsInDebug =>
+      (_environment["testRoomsInDebug"] as bool? ?? false) && kDebugMode;
   static bool get hideConfettiDebug =>
       _environment["hideConfettiDebug"] as bool? ?? false;
   static bool get useAdsInDebug =>

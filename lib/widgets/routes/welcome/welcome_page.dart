@@ -124,12 +124,6 @@ class _WelcomePageState extends State<WelcomePage>
                 ),
               ),
             ),
-            Positioned.fill(
-              child: Transform.translate(
-                  offset: Offset(
-                      -size.width + (size.width * (inAnimation.value)), 0),
-                  child: _buttons()),
-            ),
             Transform.translate(
               offset:
                   Offset(size.width - (size.width * (inAnimation.value)), 0),
@@ -139,6 +133,12 @@ class _WelcomePageState extends State<WelcomePage>
                   width: size.width / 2,
                 ),
               ),
+            ),
+            Positioned.fill(
+              child: Transform.translate(
+                  offset: Offset(
+                      -size.width + (size.width * (inAnimation.value)), 0),
+                  child: _buttons()),
             ),
             Align(
               alignment: Alignment.topRight,
@@ -247,7 +247,7 @@ class _WelcomePageState extends State<WelcomePage>
     return Center(
       child: SafeArea(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.start,
           children: [
             Expanded(
               child: Column(
@@ -268,6 +268,7 @@ class _WelcomePageState extends State<WelcomePage>
               ),
             ),
             Expanded(
+              flex: 2,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
@@ -480,7 +481,8 @@ class _WelcomePageState extends State<WelcomePage>
         padding: const EdgeInsets.all(8.0),
         child: Text(
           "Create Room",
-          style: Theme.of(context).textTheme.headline6!.copyWith(fontSize: 40),
+          style: Theme.of(context).textTheme.headline6!.copyWith(
+              fontSize: MediaQuery.of(context).size.height < 700 ? 30 : 40),
         ),
       ),
     );
