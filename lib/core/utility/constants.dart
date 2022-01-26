@@ -1,8 +1,33 @@
+import 'package:tenders/domain/member/member.dart';
 import 'package:tenders/domain/restauraunt/photo.dart';
 import 'package:tenders/domain/restauraunt/restauraunt.dart';
 import 'package:tenders/domain/restauraunt/review.dart';
+import 'package:tenders/widgets/common/displays/no_avatar.dart';
 
 class Constants {
+  static final fakeMembers = [
+    Member(
+      id: "0",
+      color: NoAvatar.PossibleColors[5].value,
+      name: "Joe",
+    ),
+    Member(
+      id: "1",
+      color: NoAvatar.PossibleColors[8].value,
+      name: "Sarah",
+    ),
+    Member(
+      id: "2",
+      color: NoAvatar.PossibleColors[6].value,
+      name: "Cameron",
+    ),
+    Member(
+      id: "3",
+      color: NoAvatar.PossibleColors[9].value,
+      name: "Roy",
+    ),
+  ];
+
   /// for marketing
   static final fakeRestauraunts = [
     Restauraunt(

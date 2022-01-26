@@ -9,6 +9,7 @@ import 'package:get_it/get_it.dart';
 import 'package:location/location.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tenders/application/ads/ads_cubit.dart';
+import 'package:tenders/core/utility/constants.dart';
 import 'package:tenders/core/utility/environment.dart';
 import 'package:tenders/core/utility/location.dart';
 import 'package:tenders/core/utility/route_controllers.dart';
@@ -33,15 +34,11 @@ class RoomCubit extends Cubit<RoomState> {
   RoomCubit({required Room room, required Member me})
       : _restaurauntService = GetIt.I<IRestauraunt>(),
         super(RoomState(room: room, me: me, members: [me], restauraunts: [])) {
-    /// simulate memberj oinging
-    if (Environment.marketing) {
-      Future.delayed(const Duration(seconds: 3)).then((value) {
-        final current = List<Member>.from(state.members);
-        current.add(Member(id: "asdf", disconnected: true, name: "John"));
-        emit(state.copyWith(members: current));
-      });
-    }
     showAdCounter = math.Random().nextInt(4) + 20;
+
+    if (Environment.marketing) {
+      _simulateMembersJoining();
+    }
 
     // listen to room updates and update state accordinly
     roomDataStreamSubscription =
@@ -74,6 +71,16 @@ class RoomCubit extends Cubit<RoomState> {
     });
 
     loadRestauraunts();
+  }
+
+  /// simulate members joining
+  Future<void> _simulateMembersJoining() async {
+    for (final member in Constants.fakeMembers) {
+      await Future.delayed(const Duration(seconds: 3));
+      final current = List<Member>.from(state.members);
+      current.add(member);
+      emit(state.copyWith(members: current));
+    }
   }
 
   void possibleShowAd() {

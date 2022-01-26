@@ -12,6 +12,7 @@ import 'package:tenders/widgets/common/displays/avatar.dart';
 import 'package:tenders/widgets/common/displays/no_avatar.dart';
 import 'package:tenders/widgets/common/displays/url_image.dart';
 import 'dart:math' as math;
+import 'dart:developer' as dev;
 
 class SetupProfile extends StatefulWidget {
   final embedded;
@@ -68,7 +69,9 @@ class SetupProfileState extends State<SetupProfile> {
                 final current = Color(color);
                 final currentIndex = NoAvatar.PossibleColors.indexOf(current);
                 int next = currentIndex + 1;
-                if (next >= NoAvatar.PossibleColors.length) {
+
+                final length = NoAvatar.PossibleColors.length;
+                if (next >= length) {
                   next = 0;
                 }
                 setState(() {

@@ -15,26 +15,26 @@ class NoAvatar extends StatelessWidget {
       required this.size,
       this.showInitial = true});
 
-  static const PossibleColors = [
+  static final PossibleColors = [
     Color(0xffFF512F),
     Color(0xffF09819),
     Color(0xff9F2B00),
-    Colors.amber,
-    Colors.orange,
-    Colors.red,
-    Colors.blue,
-    Colors.tealAccent,
-    Colors.purple,
-    Colors.green,
-    Colors.white,
-    Colors.black,
+    Color(0xffffc107),
+    Color(0xffff9800),
+    Color(0xffb71c1c),
+    Color(0xff2196F3),
+    Color(0xff009688),
+    Color(0xff9c27b0),
+    Color(0xff4caf50),
+    Color(0xffffffff),
+    Color(0xff000000),
   ];
   @override
   Widget build(BuildContext context) {
     final color = member == null ? PossibleColors.first : Color(member!.color);
     return Container(
       color: color,
-      padding: EdgeInsets.all(2),
+      padding: EdgeInsets.all(4),
       child: Stack(
         children: [
           Positioned.fill(
