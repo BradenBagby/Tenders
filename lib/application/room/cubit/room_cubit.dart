@@ -75,6 +75,7 @@ class RoomCubit extends Cubit<RoomState> {
 
   /// simulate members joining
   Future<void> _simulateMembersJoining() async {
+    await Future.delayed(const Duration(seconds: 1));
     for (final member in Constants.fakeMembers) {
       await Future.delayed(const Duration(milliseconds: 500));
       final current = List<Member>.from(state.members);
