@@ -1,8 +1,11 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:tenders/application/room/cubit/room_cubit.dart';
 import 'package:tenders/application/room_auth/room_auth_cubit.dart';
+import 'package:tenders/core/utility/constants.dart';
+import 'package:tenders/core/utility/environment.dart';
 import 'package:tenders/core/utility/route_controllers.dart';
 import 'package:tenders/domain/accepted/accepted.dart';
 import 'package:tenders/domain/restauraunt/restauraunt.dart';
@@ -29,11 +32,19 @@ class _SummaryState extends State<SummaryWidget> {
   void initState() {
     final currentroom =
         GetIt.I<RoomAuthCubit>().state.currentRoomCubit!.state.room;
-    GetIt.I<IRoom>().getAllAccepted(currentroom.id).then((value) {
+
+    if (Environment.marketing && kDebugMode) {
       setState(() {
-        accepted = value;
+        accepted = Constants.fakeAccepted;
       });
-    });
+    } else {
+      GetIt.I<IRoom>().getAllAccepted(currentroom.id).then((value) {
+        setState(() {
+          accepted = value;
+        });
+      });
+    }
+
     super.initState();
   }
 
@@ -137,6 +148,10 @@ class _SummaryState extends State<SummaryWidget> {
                                       ],
                                     ),
                                   ),
+                                ),
+                                Text(
+                                  soulmate.restaurant.name,
+                                  style: Theme.of(context).textTheme.headline6,
                                 ),
                                 Divider()
                               ],

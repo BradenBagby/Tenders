@@ -1,8 +1,10 @@
+import 'package:tenders/domain/accepted/accepted.dart';
 import 'package:tenders/domain/member/member.dart';
 import 'package:tenders/domain/restauraunt/photo.dart';
 import 'package:tenders/domain/restauraunt/restauraunt.dart';
 import 'package:tenders/domain/restauraunt/review.dart';
 import 'package:tenders/widgets/common/displays/no_avatar.dart';
+import 'dart:math' as math;
 
 class Constants {
   static final fakeMembers = [
@@ -130,4 +132,27 @@ class Constants {
         url: "",
         formattedPhoneNumber: ""),
   ];
+
+  static List<Accepted> get fakeAccepted => fakeRestauraunts
+      .map(
+        (e) => Accepted(
+          restaurant: e,
+          accepted: fakeMembers
+              .map((e) => e.id)
+              .where(
+                  (element) => (math.Random().nextInt(100) > 30 || e.id == "0"))
+              .toList()
+            ..add("fwDs2MyuOvceTQCbOybkEhhdSpp1"),
+        ),
+      )
+      .toList()
+    ..addAll(List.generate(45, (x) => x)
+        .map((e) => Accepted(
+            accepted: fakeMembers
+                .map((e) => e.id)
+                .where((element) => math.Random().nextInt(100) > 30)
+                .toList(),
+            restaurant: fakeRestauraunts.first))
+        .toList())
+    ..sort((a, b) => b.accepted.length.compareTo(a.accepted.length));
 }
