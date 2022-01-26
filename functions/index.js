@@ -1,6 +1,10 @@
 const functions = require('firebase-functions');
 const admin = require('firebase-admin');
 
+exports.requestDataDeleted = functions.https.onRequest((req, res) => {
+
+});
+
 
 /// listen for user to disconnect, check all other users, if all have disconnected then cleanup the room
 /*exports.cleanupRoom = functions.firestore

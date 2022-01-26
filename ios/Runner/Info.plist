@@ -2,6 +2,7 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>
@@ -30,9 +31,23 @@
 			<key>CFBundleURLSchemes</key>
 			<array>
 				<string>com.bradenbagby.tenders</string>
+				<string>fb484902089685816</string>
 			</array>
 		</dict>
 	</array>
+	<key>FacebookAppID</key>
+	<string>484902089685816</string>
+<key>FacebookClientToken</key>
+<string>ae450867d7cb5c03d658e3b1c3bbddd1</string>
+<key>FacebookDisplayName</key>
+<string>Tenders - Decide where to Eat</string>
+<key>LSApplicationQueriesSchemes</key>
+<array>
+ <string>fbapi</string>
+  <string>fb-messenger-share-api</string>
+  <string>fbauth2</string>
+  <string>fbshareextension</string>
+</array>
 	<key>CFBundleVersion</key>
 	<string>$(CURRENT_PROJECT_VERSION)</string>
 	<key>GADApplicationIdentifier</key>
@@ -40,7 +55,7 @@
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSCameraUsageDescription</key>
-	<string>To scan QR codes and join your friend's room.</string>
+	<string>To scan QR codes and join your friend&apos;s room.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>To load restauraunts near you</string>
 	<key>UILaunchStoryboardName</key>

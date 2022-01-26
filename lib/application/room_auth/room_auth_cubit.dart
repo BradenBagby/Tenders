@@ -1,3 +1,6 @@
+import 'dart:developer';
+
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:package_info_plus/package_info_plus.dart';
@@ -60,6 +63,38 @@ class RoomAuthCubit extends Cubit<RoomAuthState> {
     } catch (er) {
       // TODO: alert dialog for failing to create a room
       return false;
+    }
+  }
+
+  Future<Member?> connectWithFacebook() async {
+    try {
+      final res = await GetIt.I<IAuth>().connectWithFacebook();
+      final newMember = state.me!.copyWith(
+          avatarUrl: res.providerData.firstOrNull?.photoURL,
+          name: res.providerData.firstOrNull?.displayName ??
+              res.displayName ??
+              state.me!.name);
+      if (await saveMember(newMember)) {
+        return newMember;
+      }
+      return null;
+    } catch (er) {
+      log("error connecting with facebook: $er");
+      return null;
+    }
+  }
+
+  Future<Member?> disconnectFromFacebook() async {
+    try {
+      final res = await GetIt.I<IAuth>().disconnectFromFacebook();
+      final newMember = state.me!.copyWith(avatarUrl: null, name: "User");
+      if (await saveMember(newMember)) {
+        return newMember;
+      }
+      return null;
+    } catch (er) {
+      log("error removing  facebook: $er");
+      return null;
     }
   }
 

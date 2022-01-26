@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tenders/domain/member/member.dart';
 import 'package:tenders/services/interfaces/i_auth.dart';
@@ -57,5 +58,26 @@ class Auth implements IAuth {
     } catch (er) {
       return false;
     }
+  }
+
+  @override
+  Future<User> connectWithFacebook() async {
+    // Trigger the sign-in flow
+    final LoginResult loginResult = await FacebookAuth.instance.login();
+
+    // Create a credential from the access token
+    final AuthCredential facebookAuthCredential =
+        FacebookAuthProvider.credential(loginResult.accessToken!.token);
+
+    final result = await FirebaseAuth.instance.currentUser!
+        .linkWithCredential(facebookAuthCredential);
+    return result.user!;
+  }
+
+  @override
+  Future<bool> disconnectFromFacebook() async {
+    await FirebaseAuth.instance.currentUser!.unlink(
+        FirebaseAuth.instance.currentUser!.providerData.first.providerId);
+    return true;
   }
 }

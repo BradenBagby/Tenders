@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:tenders/application/room_auth/room_auth_cubit.dart';
@@ -11,6 +12,7 @@ import 'package:tenders/widgets/common/custom/spinner.dart';
 import 'package:tenders/widgets/common/displays/avatar.dart';
 import 'package:tenders/widgets/common/displays/no_avatar.dart';
 import 'package:tenders/widgets/common/displays/url_image.dart';
+import 'package:collection/collection.dart';
 import 'dart:math' as math;
 import 'dart:developer' as dev;
 
@@ -31,6 +33,8 @@ class SetupProfileState extends State<SetupProfile> {
   bool loading = false;
   bool showTap = true;
   late int color;
+
+  bool loadingFacebook = false;
 
   @override
   void initState() {
@@ -63,6 +67,9 @@ class SetupProfileState extends State<SetupProfile> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
+            SizedBox(
+              height: 50,
+            ),
             InkWell(
               onTap: () {
                 /// ugly but fast rn
@@ -169,7 +176,28 @@ class SetupProfileState extends State<SetupProfile> {
               ),
             ),
           ),
-          Positioned.fill(child: body)
+          Positioned.fill(child: body),
+          if (!widget.embedded)
+            Align(
+              alignment: Alignment.topCenter,
+              child: SafeArea(
+                child: Row(
+                  children: [
+                    IconButton(
+                      icon: Icon(
+                        Icons.close,
+                        color: Theme.of(context).colorScheme.onSurface,
+                      ),
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
+                    ),
+                    Expanded(child: SizedBox()),
+                    if (loading) Loader() else _connectWithFacebookButton()
+                  ],
+                ),
+              ),
+            )
         ],
       );
     }
@@ -181,22 +209,6 @@ class SetupProfileState extends State<SetupProfile> {
       child: Scaffold(
         resizeToAvoidBottomInset: false,
         backgroundColor: widget.embedded ? Colors.transparent : null,
-        appBar: widget.embedded
-            ? null
-            : AppBar(
-                backgroundColor: Colors.transparent,
-                elevation: 0,
-                actions: [if (loading) Loader()],
-                leading: IconButton(
-                  icon: Icon(
-                    Icons.close,
-                    color: Theme.of(context).colorScheme.onSurface,
-                  ),
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                  },
-                ),
-              ),
         body: body,
       ),
     );
@@ -212,5 +224,143 @@ class SetupProfileState extends State<SetupProfile> {
       await GetIt.I<RoomAuthCubit>().saveMember(edited!);
       Navigator.of(context).pop();
     } catch (er) {}
+  }
+
+  Widget _connectWithFacebookButton() {
+    final hasProvider =
+        FirebaseAuth.instance.currentUser?.providerData.firstOrNull;
+    return InkWell(
+        onTap: () async {
+          if (hasProvider != null) {
+            _disconnectFromFacebook();
+          } else {
+            _connectWithFacebook();
+          }
+        },
+        child: Row(
+          children: [
+            Text(
+              hasProvider == null ? "Add Profile" : "Remove Profile",
+              style: Theme.of(context).textTheme.caption,
+            ),
+            SizedBox(
+              width: 4,
+            ),
+            loadingFacebook
+                ? Loader()
+                : ClipOval(
+                    child: SizedBox(
+                      width: 24,
+                      height: 24,
+                      child: Image.asset("assets/facebook_profile.png"),
+                    ),
+                  ),
+            SizedBox(
+              width: 8,
+            ),
+          ],
+        ));
+  }
+
+  Future<void> _disconnectFromFacebook() async {
+    final remove = await showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              title: Text("Failed to connect with Facebook"),
+              content: Text(
+                  "This will remove your facebook profile, name, and image from Tenders"),
+              actions: <Widget>[
+                ElevatedButton(
+                  onPressed: () {
+                    Navigator.pop(context, false);
+                  },
+                  child: Text("Cancel"),
+                ),
+                ElevatedButton(
+                  onPressed: () {
+                    Navigator.pop(context, true);
+                  },
+                  child: Text(
+                    "Remove",
+                    style: TextStyle(color: Colors.red),
+                  ),
+                )
+              ],
+            );
+          },
+        ) ??
+        false;
+
+    if (remove) {
+      setState(() {
+        loadingFacebook = true;
+      });
+      final newData = await GetIt.I<RoomAuthCubit>().disconnectFromFacebook();
+      setState(() {
+        loadingFacebook = false;
+      });
+      if (newData != null) {
+        setState(() {
+          edited = newData;
+          controller.text = newData.name;
+        });
+      } else {
+        return showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              title: Text("Failed to disconnect from Facebook"),
+              content: Text(
+                  "Try again later. If this problem continues, contact support."),
+              actions: <Widget>[
+                ElevatedButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  child: Text("Okay"),
+                )
+              ],
+            );
+          },
+        );
+      }
+    }
+  }
+
+  Future<void> _connectWithFacebook() async {
+    setState(() {
+      loadingFacebook = true;
+    });
+
+    final newData = await GetIt.I<RoomAuthCubit>().connectWithFacebook();
+    setState(() {
+      loadingFacebook = false;
+    });
+    if (newData != null) {
+      setState(() {
+        edited = newData;
+        controller.text = newData.name;
+      });
+    } else {
+      return showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text("Failed to connect with Facebook"),
+            content: Text(
+                "Try again later. If this problem continues, contact support."),
+            actions: <Widget>[
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                child: Text("Okay"),
+              )
+            ],
+          );
+        },
+      );
+    }
   }
 }
