@@ -174,4 +174,10 @@ class FireRoom implements IRoom {
       return [];
     }
   }
+
+  @override
+  Future<bool> updateRoomInfo(Room room) async {
+    await roomCollection.doc(room.id).update(room.toJson());
+    return true;
+  }
 }

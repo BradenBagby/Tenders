@@ -22,10 +22,10 @@ import 'package:package_info_plus/package_info_plus.dart';
 
 class WelcomePage extends StatefulWidget {
   @override
-  _WelcomePageState createState() => _WelcomePageState();
+  WelcomePageState createState() => WelcomePageState();
 }
 
-class _WelcomePageState extends State<WelcomePage>
+class WelcomePageState extends State<WelcomePage>
     with SingleTickerProviderStateMixin {
   double radiusMiles = 10.0;
   static const double MILES_TO_METERS = 1609;
@@ -44,7 +44,7 @@ class _WelcomePageState extends State<WelcomePage>
   LocationData? location;
   String? locationString;
 
-  final List<String> queryExamples = [
+  static const List<String> queryExamples = [
     "Mexican",
     "Steak House",
     "Delivery",

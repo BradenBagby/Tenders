@@ -10,6 +10,7 @@ import 'package:tenders/widgets/common/custom/spinner.dart';
 import 'package:tenders/widgets/common/displays/restauraunt_display.dart';
 import 'package:tenders/widgets/common/web_controls.dart';
 import 'package:tenders/widgets/routes/room/drawer/room_drawer.dart';
+import 'package:tenders/widgets/routes/room/no_results.dart';
 import 'package:tenders/widgets/routes/room/summary.dart';
 import 'package:tenders/widgets/routes/room/swipe/controls.dart';
 import 'package:tenders/widgets/routes/room/swipe/draggable_card.dart';
@@ -41,6 +42,10 @@ class _RoomHomeState extends State<RoomHome> {
     return BlocBuilder<RoomCubit, RoomState>(
       bloc: roomCubit,
       builder: (context, state) {
+        if (state.noResults) {
+          return NoResults();
+        }
+
         if (!state.room.started) {
           return WaitingForFriends();
         }

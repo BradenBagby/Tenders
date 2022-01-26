@@ -20,6 +20,10 @@ abstract class IRoom {
   /// listens to room updates, is null if this room has been deleted
   Stream<Room?> roomUpdates(String id);
 
+  Future<bool> updateRoomInfo(
+    Room room,
+  );
+
   /// get match updates on a room
   /// TODO: somehow pipe stream so one by one
   Stream<Iterable<Restauraunt>> matchUpdates(String id);

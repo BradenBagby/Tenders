@@ -84,6 +84,14 @@ class RoomCubit extends Cubit<RoomState> {
     }
   }
 
+  Future<void> changeQuery(String query) async {
+    final newRoom = state.room
+        .copyWith(settings: state.room.settings.copyWith(query: query));
+    await GetIt.I<IRoom>().updateRoomInfo(newRoom);
+    emit(state.copyWith(hasLoaded: false, room: newRoom));
+    loadRestauraunts();
+  }
+
   void possibleShowAd() {
     print("Possibly show ad: Coutner:${showAdCounter}");
     if (showAdCounter < 1) {

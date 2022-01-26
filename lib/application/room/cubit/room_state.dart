@@ -28,4 +28,6 @@ class RoomState with _$RoomState {
 
   bool get outOfRestauraunts =>
       hasLoaded && pageToken == null && restauraunts.length <= currentViewIndex;
+
+  bool get noResults => hasLoaded && pageToken == null && restauraunts.isEmpty;
 }
