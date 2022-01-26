@@ -117,7 +117,7 @@ class WaitingForFriends extends StatelessWidget {
                     ),
                     if (state.room.settings.locationString != null)
                       Text(
-                        "in ${state.room.settings.locationString}",
+                        "${state.room.settings.query} in ${state.room.settings.locationString}",
                         style: Theme.of(context).textTheme.caption,
                       ),
                     SizedBox(

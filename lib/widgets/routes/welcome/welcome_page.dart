@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:app_settings/app_settings.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -42,6 +44,17 @@ class _WelcomePageState extends State<WelcomePage>
   LocationData? location;
   String? locationString;
 
+  final List<String> queryExamples = [
+    "Mexican",
+    "Steak House",
+    "Delivery",
+    "Bars",
+    "Italian",
+  ];
+  final TextEditingController queryController = TextEditingController();
+  late final Timer hintTimer;
+  late String hint;
+
   Future<String?> _getLocationString() async {
     List<Placemark> placemarks = await placemarkFromCoordinates(
         location!.latitude!, location!.longitude!);
@@ -51,6 +64,16 @@ class _WelcomePageState extends State<WelcomePage>
   @override
   void initState() {
     super.initState();
+    hint = queryExamples.first;
+
+    hintTimer = Timer.periodic(const Duration(seconds: 1), (timer) {
+      int next = queryExamples.indexOf(hint) + 1;
+      if (next >= queryExamples.length) {
+        next = 0;
+      }
+      hint = queryExamples[next];
+      if (mounted) setState(() {});
+    });
 
     /// get location right away
     TenderLocation.loadLocation().then((value) async {
@@ -78,76 +101,84 @@ class _WelcomePageState extends State<WelcomePage>
   @override
   void dispose() {
     animationController.dispose();
+    hintTimer.cancel();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    return Scaffold(
+    return GestureDetector(
+      onTap: () {
+        FocusScope.of(context).unfocus();
+      },
+      child: Scaffold(
         body: Stack(
-      children: [
-        Positioned.fill(
-          child: Opacity(
-            opacity: 0.1 + (0.2 - (0.2 * inAnimation.value)),
-            child: Image.asset(
-              'assets/stcharles.png',
-              fit: BoxFit.cover,
-            ),
-          ),
-        ),
-        Positioned.fill(
-          child: Transform.translate(
-              offset:
-                  Offset(-size.width + (size.width * (inAnimation.value)), 0),
-              child: _buttons()),
-        ),
-        Transform.translate(
-          offset: Offset(size.width - (size.width * (inAnimation.value)), 0),
-          child: Align(
-            alignment: Alignment.bottomRight,
-            child: Chicken(
-              width: size.width / 2,
-            ),
-          ),
-        ),
-        Align(
-          alignment: Alignment.topRight,
-          child: SafeArea(
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                _profileButton(),
-                Opacity(
-                  opacity: loading ? 1 : 0,
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Loader(),
-                  ),
-                )
-              ],
-            ),
-          ),
-        ),
-        Align(
-          alignment: Alignment.bottomLeft,
-          child: SafeArea(
-              child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: IconButton(
-              iconSize: 64,
-              onPressed: () {
-                Navigator.of(context)
-                    .push(MaterialPageRoute(builder: (context) => ScanPage()));
-              },
-              icon: Icon(
-                Icons.qr_code_scanner_sharp,
+          children: [
+            Positioned.fill(
+              child: Opacity(
+                opacity: 0.1 + (0.2 - (0.2 * inAnimation.value)),
+                child: Image.asset(
+                  'assets/stcharles.png',
+                  fit: BoxFit.cover,
+                ),
               ),
             ),
-          )),
-        )
-      ],
-    ));
+            Positioned.fill(
+              child: Transform.translate(
+                  offset: Offset(
+                      -size.width + (size.width * (inAnimation.value)), 0),
+                  child: _buttons()),
+            ),
+            Transform.translate(
+              offset:
+                  Offset(size.width - (size.width * (inAnimation.value)), 0),
+              child: Align(
+                alignment: Alignment.bottomRight,
+                child: Chicken(
+                  width: size.width / 2,
+                ),
+              ),
+            ),
+            Align(
+              alignment: Alignment.topRight,
+              child: SafeArea(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    _profileButton(),
+                    Opacity(
+                      opacity: loading ? 1 : 0,
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Loader(),
+                      ),
+                    )
+                  ],
+                ),
+              ),
+            ),
+            Align(
+              alignment: Alignment.bottomLeft,
+              child: SafeArea(
+                  child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: IconButton(
+                  iconSize: 64,
+                  onPressed: () {
+                    Navigator.of(context).push(
+                        MaterialPageRoute(builder: (context) => ScanPage()));
+                  },
+                  icon: Icon(
+                    Icons.qr_code_scanner_sharp,
+                  ),
+                ),
+              )),
+            )
+          ],
+        ),
+      ),
+    );
   }
 
   Widget _profileButton() {
@@ -273,13 +304,50 @@ class _WelcomePageState extends State<WelcomePage>
   Widget _options() {
     return Column(
       children: [
-        SizedBox(
-          width: 200,
-          child: Dropdown(
-            options: {
-              for (var v in PlaceType.values) v.toUIString(): v.toUIString()
-            },
-            controller: dropdownController,
+        Padding(
+          padding:
+              const EdgeInsets.only(left: 32, right: 32, top: 8, bottom: 8),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(left: 16.0),
+                child: Text(
+                  "Custom Search:",
+                  style: Theme.of(context).textTheme.caption,
+                ),
+              ),
+              Card(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(16.0),
+                  ),
+                  child: TextField(
+                    style: Theme.of(context)
+                        .textTheme
+                        .headline6!
+                        .copyWith(color: primaryColor),
+                    textAlign: TextAlign.center,
+                    controller: queryController,
+                    keyboardType: TextInputType.text,
+                    onSubmitted: (val) {
+                      FocusScope.of(context).unfocus();
+                    },
+                    textCapitalization: TextCapitalization.words,
+                    textInputAction: TextInputAction.done,
+                    decoration: InputDecoration(
+                      focusColor: primaryColor,
+                      fillColor: primaryColor,
+                      border: InputBorder.none,
+                      hintStyle: Theme.of(context)
+                          .textTheme
+                          .headline6!
+                          .copyWith(
+                              color: primaryColor.withAlpha(155),
+                              fontWeight: FontWeight.w300),
+                      hintText: "E.g. ${hint}",
+                    ),
+                  ))
+            ],
           ),
         ),
         SizedBox(
@@ -382,6 +450,9 @@ class _WelcomePageState extends State<WelcomePage>
               openNow: opennow,
               latitude: location!.latitude!,
               longitude: location!.longitude!,
+              query: queryController.text.isNotEmpty
+                  ? queryController.text
+                  : "Food",
               locationString: locationString),
         );
         if (!success) {

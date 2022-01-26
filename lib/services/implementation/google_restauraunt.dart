@@ -38,7 +38,7 @@ class GoogleRestauraunt implements IRestauraunt {
     try {
       // TODO: catch errors
       String url =
-          "place/nearbysearch/json?location=${GoogleRestaurauntURL.location(location)}&radius=${settings.radius}&type=${settings.type.toQueryString()}${settings.openNow ? '&opennow=true' : ''}&key=$API_KEY&rankby=prominence";
+          "place/nearbysearch/json?location=${GoogleRestaurauntURL.location(location)}&radius=${settings.radius}&keyword=${settings.query}${settings.openNow ? '&opennow=true' : ''}&key=$API_KEY&rankby=prominence";
       if (pageToken != null) {
         url = "$url&pagetoken=$pageToken";
       }

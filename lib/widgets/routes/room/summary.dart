@@ -160,8 +160,8 @@ class _SummaryState extends State<SummaryWidget> {
                         if (state.room.settings.locationString != null)
                           Padding(
                             padding: const EdgeInsets.all(8.0),
-                            child:
-                                Text("${state.room.settings.locationString!}:"),
+                            child: Text(
+                                "${state.room.settings.query} in ${state.room.settings.locationString!}:"),
                           ),
                         ...state.members
                             .map((e) => Padding(

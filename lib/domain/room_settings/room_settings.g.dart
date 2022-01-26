@@ -14,6 +14,7 @@ _$_Room _$_$_RoomFromJson(Map<String, dynamic> json) {
     latitude: (json['latitude'] as num).toDouble(),
     longitude: (json['longitude'] as num).toDouble(),
     locationString: json['locationString'] as String?,
+    query: json['query'] as String? ?? 'food',
   );
 }
 
@@ -24,6 +25,7 @@ Map<String, dynamic> _$_$_RoomToJson(_$_Room instance) => <String, dynamic>{
       'latitude': instance.latitude,
       'longitude': instance.longitude,
       'locationString': instance.locationString,
+      'query': instance.query,
     };
 
 K _$enumDecode<K, V>(
