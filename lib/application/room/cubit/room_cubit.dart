@@ -76,7 +76,7 @@ class RoomCubit extends Cubit<RoomState> {
   /// simulate members joining
   Future<void> _simulateMembersJoining() async {
     for (final member in Constants.fakeMembers) {
-      await Future.delayed(const Duration(seconds: 3));
+      await Future.delayed(const Duration(milliseconds: 500));
       final current = List<Member>.from(state.members);
       current.add(member);
       emit(state.copyWith(members: current));
@@ -142,7 +142,6 @@ class RoomCubit extends Cubit<RoomState> {
       if (activeMembers.length > 1 ||
           (Environment.marketing && kDebugMode) ||
           (Environment.autoMatchDebug && kDebugMode)) {
-        // TODO: remove the or true
         for (final active in activeMembers) {
           if (!acceptedUserIds.contains(active.id)) {
             match = false;
@@ -152,7 +151,7 @@ class RoomCubit extends Cubit<RoomState> {
         match = false;
       }
 
-      if (match) {
+      if (match || (Environment.autoMatchDebug && kDebugMode)) {
         // report as a match
         await GetIt.I<IRoom>()
             .reportMatch(acceptedRestauraunt, forRoom: state.room);

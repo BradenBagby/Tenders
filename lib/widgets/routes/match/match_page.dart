@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:maps_launcher/maps_launcher.dart';
 import 'package:tenders/application/room_auth/room_auth_cubit.dart';
+import 'package:tenders/core/utility/environment.dart';
 import 'package:tenders/domain/restauraunt/restauraunt.dart';
 import 'package:tenders/widgets/common/custom/message_box.dart';
 import 'package:tenders/widgets/common/displays/restauraunt_display.dart';
@@ -25,7 +26,7 @@ class _MatchPageState extends State<MatchPage> {
 
   @override
   void initState() {
-    if (!kDebugMode) {
+    if (!(Environment.hideConfettiDebug && kDebugMode)) {
       controller =
           ConfettiController(duration: const Duration(milliseconds: 10));
       if (widget.totalMatch) controller.play();
@@ -35,7 +36,7 @@ class _MatchPageState extends State<MatchPage> {
 
   @override
   void dispose() {
-    if (!kDebugMode) controller.dispose();
+    if (!(Environment.hideConfettiDebug && kDebugMode)) controller.dispose();
     super.dispose();
   }
 
@@ -81,7 +82,7 @@ class _MatchPageState extends State<MatchPage> {
               ),
             ],
           ),
-          if (!kDebugMode)
+          if (!(Environment.hideConfettiDebug && kDebugMode))
             Align(
               alignment: Alignment.topCenter,
               child: ConfettiWidget(

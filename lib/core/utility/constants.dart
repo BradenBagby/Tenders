@@ -31,6 +31,22 @@ class Constants {
   /// for marketing
   static final fakeRestauraunts = [
     Restauraunt(
+        name: "Chik Fil A",
+        id: "1",
+        address: "466 S Fifth St",
+        rating: 5,
+        iconUrl: "",
+        latitude: 38.760,
+        longitude: -90.503670,
+        totalRatings: 405,
+        photos: [
+          FakePhoto(
+              fakeUrl:
+                  "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9a/Chick-fil-A.jpg/900px-Chick-fil-A.jpg")
+        ],
+        url: "",
+        formattedPhoneNumber: ""),
+    Restauraunt(
       name: "Tavern on Main",
       id: "0",
       address: "428 S Fifth St",
@@ -99,7 +115,7 @@ class Constants {
     ),
     Restauraunt(
         name: "The Bath Brew House",
-        id: "1",
+        id: "2",
         address: "466 S Fifth St",
         rating: 3,
         iconUrl: "",
