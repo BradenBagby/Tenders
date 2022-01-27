@@ -142,7 +142,35 @@ class _SummaryState extends State<SummaryWidget> {
                                     )
                                   ],
                                 )
-                              : SizedBox()),
+                              : Center(
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Text(
+                                        "No Soulmate Yet",
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .headline4!
+                                            .copyWith(
+                                                fontWeight: FontWeight.bold,
+                                                color: Colors.white),
+                                      ),
+                                      SizedBox(
+                                        height: 4,
+                                      ),
+                                      Text(
+                                        "keep swiping",
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .headline2!
+                                            .copyWith(
+                                                fontSize: 32,
+                                                color: Color(0xff9F2B00),
+                                                fontWeight: FontWeight.bold),
+                                      )
+                                    ],
+                                  ),
+                                )),
                     ),
                   ),
                   Expanded(
