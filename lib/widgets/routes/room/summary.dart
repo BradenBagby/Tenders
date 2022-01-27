@@ -15,8 +15,12 @@ import 'package:tenders/widgets/common/displays/accepted_row.dart';
 import 'package:tenders/widgets/common/displays/avatar.dart';
 import 'package:tenders/widgets/common/displays/restaurant_row.dart';
 import 'package:tenders/widgets/common/displays/url_image.dart';
+import 'package:tenders/widgets/routes/soulmate/soulmate_info.dart';
+import 'package:tenders/widgets/routes/soulmate/soulmate_page.dart';
 import 'package:tuple/tuple.dart';
 import 'package:collection/collection.dart';
+
+import '../../root_widget.dart';
 
 class SummaryWidget extends StatefulWidget {
   final bool standalone;
@@ -45,6 +49,23 @@ class _SummaryState extends State<SummaryWidget> {
       });
     }
 
+    // if it is not a standalone then we want to popup the soulmate page automatically
+    WidgetsBinding.instance?.addPostFrameCallback((timeStamp) async {
+      int tries = 0;
+      while (accepted == null) {
+        await Future.delayed(const Duration(milliseconds: 100));
+        tries++;
+        if (tries > 50) {
+          return;
+        }
+      }
+      Navigator.of(context).push(
+        MaterialPageRoute(
+            builder: (_) => SoulmatePage(accepted!.first),
+            fullscreenDialog: true),
+      );
+    });
+
     super.initState();
   }
 
@@ -66,148 +87,140 @@ class _SummaryState extends State<SummaryWidget> {
           ),
         ),
         Positioned.fill(
-          child: Scaffold(
-            backgroundColor: Colors.transparent,
-            appBar: AppBar(
+          child: BlocBuilder<RoomCubit, RoomState>(builder: (context, state) {
+            final Accepted? soulmate = accepted?.firstOrNull;
+            return Scaffold(
               backgroundColor: Colors.transparent,
-              leading: IconButton(
-                  color: Theme.of(context).colorScheme.onBackground,
-                  onPressed: () {
-                    if (widget.standalone) {
-                      Navigator.of(context).pop();
-                    } else {
-                      Scaffold.of(context).openDrawer();
-                    }
-                  },
-                  icon: Icon(
-                    widget.standalone ? Icons.close : Icons.menu,
-                    color: Theme.of(context).colorScheme.onSurface,
-                  )),
-              elevation: 0,
-              title: Text(
-                "SUMMARY",
-                style: Theme.of(context)
-                    .textTheme
-                    .headline6!
-                    .copyWith(color: Theme.of(context).colorScheme.onSurface),
-              ),
-            ),
-            body: SafeArea(
-                child: Column(
-              children: [
-                BlocBuilder<RoomCubit, RoomState>(builder: (context, state) {
-                  final Accepted? soulmate = accepted?.firstOrNull;
-                  return Column(
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                      children: [
-                        if (soulmate != null)
-                          InkWell(
-                            onTap: () {
-                              final members = state.members;
-                              final myMembers = soulmate.accepted.map((e) =>
-                                  members.firstWhere(
-                                      (element) => element.id == e));
-                              final percent = (myMembers.length.toDouble() /
-                                      members.length.toDouble()) *
-                                  100;
-                              RootRouteController.showMatch(
-                                  RootRouteController.key.currentContext!,
-                                  restauraunt: soulmate.restaurant,
-                                  perfectMatch:
-                                      myMembers.length == members.length);
-                            },
-                            child: Column(
-                              children: [
-                                Divider(),
-                                Text(
-                                  "Soul Mate:",
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .headline4!
-                                      .copyWith(fontWeight: FontWeight.bold),
-                                  textAlign: TextAlign.center,
-                                ),
-                                Center(
-                                  child: Padding(
-                                    padding: EdgeInsets.all(8),
-                                    child: Column(
-                                      children: [
-                                        if (soulmate
-                                            .restaurant.photos.isNotEmpty)
-                                          ClipOval(
-                                            child: SizedBox(
-                                              height: 100,
-                                              width: 100,
-                                              child: URLImage(soulmate
-                                                  .restaurant.photos.first
-                                                  .url(
-                                                      maxHeight: 1200,
-                                                      maxWidth: 800)),
-                                            ),
-                                          )
-                                      ],
+              body: Column(
+                children: [
+                  InkWell(
+                    onTap: () {
+                      if (soulmate == null) return;
+                      Navigator.of(context).push(MaterialPageRoute(
+                          builder: (_) => SoulmatePage(soulmate),
+                          fullscreenDialog: true));
+                    },
+                    child: Material(
+                      elevation: 2,
+                      child: Container(
+                          padding: EdgeInsets.all(8),
+                          height: MediaQuery.of(context).size.height / 2,
+                          decoration: BoxDecoration(
+                              gradient: LinearGradient(
+                                  begin: Alignment.topLeft,
+                                  end: Alignment.bottomRight,
+                                  colors: [primaryColor, secondaryColor])),
+                          child: soulmate != null
+                              ? Stack(
+                                  children: [
+                                    Positioned.fill(
+                                      child: SoulmateInfo(
+                                        soulmate,
+                                        sizeMultiplier: 0.8,
+                                      ),
                                     ),
-                                  ),
-                                ),
-                                Text(
-                                  soulmate.restaurant.name,
-                                  style: Theme.of(context).textTheme.headline6,
-                                ),
-                                Divider()
-                              ],
-                            ),
-                          ),
-                        if (state.room.settings.locationString != null)
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Text(
-                                "${state.room.settings.query} in ${state.room.settings.locationString!}:"),
-                          ),
-                        ...state.members
-                            .map((e) => Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Row(
+                                    Align(
+                                      alignment: Alignment.bottomRight,
+                                      child: IconButton(
+                                        onPressed: () {
+                                          Navigator.of(context)
+                                              .push(MaterialPageRoute(
+                                                  builder: (_) => SoulmatePage(
+                                                        soulmate,
+                                                        autoShare: true,
+                                                      ),
+                                                  fullscreenDialog: true));
+                                        },
+                                        icon: Icon(
+                                          Icons.ios_share_outlined,
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                                    )
+                                  ],
+                                )
+                              : SizedBox()),
+                    ),
+                  ),
+                  Expanded(
+                    child: accepted == null
+                        ? _loadingSummary()
+                        : ListView.builder(
+                            padding: EdgeInsets.zero,
+                            itemBuilder: (context, i) {
+                              if (i == 0) {
+                                return Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.stretch,
                                     children: [
-                                      Avatar(member: e),
-                                      SizedBox(
-                                        width: 6,
-                                      ),
-                                      Text(e.name),
-                                      SizedBox(
-                                        width: 6,
-                                      ),
-                                      if (accepted != null)
-                                        Text(
-                                          "- ${accepted!.where((element) => element.accepted.contains(e.id)).length} Swipes Right",
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .caption,
-                                        )
-                                    ],
-                                  ),
-                                ))
-                            .toList(),
-                      ]);
-                }),
-                Container(
-                  height: 1,
-                  color: Theme.of(context).dividerColor,
-                ),
-                Expanded(
-                  child: accepted == null
-                      ? _loadingSummary()
-                      : ListView.builder(
-                          itemBuilder: (context, index) {
-                            return AcceptedRow(accepted![
-                                index]); // TOOD: members that accepted
-                          },
-                          itemCount: accepted!.length,
-                        ),
-                )
-              ],
-            )),
-          ),
+                                      if (state.room.settings.locationString !=
+                                          null)
+                                        Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: Text(
+                                              "${state.room.settings.query} in ${state.room.settings.locationString!}:"),
+                                        ),
+                                      ...state.members
+                                          .map((e) => Padding(
+                                                padding:
+                                                    const EdgeInsets.all(8.0),
+                                                child: Row(
+                                                  children: [
+                                                    Avatar(member: e),
+                                                    SizedBox(
+                                                      width: 6,
+                                                    ),
+                                                    Text(e.name),
+                                                    SizedBox(
+                                                      width: 6,
+                                                    ),
+                                                    if (accepted != null)
+                                                      Text(
+                                                        "- ${accepted!.where((element) => element.accepted.contains(e.id)).length} Swipes Right",
+                                                        style: Theme.of(context)
+                                                            .textTheme
+                                                            .caption,
+                                                      )
+                                                  ],
+                                                ),
+                                              ))
+                                          .toList(),
+                                    ]);
+                              }
+                              final index = i - 1;
+                              return AcceptedRow(accepted![
+                                  index]); // TOOD: members that accepted
+                            },
+                            itemCount: accepted!.length + 1,
+                          ),
+                  )
+                ],
+              ),
+            );
+          }),
         ),
+        Align(
+          alignment: Alignment.topCenter,
+          child: SafeArea(
+            child: Row(
+              children: [
+                IconButton(
+                    color: Theme.of(context).colorScheme.onBackground,
+                    onPressed: () {
+                      if (widget.standalone) {
+                        Navigator.of(context).pop();
+                      } else {
+                        Scaffold.of(context).openDrawer();
+                      }
+                    },
+                    icon: Icon(
+                      widget.standalone ? Icons.close : Icons.menu,
+                      color: Colors.white,
+                    )),
+              ],
+            ),
+          ),
+        )
       ],
     );
   }
