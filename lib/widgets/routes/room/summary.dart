@@ -50,21 +50,23 @@ class _SummaryState extends State<SummaryWidget> {
     }
 
     // if it is not a standalone then we want to popup the soulmate page automatically
-    WidgetsBinding.instance?.addPostFrameCallback((timeStamp) async {
-      int tries = 0;
-      while (accepted == null) {
-        await Future.delayed(const Duration(milliseconds: 100));
-        tries++;
-        if (tries > 50) {
-          return;
+    if (!widget.standalone) {
+      WidgetsBinding.instance?.addPostFrameCallback((timeStamp) async {
+        int tries = 0;
+        while (accepted == null) {
+          await Future.delayed(const Duration(milliseconds: 100));
+          tries++;
+          if (tries > 50) {
+            return;
+          }
         }
-      }
-      Navigator.of(context).push(
-        MaterialPageRoute(
-            builder: (_) => SoulmatePage(accepted!.first),
-            fullscreenDialog: true),
-      );
-    });
+        Navigator.of(context).push(
+          MaterialPageRoute(
+              builder: (_) => SoulmatePage(accepted!.first),
+              fullscreenDialog: true),
+        );
+      });
+    }
 
     super.initState();
   }

@@ -134,7 +134,10 @@ class _SoulmatePageState extends State<SoulmatePage> {
                                                   .fontSize! *
                                               0.8,
                                           color: Colors.black.withAlpha(150)),
-                                )
+                                ),
+                                SizedBox(
+                                  height: 4,
+                                ),
                               ],
                             ),
                           )
