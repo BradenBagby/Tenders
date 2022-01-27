@@ -17,6 +17,8 @@ class SoulmateInfo extends StatelessWidget {
     final members =
         GetIt.I<RoomAuthCubit>().state.currentRoomCubit!.state.members;
     final myMembers = soulmate.accepted
+        .where((element) =>
+            members.firstWhereOrNull((e) => e.id == element) != null)
         .map((e) => members.firstWhere((element) => element.id == e));
     final percent =
         (myMembers.length.toDouble() / members.length.toDouble()) * 100;
@@ -76,8 +78,12 @@ class SoulmateInfo extends StatelessWidget {
                 children: [
                   Positioned.fill(
                     child: ClipOval(
-                      child: URLImage(soulmate.restaurant.photos.first
-                          .url(maxWidth: 800, maxHeight: 1200)),
+                      child: soulmate.restaurant.photos.isNotEmpty
+                          ? URLImage(soulmate.restaurant.photos.first
+                              .url(maxWidth: 800, maxHeight: 1200))
+                          : Container(
+                              color: Colors.black,
+                            ),
                     ),
                   ),
                   ...spaces.map((angle) {

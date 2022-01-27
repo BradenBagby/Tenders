@@ -52,8 +52,12 @@ class _SoulmatePageState extends State<SoulmatePage> {
                     .currentRoomCubit!
                     .state
                     .members;
-                final myMembers = widget.soulmate.accepted.map(
-                    (e) => members.firstWhere((element) => element.id == e));
+                final myMembers = widget.soulmate.accepted
+                    .where((element) =>
+                        members.firstWhereOrNull((e) => e.id == element) !=
+                        null)
+                    .map((e) =>
+                        members.firstWhere((element) => element.id == e));
                 final percent =
                     (myMembers.length.toDouble() / members.length.toDouble()) *
                         100;

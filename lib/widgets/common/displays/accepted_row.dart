@@ -6,6 +6,7 @@ import 'package:tenders/domain/accepted/accepted.dart';
 import 'package:tenders/widgets/common/displays/avatar.dart';
 import 'package:tenders/widgets/common/displays/restaurant_row.dart';
 import 'package:tenders/widgets/common/displays/url_image.dart';
+import 'package:collection/collection.dart';
 
 class AcceptedRow extends StatelessWidget {
   final Accepted accepted;
@@ -14,6 +15,8 @@ class AcceptedRow extends StatelessWidget {
   Widget build(BuildContext context) {
     final members = BlocProvider.of<RoomCubit>(context).state.members;
     final myMembers = accepted.accepted
+        .where((element) =>
+            members.firstWhereOrNull((e) => e.id == element) != null)
         .map((e) => members.firstWhere((element) => element.id == e));
     final percent =
         (myMembers.length.toDouble() / members.length.toDouble()) * 100;

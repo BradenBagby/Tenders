@@ -71,6 +71,7 @@ class _SummaryState extends State<SummaryWidget> {
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size.height;
     return Stack(
       children: [
         Positioned.fill(
@@ -104,7 +105,7 @@ class _SummaryState extends State<SummaryWidget> {
                       elevation: 2,
                       child: Container(
                           padding: EdgeInsets.all(8),
-                          height: MediaQuery.of(context).size.height / 2,
+                          height: size / 2,
                           decoration: BoxDecoration(
                               gradient: LinearGradient(
                                   begin: Alignment.topLeft,
@@ -116,7 +117,7 @@ class _SummaryState extends State<SummaryWidget> {
                                     Positioned.fill(
                                       child: SoulmateInfo(
                                         soulmate,
-                                        sizeMultiplier: 0.8,
+                                        sizeMultiplier: size < 700 ? 0.65 : 0.8,
                                       ),
                                     ),
                                     Align(
