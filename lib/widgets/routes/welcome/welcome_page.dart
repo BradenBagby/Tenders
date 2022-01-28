@@ -449,8 +449,8 @@ class WelcomePageState extends State<WelcomePage>
               radius: (radiusMiles * MILES_TO_METERS).toInt(),
               type: PlaceTypeString.fromUIString(dropdownController.text),
               openNow: opennow,
-              latitude: location!.latitude!,
-              longitude: location!.longitude!,
+              latitude: double.parse(location!.latitude!.toStringAsFixed(3)),
+              longitude: double.parse(location!.longitude!.toStringAsFixed(3)),
               query: queryController.text.isNotEmpty
                   ? queryController.text
                   : "Food",

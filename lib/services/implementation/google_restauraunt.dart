@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:location/location.dart';
@@ -11,10 +12,13 @@ import 'package:tenders/domain/restauraunt/restauraunt.dart';
 import 'package:tenders/domain/room_settings/room_settings.dart';
 import 'package:tenders/services/interfaces/i_restauraunt.dart';
 import 'package:tuple/tuple.dart';
+import 'package:uuid/uuid.dart';
 
 class GoogleRestauraunt implements IRestauraunt {
   String get API_KEY => Environment.placesApiKey; // TODO:
   static const NEARBY_URL = "place/nearbysearch/json";
+  static CollectionReference get cacheCollection =>
+      FirebaseFirestore.instance.collection("cache");
 
   static final Dio dio = Dio(BaseOptions(
     receiveTimeout: 6000,
@@ -36,15 +40,40 @@ class GoogleRestauraunt implements IRestauraunt {
       return Tuple2(Constants.fakeRestauraunts, null);
     }
     try {
-      // TODO: catch errors
+      final String locationString = GoogleRestaurauntURL.location(location);
+
       String url =
-          "place/nearbysearch/json?location=${GoogleRestaurauntURL.location(location)}&radius=${settings.radius}&keyword=${settings.query}${settings.openNow ? '&opennow=true' : ''}&key=$API_KEY&rankby=prominence";
-      if (pageToken != null) {
-        url = "$url&pagetoken=$pageToken";
+          "place/nearbysearch/json?location=${locationString}&radius=${settings.radius}${pageToken == null ? '' : '&pagetoken=$pageToken'}&keyword=${settings.query}${settings.openNow ? '&opennow=true' : ''}&key=$API_KEY&rankby=prominence";
+
+      final keyStringIndex = url.indexOf("&key=");
+      final urlCache = url.substring(0, keyStringIndex);
+
+      /// check cache see if it exists
+
+      Map<String, dynamic>? data;
+      final query =
+          await cacheCollection.where("url", isEqualTo: urlCache).get();
+      if (query.docs.isNotEmpty) {
+        try {
+          // found data in the cache
+          final doc = query.docs.first;
+          data = toMap(toMap(doc.data())["data"]);
+        } catch (er) {
+          data = null;
+        }
       }
-      final uri = Uri.encodeFull(url);
-      final res = await dio.get(uri);
-      final data = Map<String, dynamic>.from(res.data as Map<dynamic, dynamic>);
+
+      // if cache failed
+      if (data == null) {
+        // load data from google for a whopping 1 cent
+        final uri = Uri.encodeFull(url);
+        final res = await dio.get(uri);
+        data = Map<String, dynamic>.from(res.data as Map<dynamic, dynamic>);
+
+        final cacheQueryInfo = {"url": urlCache, "data": data};
+        await cacheCollection.doc().set(cacheQueryInfo);
+      }
+
       final nextPageToken = data['next_page_token'] as String?;
       if (data['status'] as String == "OK") {
         final listData = List<Map<String, dynamic>>.from(
