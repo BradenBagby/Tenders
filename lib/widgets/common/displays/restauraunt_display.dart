@@ -37,21 +37,25 @@ class _RestaurauntDisplayState extends State<RestaurauntDisplay> {
   /// restaurant with all info loaded in
   Restauraunt? allInfo;
 
+  bool infoRequested = false;
+
   @override
   void initState() {
     super.initState();
     scrollController.addListener(() {
       if (scrollController.hasClients) {
+        if (!infoRequested) {
+          infoRequested = true;
+          // immediately get full restauraunt for display
+          GetIt.I<IRestauraunt>().getAllInfo(widget.restauraunt).then((value) {
+            if (mounted)
+              setState(() {
+                allInfo = value;
+              });
+          });
+        }
         setState(() {});
       }
-    });
-
-    // immediately get full restauraunt for display
-    GetIt.I<IRestauraunt>().getAllInfo(widget.restauraunt).then((value) {
-      if (mounted)
-        setState(() {
-          allInfo = value;
-        });
     });
   }
 
