@@ -19,6 +19,8 @@ class GoogleRestauraunt implements IRestauraunt {
   static const NEARBY_URL = "place/nearbysearch/json";
   static CollectionReference get cacheCollection =>
       FirebaseFirestore.instance.collection("cache");
+  static CollectionReference get cacheMoreInfoCollection =>
+      FirebaseFirestore.instance.collection("cacheMoreInfo");
 
   static final Dio dio = Dio(BaseOptions(
     receiveTimeout: 6000,
@@ -70,8 +72,10 @@ class GoogleRestauraunt implements IRestauraunt {
         final res = await dio.get(uri);
         data = Map<String, dynamic>.from(res.data as Map<dynamic, dynamic>);
 
-        final cacheQueryInfo = {"url": urlCache, "data": data};
-        await cacheCollection.doc().set(cacheQueryInfo);
+        if (data['status'] as String == "OK") {
+          final cacheQueryInfo = {"url": urlCache, "data": data};
+          await cacheCollection.doc().set(cacheQueryInfo);
+        }
       }
 
       final nextPageToken = data['next_page_token'] as String?;
@@ -102,28 +106,47 @@ class GoogleRestauraunt implements IRestauraunt {
 
   @override
   Future<Restauraunt> getAllInfo(Restauraunt restauraunt) async {
+    Map<String, dynamic>? data;
+
     try {
-      // TODO: catch errors
-      List<String> fields = [
-        'name',
-        'place_id',
-        'vicinity',
-        'rating',
-        'icon',
-        'photos',
-        'geometry',
-        'opening_hours',
-        'price_level',
-        'reviews',
-        'website',
-        'url',
-        'formatted_phone_number'
-      ];
-      String url =
-          "place/details/json?place_id=${restauraunt.id}&fields=${fields.join(',')}&key=$API_KEY";
-      final uri = Uri.encodeFull(url);
-      final res = await dio.get(uri);
-      final data = Map<String, dynamic>.from(res.data as Map<dynamic, dynamic>);
+      final cacheInfo = await cacheMoreInfoCollection.doc(restauraunt.id).get();
+
+      if (cacheInfo.exists) {
+        try {
+          data = toMap(cacheInfo.data());
+        } catch (er) {
+          data = null;
+        }
+      }
+
+      if (data == null) {
+        List<String> fields = [
+          'name',
+          'place_id',
+          'vicinity',
+          'rating',
+          'icon',
+          'photos',
+          'geometry',
+          'opening_hours',
+          'price_level',
+          'reviews',
+          'website',
+          'url',
+          'formatted_phone_number'
+        ];
+        String url =
+            "place/details/json?place_id=${restauraunt.id}&fields=${fields.join(',')}&key=$API_KEY";
+        final uri = Uri.encodeFull(url);
+        final res = await dio.get(uri);
+        data = Map<String, dynamic>.from(res.data as Map<dynamic, dynamic>);
+
+        // cache
+        if (data['status'] as String == "OK") {
+          await cacheMoreInfoCollection.doc(restauraunt.id).set(data);
+        }
+      }
+
       if (data['status'] as String == "OK") {
         final map = toMap(data['result']);
         return Restauraunt.fromGoogleJson(map);
