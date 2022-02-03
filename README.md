@@ -1,16 +1,48 @@
 # tenders
 
-A new Flutter project.
+Swipe with friends on nearby restaurants to decide where to eat.
 
-## Getting Started
 
-This project is a starting point for a Flutter application.
+End all arguments and find that perfect match!
 
-A few resources to get you started if this is your first Flutter project:
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+- Create a room
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+- Invite Friends
+
+- Swipe!
+
+
+Other features:
+
+- filter by custom query, e.g. "Mexican", "Takeout", "Fast Food", etc
+
+- no account necessary
+
+- see summary and who swiped on what
+
+- view each restaurants directions, reviews, photos, distance, website, etc.
+
+- add an unlimited number of friends to the swiping by sharing a link or QR code
+
+## Infomration
+
+This project was (mostly) created in a period of 5 days just for fun! It turns out Google's Places API is pretty expensive and I will probably remove it from the AppStore at some point.
+
+You can check out more details at https://bradenbagby.com/Portfolio/Items/tenders.html
+
+To run this project, you will need an environment folder located at config/environment.json
+```
+{
+    "places_api_key": "",
+    "ios_ad": "",
+    "android_ad": "",
+    "marketing": false,
+    "useAdsInDebug": false,
+    "alwaysShowOnboardingInDebug": false,
+    "minimumRequiredVersion": "0.0.0",
+    "autoMatchDebug": false,
+    "hideConfettiDebug": false,
+    "testRoomsInDebug": false
+}
+```
