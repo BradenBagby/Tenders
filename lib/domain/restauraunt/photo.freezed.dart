@@ -16,11 +16,16 @@ final _privateConstructorUsedError = UnsupportedError(
 class _$PhotoTearOff {
   const _$PhotoTearOff();
 
-  _Photo call({int height = 0, int width = 0, String photoReference = ""}) {
+  _Photo call(
+      {int height = 0,
+      int width = 0,
+      String photoReference = "",
+      List<String> htmlAttributions = const []}) {
     return _Photo(
       height: height,
       width: width,
       photoReference: photoReference,
+      htmlAttributions: htmlAttributions,
     );
   }
 }
@@ -33,6 +38,7 @@ mixin _$Photo {
   int get height => throw _privateConstructorUsedError;
   int get width => throw _privateConstructorUsedError;
   String get photoReference => throw _privateConstructorUsedError;
+  List<String> get htmlAttributions => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $PhotoCopyWith<Photo> get copyWith => throw _privateConstructorUsedError;
@@ -42,7 +48,11 @@ mixin _$Photo {
 abstract class $PhotoCopyWith<$Res> {
   factory $PhotoCopyWith(Photo value, $Res Function(Photo) then) =
       _$PhotoCopyWithImpl<$Res>;
-  $Res call({int height, int width, String photoReference});
+  $Res call(
+      {int height,
+      int width,
+      String photoReference,
+      List<String> htmlAttributions});
 }
 
 /// @nodoc
@@ -58,6 +68,7 @@ class _$PhotoCopyWithImpl<$Res> implements $PhotoCopyWith<$Res> {
     Object? height = freezed,
     Object? width = freezed,
     Object? photoReference = freezed,
+    Object? htmlAttributions = freezed,
   }) {
     return _then(_value.copyWith(
       height: height == freezed
@@ -72,6 +83,10 @@ class _$PhotoCopyWithImpl<$Res> implements $PhotoCopyWith<$Res> {
           ? _value.photoReference
           : photoReference // ignore: cast_nullable_to_non_nullable
               as String,
+      htmlAttributions: htmlAttributions == freezed
+          ? _value.htmlAttributions
+          : htmlAttributions // ignore: cast_nullable_to_non_nullable
+              as List<String>,
     ));
   }
 }
@@ -81,7 +96,11 @@ abstract class _$PhotoCopyWith<$Res> implements $PhotoCopyWith<$Res> {
   factory _$PhotoCopyWith(_Photo value, $Res Function(_Photo) then) =
       __$PhotoCopyWithImpl<$Res>;
   @override
-  $Res call({int height, int width, String photoReference});
+  $Res call(
+      {int height,
+      int width,
+      String photoReference,
+      List<String> htmlAttributions});
 }
 
 /// @nodoc
@@ -98,6 +117,7 @@ class __$PhotoCopyWithImpl<$Res> extends _$PhotoCopyWithImpl<$Res>
     Object? height = freezed,
     Object? width = freezed,
     Object? photoReference = freezed,
+    Object? htmlAttributions = freezed,
   }) {
     return _then(_Photo(
       height: height == freezed
@@ -112,6 +132,10 @@ class __$PhotoCopyWithImpl<$Res> extends _$PhotoCopyWithImpl<$Res>
           ? _value.photoReference
           : photoReference // ignore: cast_nullable_to_non_nullable
               as String,
+      htmlAttributions: htmlAttributions == freezed
+          ? _value.htmlAttributions
+          : htmlAttributions // ignore: cast_nullable_to_non_nullable
+              as List<String>,
     ));
   }
 }
@@ -120,7 +144,11 @@ class __$PhotoCopyWithImpl<$Res> extends _$PhotoCopyWithImpl<$Res>
 
 /// @nodoc
 class _$_Photo extends _Photo {
-  _$_Photo({this.height = 0, this.width = 0, this.photoReference = ""})
+  _$_Photo(
+      {this.height = 0,
+      this.width = 0,
+      this.photoReference = "",
+      this.htmlAttributions = const []})
       : super._();
 
   @JsonKey(defaultValue: 0)
@@ -132,10 +160,13 @@ class _$_Photo extends _Photo {
   @JsonKey(defaultValue: "")
   @override
   final String photoReference;
+  @JsonKey(defaultValue: const [])
+  @override
+  final List<String> htmlAttributions;
 
   @override
   String toString() {
-    return 'Photo(height: $height, width: $width, photoReference: $photoReference)';
+    return 'Photo(height: $height, width: $width, photoReference: $photoReference, htmlAttributions: $htmlAttributions)';
   }
 
   @override
@@ -148,7 +179,10 @@ class _$_Photo extends _Photo {
                 const DeepCollectionEquality().equals(other.width, width)) &&
             (identical(other.photoReference, photoReference) ||
                 const DeepCollectionEquality()
-                    .equals(other.photoReference, photoReference)));
+                    .equals(other.photoReference, photoReference)) &&
+            (identical(other.htmlAttributions, htmlAttributions) ||
+                const DeepCollectionEquality()
+                    .equals(other.htmlAttributions, htmlAttributions)));
   }
 
   @override
@@ -156,7 +190,8 @@ class _$_Photo extends _Photo {
       runtimeType.hashCode ^
       const DeepCollectionEquality().hash(height) ^
       const DeepCollectionEquality().hash(width) ^
-      const DeepCollectionEquality().hash(photoReference);
+      const DeepCollectionEquality().hash(photoReference) ^
+      const DeepCollectionEquality().hash(htmlAttributions);
 
   @JsonKey(ignore: true)
   @override
@@ -165,7 +200,11 @@ class _$_Photo extends _Photo {
 }
 
 abstract class _Photo extends Photo {
-  factory _Photo({int height, int width, String photoReference}) = _$_Photo;
+  factory _Photo(
+      {int height,
+      int width,
+      String photoReference,
+      List<String> htmlAttributions}) = _$_Photo;
   _Photo._() : super._();
 
   @override
@@ -174,6 +213,8 @@ abstract class _Photo extends Photo {
   int get width => throw _privateConstructorUsedError;
   @override
   String get photoReference => throw _privateConstructorUsedError;
+  @override
+  List<String> get htmlAttributions => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$PhotoCopyWith<_Photo> get copyWith => throw _privateConstructorUsedError;

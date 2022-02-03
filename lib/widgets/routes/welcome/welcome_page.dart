@@ -80,7 +80,7 @@ class WelcomePageState extends State<WelcomePage>
       if (value != null) {
         location ??= value;
         locationString = await _getLocationString();
-        setState(() {});
+        if (mounted) setState(() {});
       }
     });
 
@@ -449,8 +449,8 @@ class WelcomePageState extends State<WelcomePage>
               radius: (radiusMiles * MILES_TO_METERS).toInt(),
               type: PlaceTypeString.fromUIString(dropdownController.text),
               openNow: opennow,
-              latitude: double.parse(location!.latitude!.toStringAsFixed(3)),
-              longitude: double.parse(location!.longitude!.toStringAsFixed(3)),
+              latitude: double.parse(location!.latitude!.toStringAsFixed(2)),
+              longitude: double.parse(location!.longitude!.toStringAsFixed(2)),
               query: queryController.text.isNotEmpty
                   ? queryController.text
                   : "Food",

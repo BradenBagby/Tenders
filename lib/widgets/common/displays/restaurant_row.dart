@@ -24,8 +24,7 @@ class RestaurantRow extends StatelessWidget {
                 height: 50,
                 child: URLImage(
                   restauraunt.photos.isNotEmpty
-                      ? restauraunt.photos.first
-                          .url(maxHeight: 100, maxWidth: 100)
+                      ? restauraunt.photos.first.url()
                       : restauraunt.iconUrl,
                   failedWidget: URLImage(restauraunt.iconUrl),
                 ),

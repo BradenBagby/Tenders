@@ -31,6 +31,7 @@ class _PhotoSliderPagesState extends State<PhotoSliderPages> {
 
   @override
   Widget build(BuildContext context) {
+    return SizedBox();
     final size = MediaQuery.of(context).size;
     return Scaffold(
         backgroundColor: Colors.black.withAlpha(220),
@@ -54,7 +55,7 @@ class _PhotoSliderPagesState extends State<PhotoSliderPages> {
                     return Padding(
                       padding: const EdgeInsets.all(16.0),
                       child: URLImage(
-                        widget.photots[index].url(maxHeight: 500),
+                        widget.photots[index].url(),
                         heroTag: widget.photots[index].photoReference,
                       ),
                     );

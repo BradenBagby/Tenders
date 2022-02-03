@@ -39,9 +39,14 @@ class _RestaurauntDisplayState extends State<RestaurauntDisplay> {
 
   bool infoRequested = false;
 
+  late String photoUrl;
+
   @override
   void initState() {
     super.initState();
+    photoUrl = widget.restauraunt.photos.isNotEmpty
+        ? widget.restauraunt.photos.first.url()
+        : '';
     scrollController.addListener(() {
       if (scrollController.hasClients) {
         if (!infoRequested) {
@@ -86,12 +91,11 @@ class _RestaurauntDisplayState extends State<RestaurauntDisplay> {
           height: size.height,
           color: Theme.of(context).colorScheme.surface,
         ),
-        if (widget.restauraunt.photos.isNotEmpty)
+        if (photoUrl.isNotEmpty)
           Positioned.fill(
             child: ClipRRect(
               borderRadius: BorderRadius.circular(20),
-              child: URLImage(widget.restauraunt.photos.first
-                  .url(maxHeight: 1200, maxWidth: 800)),
+              child: URLImage(photoUrl),
             ),
           ),
         Positioned.fill(
@@ -182,10 +186,10 @@ class _RestaurauntDisplayState extends State<RestaurauntDisplay> {
         SizedBox(
           height: 48,
         ),
-        PhotoSlider(allInfo!.photos),
-        SizedBox(
-          height: 48,
-        ),
+        //  PhotoSlider(allInfo!.photos),
+        // SizedBox(
+        //    height: 48,
+        //  ),
         Contact(allInfo!)
       ],
     );

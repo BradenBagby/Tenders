@@ -79,8 +79,7 @@ class SoulmateInfo extends StatelessWidget {
                   Positioned.fill(
                     child: ClipOval(
                       child: soulmate.restaurant.photos.isNotEmpty
-                          ? URLImage(soulmate.restaurant.photos.first
-                              .url(maxWidth: 800, maxHeight: 1200))
+                          ? URLImage(soulmate.restaurant.photos.first.url())
                           : Container(
                               color: Colors.black,
                             ),

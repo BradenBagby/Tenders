@@ -62,12 +62,6 @@ class Restauraunt with _$Restauraunt {
     final website = json['website'] as String?;
     final url = json['url'] as String? ?? '';
     final phone = json['formatted_phone_number'] as String? ?? '';
-
-    // precache first image
-    if (photos.isNotEmpty) {
-      DefaultCacheManager()
-          .downloadFile(photos.first.url(maxHeight: 1200, maxWidth: 800));
-    }
     return Restauraunt(
         name: name,
         url: url,

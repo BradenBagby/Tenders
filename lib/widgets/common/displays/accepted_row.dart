@@ -37,8 +37,7 @@ class AcceptedRow extends StatelessWidget {
               children: [
                 if (accepted.restaurant.photos.isNotEmpty)
                   Positioned.fill(
-                      child: URLImage(accepted.restaurant.photos.first
-                          .url(maxWidth: 800, maxHeight: 1200))),
+                      child: URLImage(accepted.restaurant.photos.first.url())),
                 Align(
                   alignment: Alignment.bottomCenter,
                   child: Container(

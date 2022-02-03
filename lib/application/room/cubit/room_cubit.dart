@@ -4,6 +4,7 @@ import 'dart:math' as math;
 
 import 'package:bloc/bloc.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:get_it/get_it.dart';
 import 'package:location/location.dart';
@@ -134,6 +135,20 @@ class RoomCubit extends Cubit<RoomState> {
       SharedPreferences.getInstance().then((value) {
         value.setBool("hideControls", true);
       });
+    }
+
+    /// try to precache the next image
+    final nextIndex = state.currentViewIndex + 1;
+    if (nextIndex < state.restauraunts.length &&
+        state.restauraunts[nextIndex].photos.isNotEmpty) {
+      DefaultCacheManager()
+          .downloadFile(state.restauraunts[nextIndex].photos.first.url());
+    }
+    // cache first one
+    if (state.currentViewIndex == 0 &&
+        state.restauraunts.first.photos.isNotEmpty) {
+      DefaultCacheManager()
+          .downloadFile(state.restauraunts.first.photos.first.url());
     }
 
     if (accepted) {

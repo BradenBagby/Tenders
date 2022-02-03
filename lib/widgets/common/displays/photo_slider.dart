@@ -18,6 +18,7 @@ class PhotoSlider extends StatefulWidget {
 class _PhotoSliderState extends State<PhotoSlider> {
   @override
   Widget build(BuildContext context) {
+    return SizedBox();
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -52,9 +53,7 @@ class _PhotoSliderState extends State<PhotoSlider> {
                     ), isOpaque: false));
                   },
                   child: URLImage(
-                    e.url(
-                      maxHeight: 500,
-                    ),
+                    e.url(),
                     heroTag: e.photoReference,
                   ),
                 ),

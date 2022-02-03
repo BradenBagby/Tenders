@@ -15,5 +15,5 @@ abstract class IRestauraunt {
   /// if fails, passes back original
   Future<Restauraunt> getAllInfo(Restauraunt restauraunt);
 
-  String urlForPhoto(Photo photo, {int? maxWidth, int? maxHeight});
+  String urlForPhoto(Photo photo);
 }

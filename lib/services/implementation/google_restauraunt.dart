@@ -61,6 +61,7 @@ class GoogleRestauraunt implements IRestauraunt {
           final doc = query.docs.first;
           data = toMap(toMap(doc.data())["data"]);
         } catch (er) {
+          log("Failed to get from cache !!!!!!!!!!!!!!!!");
           data = null;
         }
       }
@@ -98,9 +99,9 @@ class GoogleRestauraunt implements IRestauraunt {
   }
 
   @override
-  String urlForPhoto(Photo photo, {int? maxWidth, int? maxHeight}) {
+  String urlForPhoto(Photo photo) {
     final url =
-        'https://maps.googleapis.com/maps/api/place/photo?photoreference=${photo.photoReference}&sensor=false${maxHeight != null ? '&maxheight=$maxHeight' : ''}${maxWidth != null ? '&maxwidth=$maxWidth' : ''}&key=$API_KEY';
+        'https://maps.googleapis.com/maps/api/place/photo?photoreference=${photo.photoReference}&sensor=false&maxheight=1200&maxwidth=800&key=$API_KEY';
     return url;
   }
 
@@ -126,7 +127,7 @@ class GoogleRestauraunt implements IRestauraunt {
           'vicinity',
           'rating',
           'icon',
-          'photos',
+          //   'photos',
           'geometry',
           'opening_hours',
           'price_level',
