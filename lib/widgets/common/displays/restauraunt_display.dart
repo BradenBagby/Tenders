@@ -186,10 +186,10 @@ class _RestaurauntDisplayState extends State<RestaurauntDisplay> {
         SizedBox(
           height: 48,
         ),
-        //  PhotoSlider(allInfo!.photos),
-        // SizedBox(
-        //    height: 48,
-        //  ),
+        PhotoSlider(allInfo!.photos),
+        SizedBox(
+          height: 48,
+        ),
         Contact(allInfo!)
       ],
     );

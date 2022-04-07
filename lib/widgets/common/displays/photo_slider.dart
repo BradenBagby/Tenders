@@ -18,7 +18,6 @@ class PhotoSlider extends StatefulWidget {
 class _PhotoSliderState extends State<PhotoSlider> {
   @override
   Widget build(BuildContext context) {
-    return SizedBox();
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
