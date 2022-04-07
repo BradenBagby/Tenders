@@ -103,7 +103,10 @@ class RoomCubit extends Cubit<RoomState> {
     showAdCounter--;
   }
 
+  bool loading = false;
   Future<bool> loadRestauraunts() async {
+    if (loading) return false;
+    loading = true;
     final location = LocationData.fromMap({
       'latitude': state.room.settings.latitude,
       'longitude': state.room.settings.longitude
@@ -119,13 +122,12 @@ class RoomCubit extends Cubit<RoomState> {
         location: location,
         limit: limit,
         settings: state.room.settings);
-
     emit(state.copyWith(
         hasLoaded: true,
         hasMoreToLoad: restaurants.length == limit,
         restauraunts: List<Restauraunt>.from(state.restauraunts)
           ..addAll(restaurants)));
-
+    loading = false;
     return true; // TODO: TODO: TODO:
   }
 
