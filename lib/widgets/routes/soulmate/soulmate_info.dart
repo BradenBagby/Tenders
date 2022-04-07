@@ -97,7 +97,7 @@ class SoulmateInfo extends StatelessWidget {
                       child: Transform.translate(
                         offset: Offset(x, -y),
                         child: Opacity(
-                          opacity: didVote ? 1.0 : 0.4,
+                          opacity: didVote ? 1.0 : 0.1,
                           child: SizedBox(
                             width: arcDiameter,
                             height: arcDiameter,
