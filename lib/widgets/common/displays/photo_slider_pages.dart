@@ -31,7 +31,6 @@ class _PhotoSliderPagesState extends State<PhotoSliderPages> {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox();
     final size = MediaQuery.of(context).size;
     return Scaffold(
         backgroundColor: Colors.black.withAlpha(220),
