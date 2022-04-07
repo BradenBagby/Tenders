@@ -29,6 +29,8 @@ class Environment {
       _environment["useAdsInDebug"] as bool? ?? false;
   static bool get autoMatchDebug =>
       _environment["autoMatchDebug"] as bool? ?? false;
+  static bool get simulateMembersJoining =>
+      (_environment["simulateMembersJoining"] as bool? ?? false) && kDebugMode;
   static String get minimumRequiredVersion =>
       _environment["minimumRequiredVersion"] as String? ?? '0.0.0';
 }

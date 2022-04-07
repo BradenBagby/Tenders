@@ -6,9 +6,10 @@ import 'package:tuple/tuple.dart';
 
 abstract class IRestauraunt {
   /// load restauraunts returns list and next page token
-  Future<Tuple2<List<Restauraunt>, String?>> load({
+  Future<List<Restauraunt>> load({
     required LocationData location,
-    String? pageToken,
+    int? offset,
+    int limit,
     required RoomSettings settings,
   });
 

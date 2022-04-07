@@ -12,7 +12,7 @@ class RoomState with _$RoomState {
     @Default(0) int currentViewIndex,
     // if this room was closed
     @Default(false) bool closed,
-    @Default(null) String? pageToken,
+    @Default(true) bool hasMoreToLoad,
     @Default(false) bool showNeedsLocation,
     @Default([]) List<Restauraunt> matches,
 
@@ -27,7 +27,7 @@ class RoomState with _$RoomState {
           : null;
 
   bool get outOfRestauraunts =>
-      hasLoaded && pageToken == null && restauraunts.length <= currentViewIndex;
+      hasLoaded && !hasMoreToLoad && restauraunts.length <= currentViewIndex;
 
-  bool get noResults => hasLoaded && pageToken == null && restauraunts.isEmpty;
+  bool get noResults => hasLoaded && !hasMoreToLoad && restauraunts.isEmpty;
 }

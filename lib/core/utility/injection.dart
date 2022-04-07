@@ -3,6 +3,7 @@ import 'package:tenders/application/room_auth/room_auth_cubit.dart';
 import 'package:tenders/services/implementation/auth.dart';
 import 'package:tenders/services/implementation/google_restauraunt.dart';
 import 'package:tenders/services/implementation/room.dart';
+import 'package:tenders/services/implementation/yelp_restaurant.dart';
 import 'package:tenders/services/interfaces/i_auth.dart';
 import 'package:tenders/services/interfaces/i_restauraunt.dart';
 import 'package:tenders/services/interfaces/i_room.dart';
@@ -18,7 +19,7 @@ class Injection {
     // services
     getIt.registerSingleton<IRoom>(FireRoom());
     getIt.registerSingleton<IAuth>(Auth());
-    getIt.registerSingleton<IRestauraunt>(GoogleRestauraunt());
+    getIt.registerSingleton<IRestauraunt>(YelpRestaurant());
 
     // singleton blocs
     getIt.registerSingleton<RoomAuthCubit>(

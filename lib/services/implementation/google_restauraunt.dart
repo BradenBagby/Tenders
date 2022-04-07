@@ -13,7 +13,7 @@ import 'package:tenders/domain/room_settings/room_settings.dart';
 import 'package:tenders/services/interfaces/i_restauraunt.dart';
 import 'package:tuple/tuple.dart';
 import 'package:uuid/uuid.dart';
-
+/*
 class GoogleRestauraunt implements IRestauraunt {
   String get API_KEY => Environment.placesApiKey; // TODO:
   static const NEARBY_URL = "place/nearbysearch/json";
@@ -167,3 +167,5 @@ extension GoogleRestaurauntURL on GoogleRestauraunt {
   static String location(LocationData data) =>
       "${data.latitude},${data.longitude}";
 }
+
+*/

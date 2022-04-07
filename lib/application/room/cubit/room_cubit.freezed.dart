@@ -24,7 +24,7 @@ class _$RoomStateTearOff {
       required List<Restauraunt> restauraunts,
       int currentViewIndex = 0,
       bool closed = false,
-      String? pageToken = null,
+      bool hasMoreToLoad = true,
       bool showNeedsLocation = false,
       List<Restauraunt> matches = const [],
       bool hasLoaded = false}) {
@@ -36,7 +36,7 @@ class _$RoomStateTearOff {
       restauraunts: restauraunts,
       currentViewIndex: currentViewIndex,
       closed: closed,
-      pageToken: pageToken,
+      hasMoreToLoad: hasMoreToLoad,
       showNeedsLocation: showNeedsLocation,
       matches: matches,
       hasLoaded: hasLoaded,
@@ -57,7 +57,7 @@ mixin _$RoomState {
   int get currentViewIndex =>
       throw _privateConstructorUsedError; // if this room was closed
   bool get closed => throw _privateConstructorUsedError;
-  String? get pageToken => throw _privateConstructorUsedError;
+  bool get hasMoreToLoad => throw _privateConstructorUsedError;
   bool get showNeedsLocation => throw _privateConstructorUsedError;
   List<Restauraunt> get matches => throw _privateConstructorUsedError;
 
@@ -81,7 +81,7 @@ abstract class $RoomStateCopyWith<$Res> {
       List<Restauraunt> restauraunts,
       int currentViewIndex,
       bool closed,
-      String? pageToken,
+      bool hasMoreToLoad,
       bool showNeedsLocation,
       List<Restauraunt> matches,
       bool hasLoaded});
@@ -107,7 +107,7 @@ class _$RoomStateCopyWithImpl<$Res> implements $RoomStateCopyWith<$Res> {
     Object? restauraunts = freezed,
     Object? currentViewIndex = freezed,
     Object? closed = freezed,
-    Object? pageToken = freezed,
+    Object? hasMoreToLoad = freezed,
     Object? showNeedsLocation = freezed,
     Object? matches = freezed,
     Object? hasLoaded = freezed,
@@ -141,10 +141,10 @@ class _$RoomStateCopyWithImpl<$Res> implements $RoomStateCopyWith<$Res> {
           ? _value.closed
           : closed // ignore: cast_nullable_to_non_nullable
               as bool,
-      pageToken: pageToken == freezed
-          ? _value.pageToken
-          : pageToken // ignore: cast_nullable_to_non_nullable
-              as String?,
+      hasMoreToLoad: hasMoreToLoad == freezed
+          ? _value.hasMoreToLoad
+          : hasMoreToLoad // ignore: cast_nullable_to_non_nullable
+              as bool,
       showNeedsLocation: showNeedsLocation == freezed
           ? _value.showNeedsLocation
           : showNeedsLocation // ignore: cast_nullable_to_non_nullable
@@ -189,7 +189,7 @@ abstract class _$RoomStateCopyWith<$Res> implements $RoomStateCopyWith<$Res> {
       List<Restauraunt> restauraunts,
       int currentViewIndex,
       bool closed,
-      String? pageToken,
+      bool hasMoreToLoad,
       bool showNeedsLocation,
       List<Restauraunt> matches,
       bool hasLoaded});
@@ -218,7 +218,7 @@ class __$RoomStateCopyWithImpl<$Res> extends _$RoomStateCopyWithImpl<$Res>
     Object? restauraunts = freezed,
     Object? currentViewIndex = freezed,
     Object? closed = freezed,
-    Object? pageToken = freezed,
+    Object? hasMoreToLoad = freezed,
     Object? showNeedsLocation = freezed,
     Object? matches = freezed,
     Object? hasLoaded = freezed,
@@ -252,10 +252,10 @@ class __$RoomStateCopyWithImpl<$Res> extends _$RoomStateCopyWithImpl<$Res>
           ? _value.closed
           : closed // ignore: cast_nullable_to_non_nullable
               as bool,
-      pageToken: pageToken == freezed
-          ? _value.pageToken
-          : pageToken // ignore: cast_nullable_to_non_nullable
-              as String?,
+      hasMoreToLoad: hasMoreToLoad == freezed
+          ? _value.hasMoreToLoad
+          : hasMoreToLoad // ignore: cast_nullable_to_non_nullable
+              as bool,
       showNeedsLocation: showNeedsLocation == freezed
           ? _value.showNeedsLocation
           : showNeedsLocation // ignore: cast_nullable_to_non_nullable
@@ -282,7 +282,7 @@ class _$_RoomState extends _RoomState with DiagnosticableTreeMixin {
       required this.restauraunts,
       this.currentViewIndex = 0,
       this.closed = false,
-      this.pageToken = null,
+      this.hasMoreToLoad = true,
       this.showNeedsLocation = false,
       this.matches = const [],
       this.hasLoaded = false})
@@ -305,9 +305,9 @@ class _$_RoomState extends _RoomState with DiagnosticableTreeMixin {
   @JsonKey(defaultValue: false)
   @override // if this room was closed
   final bool closed;
-  @JsonKey(defaultValue: null)
+  @JsonKey(defaultValue: true)
   @override
-  final String? pageToken;
+  final bool hasMoreToLoad;
   @JsonKey(defaultValue: false)
   @override
   final bool showNeedsLocation;
@@ -322,7 +322,7 @@ class _$_RoomState extends _RoomState with DiagnosticableTreeMixin {
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'RoomState(room: $room, me: $me, members: $members, currentLocation: $currentLocation, restauraunts: $restauraunts, currentViewIndex: $currentViewIndex, closed: $closed, pageToken: $pageToken, showNeedsLocation: $showNeedsLocation, matches: $matches, hasLoaded: $hasLoaded)';
+    return 'RoomState(room: $room, me: $me, members: $members, currentLocation: $currentLocation, restauraunts: $restauraunts, currentViewIndex: $currentViewIndex, closed: $closed, hasMoreToLoad: $hasMoreToLoad, showNeedsLocation: $showNeedsLocation, matches: $matches, hasLoaded: $hasLoaded)';
   }
 
   @override
@@ -337,7 +337,7 @@ class _$_RoomState extends _RoomState with DiagnosticableTreeMixin {
       ..add(DiagnosticsProperty('restauraunts', restauraunts))
       ..add(DiagnosticsProperty('currentViewIndex', currentViewIndex))
       ..add(DiagnosticsProperty('closed', closed))
-      ..add(DiagnosticsProperty('pageToken', pageToken))
+      ..add(DiagnosticsProperty('hasMoreToLoad', hasMoreToLoad))
       ..add(DiagnosticsProperty('showNeedsLocation', showNeedsLocation))
       ..add(DiagnosticsProperty('matches', matches))
       ..add(DiagnosticsProperty('hasLoaded', hasLoaded));
@@ -365,9 +365,9 @@ class _$_RoomState extends _RoomState with DiagnosticableTreeMixin {
                     .equals(other.currentViewIndex, currentViewIndex)) &&
             (identical(other.closed, closed) ||
                 const DeepCollectionEquality().equals(other.closed, closed)) &&
-            (identical(other.pageToken, pageToken) ||
+            (identical(other.hasMoreToLoad, hasMoreToLoad) ||
                 const DeepCollectionEquality()
-                    .equals(other.pageToken, pageToken)) &&
+                    .equals(other.hasMoreToLoad, hasMoreToLoad)) &&
             (identical(other.showNeedsLocation, showNeedsLocation) ||
                 const DeepCollectionEquality()
                     .equals(other.showNeedsLocation, showNeedsLocation)) &&
@@ -389,7 +389,7 @@ class _$_RoomState extends _RoomState with DiagnosticableTreeMixin {
       const DeepCollectionEquality().hash(restauraunts) ^
       const DeepCollectionEquality().hash(currentViewIndex) ^
       const DeepCollectionEquality().hash(closed) ^
-      const DeepCollectionEquality().hash(pageToken) ^
+      const DeepCollectionEquality().hash(hasMoreToLoad) ^
       const DeepCollectionEquality().hash(showNeedsLocation) ^
       const DeepCollectionEquality().hash(matches) ^
       const DeepCollectionEquality().hash(hasLoaded);
@@ -409,7 +409,7 @@ abstract class _RoomState extends RoomState {
       required List<Restauraunt> restauraunts,
       int currentViewIndex,
       bool closed,
-      String? pageToken,
+      bool hasMoreToLoad,
       bool showNeedsLocation,
       List<Restauraunt> matches,
       bool hasLoaded}) = _$_RoomState;
@@ -430,7 +430,7 @@ abstract class _RoomState extends RoomState {
   @override // if this room was closed
   bool get closed => throw _privateConstructorUsedError;
   @override
-  String? get pageToken => throw _privateConstructorUsedError;
+  bool get hasMoreToLoad => throw _privateConstructorUsedError;
   @override
   bool get showNeedsLocation => throw _privateConstructorUsedError;
   @override

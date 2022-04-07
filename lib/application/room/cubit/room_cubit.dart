@@ -37,7 +37,7 @@ class RoomCubit extends Cubit<RoomState> {
         super(RoomState(room: room, me: me, members: [me], restauraunts: [])) {
     showAdCounter = math.Random().nextInt(4) + 20;
 
-    if (Environment.marketing) {
+    if (Environment.marketing || Environment.simulateMembersJoining) {
       _simulateMembersJoining();
     }
 
@@ -113,16 +113,18 @@ class RoomCubit extends Cubit<RoomState> {
       emit(state.copyWith(showNeedsLocation: true));
       throw Exception("Enable location in settings"); // TODO: error bloc
     }
-    final info = await _restaurauntService.load(
-        pageToken: state.pageToken,
+    const limit = 20;
+    final restaurants = await _restaurauntService.load(
+        offset: state.restauraunts.length,
         location: location,
+        limit: limit,
         settings: state.room.settings);
 
     emit(state.copyWith(
         hasLoaded: true,
-        pageToken: info.item2,
+        hasMoreToLoad: restaurants.length == limit,
         restauraunts: List<Restauraunt>.from(state.restauraunts)
-          ..addAll(info.item1)));
+          ..addAll(restaurants)));
 
     return true; // TODO: TODO: TODO:
   }
@@ -185,7 +187,7 @@ class RoomCubit extends Cubit<RoomState> {
 
     // load more if we are within 5 from the end and we have more to load
     if (state.restauraunts.length - state.currentViewIndex < 5 &&
-        state.pageToken != null) {
+        state.hasMoreToLoad) {
       loadRestauraunts();
     }
   }
