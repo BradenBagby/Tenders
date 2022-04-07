@@ -14,7 +14,7 @@ _$_Room _$_$_RoomFromJson(Map<String, dynamic> json) {
     latitude: (json['latitude'] as num).toDouble(),
     longitude: (json['longitude'] as num).toDouble(),
     locationString: json['locationString'] as String?,
-    query: json['query'] as String? ?? 'food',
+    query: json['query'] as String? ?? '',
   );
 }
 

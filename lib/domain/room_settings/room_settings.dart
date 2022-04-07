@@ -69,7 +69,7 @@ class RoomSettings with _$RoomSettings {
     required double latitude,
     required double longitude,
     @Default(null) String? locationString,
-    @Default("food") String query,
+    @Default("") String query,
   }) = _Room;
   factory RoomSettings.fromJson(Map<String, dynamic> json) =>
       _$RoomSettingsFromJson(json);

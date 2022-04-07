@@ -49,7 +49,13 @@ class YelpRestaurant implements IRestauraunt {
       required RoomSettings settings}) async {
     try {
       String url =
-          'businesses/search?latitude=${settings.latitude}&longitude=${settings.longitude}&radius=${settings.radius}&limit=$limit'; // TODO: add term back in
+          'businesses/search?latitude=${settings.latitude}&longitude=${settings.longitude}&radius=${settings.radius}&limit=$limit&open_now=${settings.openNow}'; // TODO: add term back in
+      if (settings.query.isNotEmpty) {
+        url = '$url&term=${settings.query}&';
+      }
+      if (offset != null) {
+        url = '$url&offset=$offset&';
+      }
       final uri = Uri.encodeFull(url);
       final result = await dio.get(uri);
       final data = toMap(result.data);

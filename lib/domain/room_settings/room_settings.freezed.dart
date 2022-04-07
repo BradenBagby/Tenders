@@ -27,7 +27,7 @@ class _$RoomSettingsTearOff {
       required double latitude,
       required double longitude,
       String? locationString = null,
-      String query = "food"}) {
+      String query = ""}) {
     return _Room(
       radius: radius,
       type: type,
@@ -207,7 +207,7 @@ class _$_Room implements _Room {
       required this.latitude,
       required this.longitude,
       this.locationString = null,
-      this.query = "food"});
+      this.query = ""});
 
   factory _$_Room.fromJson(Map<String, dynamic> json) =>
       _$_$_RoomFromJson(json);
@@ -225,7 +225,7 @@ class _$_Room implements _Room {
   @JsonKey(defaultValue: null)
   @override
   final String? locationString;
-  @JsonKey(defaultValue: "food")
+  @JsonKey(defaultValue: "")
   @override
   final String query;
 
