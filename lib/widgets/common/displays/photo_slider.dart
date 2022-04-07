@@ -18,6 +18,7 @@ class PhotoSlider extends StatefulWidget {
 class _PhotoSliderState extends State<PhotoSlider> {
   @override
   Widget build(BuildContext context) {
+    if (widget.photos.length < 2) return SizedBox();
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -37,26 +38,26 @@ class _PhotoSliderState extends State<PhotoSlider> {
             scrollDirection: Axis.vertical,
             crossAxisCount: 2,
             children: [
-              ...widget.photos.map(
-                (e) => InkWell(
-                  onTap: () {
-                    /// open photo slider
-                    Navigator.of(context).push(FadePageRoute(Builder(
-                      builder: (context) {
-                        return PhotoSliderPages(
-                          widget.photos,
-                          startIndex: widget.photos.indexWhere((element) =>
-                              element.photoReference == e.photoReference),
-                        );
+              ...widget.photos.sublist(1).map(
+                    (e) => InkWell(
+                      onTap: () {
+                        /// open photo slider
+                        Navigator.of(context).push(FadePageRoute(Builder(
+                          builder: (context) {
+                            return PhotoSliderPages(
+                              widget.photos,
+                              startIndex: widget.photos.indexWhere((element) =>
+                                  element.photoReference == e.photoReference),
+                            );
+                          },
+                        ), isOpaque: false));
                       },
-                    ), isOpaque: false));
-                  },
-                  child: URLImage(
-                    e.url(),
-                    heroTag: e.photoReference,
+                      child: URLImage(
+                        e.url(),
+                        heroTag: e.photoReference,
+                      ),
+                    ),
                   ),
-                ),
-              ),
             ],
           ),
         ),
