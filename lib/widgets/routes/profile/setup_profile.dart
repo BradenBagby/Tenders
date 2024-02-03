@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
@@ -15,6 +17,9 @@ import 'package:tenders/widgets/common/displays/url_image.dart';
 import 'package:collection/collection.dart';
 import 'dart:math' as math;
 import 'dart:developer' as dev;
+
+import 'package:url_launcher/url_launcher.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
 class SetupProfile extends StatefulWidget {
   final embedded;
@@ -145,6 +150,16 @@ class SetupProfileState extends State<SetupProfile> {
               Expanded(
                 child: SizedBox(),
               ),
+              if (Platform.isAndroid)
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 8.0),
+                  child: TextButton(
+                      onPressed: () {
+                        launchUrlString(
+                            'https://vinnyroo.com/privacy-policies/tenders.html');
+                      },
+                      child: Text('Privacy Policy')),
+                ),
               SafeArea(
                 child: Padding(
                   padding: const EdgeInsets.all(16.0),
