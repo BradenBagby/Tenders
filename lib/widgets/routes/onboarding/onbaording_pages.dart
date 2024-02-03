@@ -75,7 +75,8 @@ class _LocationPermissionsState extends State<LocationPermissions> {
                     ),
                     onPressed: () async {
                       if (needsSettings) {
-                        AppSettings.openLocationSettings();
+                        AppSettings.openAppSettings(
+                            type: AppSettingsType.location);
                         return;
                       }
                       final has = await Permissions.location();

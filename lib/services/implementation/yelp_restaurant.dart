@@ -13,8 +13,8 @@ class YelpRestaurant implements IRestauraunt {
   static const NEARBY_URL = "place/nearbysearch/json";
 
   static final Dio dio = Dio(BaseOptions(
-    receiveTimeout: 6000,
-    connectTimeout: 10000,
+    receiveTimeout: Duration(milliseconds: 6000),
+    connectTimeout: Duration(milliseconds: 10000),
     headers: {
       "Access-Control-Allow-Origin": "https://api.yelp.com/v3",
       "Access-Control-Request-Methods": "GET"

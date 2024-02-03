@@ -22,7 +22,7 @@ class DynamicLinks {
   /// get initial dynamic link and begin listening for more
   static Future<void> initDynamicLinks() async {
     if (kIsWeb) {
-      final Uri uri = Uri.dataFromString(getHref()!);
+      final Uri uri = Uri.dataFromString(href!);
       handleLink(uri);
       return;
     }
@@ -35,13 +35,13 @@ class DynamicLinks {
       handleLink(deepLink);
     }
 
-    FirebaseDynamicLinks.instance.onLink(
-        onSuccess: (PendingDynamicLinkData? dynamicLink) async {
+    FirebaseDynamicLinks.instance.onLink.listen(
+        (PendingDynamicLinkData? dynamicLink) async {
       final Uri? deepLink = dynamicLink?.link;
       if (deepLink != null) {
         handleLink(deepLink);
       }
-    }, onError: (OnLinkErrorException e) async {
+    }, onError: (dynamic e) async {
       log("error in link $e");
     });
   }
@@ -93,7 +93,7 @@ class DynamicLinks {
           packageName: 'com.bradenbagby.tenders',
           // minimumVersion: 125,
         ),
-        iosParameters: IosParameters(
+        iosParameters: IOSParameters(
           bundleId: 'com.bradenbagby.tenders',
           // minimumVersion: '1.0.1',
           // appStoreId: '123456789',
@@ -113,7 +113,8 @@ class DynamicLinks {
     description: 'This link works whether app is installed or not!',
   ),*/
       );
-      final shortDynamicLink = await parameters.buildShortLink();
+      final shortDynamicLink =
+          await FirebaseDynamicLinks.instance.buildShortLink(parameters);
       final Uri shortUrl = shortDynamicLink.shortUrl;
       link = shortUrl.toString();
     }

@@ -427,7 +427,8 @@ class WelcomePageState extends State<WelcomePage>
                 actions: <Widget>[
                   ElevatedButton(
                     onPressed: () {
-                      AppSettings.openLocationSettings();
+                      AppSettings.openAppSettings(
+                          type: AppSettingsType.location);
                     },
                     child: Text("Open Settings"),
                   ),

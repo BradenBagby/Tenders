@@ -30,7 +30,7 @@ class ViewQRCode extends StatelessWidget {
                   children: [
                     Padding(
                       padding: const EdgeInsets.only(bottom: 8.0, top: 8),
-                      child: QrImage(
+                      child: QrImageView(
                         data: snapshot
                             .data!, // TODO: make this a dynamic link into the app so you can scan it and join without having the app
                         version: QrVersions.auto,
