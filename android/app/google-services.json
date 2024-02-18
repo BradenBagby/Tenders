@@ -14,14 +14,6 @@
       },
       "oauth_client": [
         {
-          "client_id": "881669490079-1rbi5o8q8n2d6utqb4u0475gksavdh3v.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.bradenbagby.tenders",
-            "certificate_hash": "4f0ee2781991be490063b7ad76bee4af26c67531"
-          }
-        },
-        {
           "client_id": "881669490079-a6q5as8sfu19c3cf5fuifm2eb3cfjf57.apps.googleusercontent.com",
           "client_type": 3
         }
@@ -39,10 +31,11 @@
               "client_type": 3
             },
             {
-              "client_id": "881669490079-71k5qf54cbgcd61jl9odb51lvkjjd7ds.apps.googleusercontent.com",
+              "client_id": "881669490079-4aeg9nlvjejsst8mhnqsp18qj0leufm5.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "com.bradenbagby.tenders"
+                "bundle_id": "com.bradenbagby.tenders",
+                "app_store_id": "1606224787"
               }
             }
           ]
